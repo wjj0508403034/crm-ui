@@ -14,11 +14,11 @@ module.exports = function (grunt) {
         // 定义一个用于插入合并输出文件之间的字符
         separator: ';'
       },
-      dist: {
+      dest: {
         // 将要被合并的文件
         src: ['src/**/*.js'],
         // 合并后的JS文件的存放位置
-        dest: 'dist/<%= pkg.name %>.js'
+        dest: 'dest/<%= pkg.name %>.js'
       }
     },
     uglify: {
@@ -26,9 +26,9 @@ module.exports = function (grunt) {
         // 此处定义的banner注释将插入到输出文件的顶部
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
-      dist: {
+      dest: {
         files: {
-          'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+          'dest/<%= pkg.name %>.min.js': ['<%= concat.dest.dest %>']
         }
       }
     },
@@ -44,6 +44,29 @@ module.exports = function (grunt) {
           module: true
         }
       }
+    },
+    /*
+    * https://github.com/gruntjs/grunt-contrib-copy
+    */
+    copy: {
+      deploy: {
+        expand: true,
+        cwd: 'dest',
+        src: ['**'],
+        dest: "C:/inetpub/wwwroot/crm/"
+      }
+    },
+    /*
+    * https://github.com/gruntjs/grunt-contrib-clean
+    */
+    clean: {
+      build: ["dest/*"],
+      deploy: {
+        src: ["C:/inetpub/wwwroot/crm/*"],
+        options: {
+          force: true
+        }
+      }
     }
   });
 
@@ -51,16 +74,17 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   // 只需在命令行上输入"grunt"，就会执行default task
   grunt.registerTask('default', ['build']);
 
-  grunt.registerTask('build', ['jshint', 'concat', 'uglify'], function () {
-    grunt.log.write('Start to build ...').ok();
-    grunt.log.write('End to build.').ok();
+  grunt.registerTask('build', "Build the source code", function () {
+    grunt.task.run(['jshint', 'concat', 'uglify']);
   });
 
-  grunt.registerTask('deploy', ['build'], function () {
-    grunt.log.write('Start to deploy ...').ok();
+  grunt.registerTask('deploy', "Deploy the dest to the web container", function () {
+    grunt.task.run(['clean', 'build', 'copy']);
   });
 };
