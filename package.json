@@ -1,0 +1,31 @@
+{
+  "name": "crm-ui",
+  "version": "1.0.0",
+  "description": "CRM UI Part",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wjj0508403034/crm-ui.git"
+  },
+  "keywords": [
+    "CRM",
+    "Angular",
+    "MVVM"
+  ],
+  "author": "jingjing.wang01@sap.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wjj0508403034/crm-ui/issues"
+  },
+  "homepage": "https://github.com/wjj0508403034/crm-ui#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.1.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}
