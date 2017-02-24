@@ -6,7 +6,7 @@
   "scripts": {
     "test": "test",
     "deploy": "grunt deploy --verbose",
-    "start": "grunt watch"
+    "debug": "grunt watch"
   },
   "repository": {
     "type": "git",
