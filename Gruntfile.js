@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     watch: {
       files: ['<%= jshint.files %>'],
-      tasks: ['concat', 'uglify']
+      tasks: ['deploy']
     },
     concat: {
       options: {
@@ -49,6 +49,12 @@ module.exports = function (grunt) {
     * https://github.com/gruntjs/grunt-contrib-copy
     */
     copy: {
+      build: {
+        expand: true,
+        cwd: 'src',
+        src: ['**.html'],
+        dest: "dest"
+      },
       deploy: {
         expand: true,
         cwd: 'dest',
@@ -81,7 +87,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['build']);
 
   grunt.registerTask('build', "Build the source code", function () {
-    grunt.task.run(['jshint', 'concat', 'uglify']);
+    grunt.task.run(['jshint', 'concat', 'uglify','copy']);
   });
 
   grunt.registerTask('deploy', "Deploy the dest to the web container", function () {

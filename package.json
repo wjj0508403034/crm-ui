@@ -25,6 +25,7 @@
   "homepage": "https://github.com/wjj0508403034/crm-ui#readme",
   "devDependencies": {
     "angular": "^1.6.2",
+    "angular-ui-bootstrap": "^2.5.0",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",
