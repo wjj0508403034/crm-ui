@@ -33,5 +33,9 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^2.1.0",
     "grunt-contrib-watch": "^1.0.0"
+  },
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "ionicons": "^3.0.0"
   }
 }
