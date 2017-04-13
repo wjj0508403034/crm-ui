@@ -26,13 +26,22 @@
   "devDependencies": {
     "angular": "^1.6.2",
     "angular-ui-bootstrap": "^2.5.0",
+    "del": "^2.2.2",
+    "event-stream": "^3.3.4",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^2.1.0",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-watch": "^1.0.0",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-inject": "^4.2.0",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-show-me-file": "0.0.2",
+    "jquery": "^3.2.1",
+    "wiredep": "^4.0.0"
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
