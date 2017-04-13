@@ -37,6 +37,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^2.0.0",
+    "gulp-bom": "^1.0.0",
     "gulp-cli": "^1.2.2",
     "gulp-concat": "^2.6.1",
     "gulp-inject": "^4.2.0",

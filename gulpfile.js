@@ -7,6 +7,7 @@ var minifyHtml = require('gulp-minify-html');
 var angularTemplatecache = require('gulp-angular-templatecache');
 var es = require('event-stream');
 var inject = require('gulp-inject');
+var bom = require('gulp-bom');
 
 const DestFolder = "dist";
 
@@ -76,6 +77,7 @@ gulp.task('build', ['copy-thirdparty', 'copy-resource','copy-font', 'build-css',
     .pipe(inject(injectJs, {
       relative: true
     }))
+    .pipe(bom())
     .pipe(gulp.dest(`${DestFolder}`));
 });
 
