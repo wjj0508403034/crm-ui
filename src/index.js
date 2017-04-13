@@ -1,10 +1,7 @@
 'use strict';
 
-var huoyun = angular.module('huoyun', ['ui.bootstrap']);
+var huoyun = angular.module('huoyun',[]);
 
-var ss = function () {
-  var ss1 = 1;
-  console.log(ss1);
-
-
-};
+huoyun.controller("appController", ["$scope", function ($scope) {
+  $scope.title = "火云CRM";
+}]);
