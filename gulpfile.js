@@ -20,14 +20,21 @@ gulp.task('clean', function () {
 gulp.task('default', ['build']);
 
 gulp.task('build-css', ['clean'], function () {
-  return gulp.src('src/**/*.css')
+  return gulp.src('src/main/**/*.css')
     .pipe(showFile())
     .pipe(concat("app.css"))
     .pipe(gulp.dest(DestFolder));
 });
 
+gulp.task('build-widget-css', ['clean'], function () {
+  return gulp.src('src/common/**/*.css')
+    .pipe(showFile())
+    .pipe(concat("huoyun.widget.css"))
+    .pipe(gulp.dest(DestFolder));
+});
+
 gulp.task('build-js', ['clean'], function () {
-  return gulp.src('src/**/*.js')
+  return gulp.src('src/main/**/*.js')
     .pipe(showFile())
     .pipe(concat("app.js"))
     .pipe(gulp.dest(DestFolder));
@@ -54,7 +61,30 @@ gulp.task('copy-thirdparty', ['clean'], function () {
     .pipe(gulp.dest(`${DestFolder}/libs`));
 });
 
-gulp.task('build', ['copy-thirdparty', 'copy-resource','copy-font', 'build-css', 'build-js'], function () {
+gulp.task('widget-template', ['clean'], function () {
+  var templateStream = gulp.src('src/common/**/*.html')
+    .pipe(showFile())
+    .pipe(minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe(angularTemplatecache('huoyun.widget.tpl.js', {
+      module: 'huoyun.widget'
+    }));
+
+  var es = require('event-stream');
+  return es.merge([
+    templateStream,
+    gulp.src('src/common/**/*.js')
+  ])
+    .pipe(showFile())
+    .pipe(concat('huoyun.widget.js'))
+    // .pipe(uglify())
+    .pipe(gulp.dest(`${DestFolder}/libs`));
+});
+
+gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'copy-resource', 'copy-font', 'build-css', 'build-js'], function () {
   var injectCss = gulp.src([
     `${DestFolder}/**/*.css`
   ], {
@@ -69,13 +99,17 @@ gulp.task('build', ['copy-thirdparty', 'copy-resource','copy-font', 'build-css',
       read: false
     });
 
-  return gulp.src('src/**/*.html')
+  return gulp.src('src/main/**/*.html')
     .pipe(showFile())
     .pipe(inject(injectCss, {
-      relative: true
+      transform: function (filepath) {
+        return `<link rel="stylesheet" href="..${filepath}">`;
+      }
     }))
     .pipe(inject(injectJs, {
-      relative: true
+      transform: function (filepath) {
+        return `<script src="..${filepath}"></script>`;
+      }
     }))
     .pipe(bom())
     .pipe(gulp.dest(`${DestFolder}`));
