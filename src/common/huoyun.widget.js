@@ -1,6 +1,6 @@
 'use strict';
 
-var huoyunWidget = angular.module('huoyun.widget',[]);
+var huoyunWidget = angular.module('huoyun.widget',["ui.router"]);
 
 
 angular.module('huoyun.widget').config(function ($stateProvider, $urlRouterProvider) {

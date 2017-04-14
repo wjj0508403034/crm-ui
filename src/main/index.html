@@ -16,7 +16,11 @@
     <div widget-sidebar></div>
     <!-- Content Wrapper-->
     <div class="content-wrapper">
-      <ui-view></ui-view>
+      <div widget-bo-creation bo-metadata="boMetadata"></div>
+      <div widget-bo-list-view bo-metadata="boMetadata" page-data="pageData" on-row-clicked="onRowClicked(lineData,index)"></div>
+      <ui-view>
+
+      </ui-view>
     </div>
     <!-- footer-->
     <div widget-footer></div>

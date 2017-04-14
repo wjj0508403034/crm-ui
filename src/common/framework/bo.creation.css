@@ -1,0 +1,4 @@
+.bo-creation-form .bo-property-form-group[mandatory="true"] label::before{
+  content: " * ";
+  color: red;
+}

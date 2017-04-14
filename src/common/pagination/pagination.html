@@ -1,0 +1,6 @@
+<ul class="pagination pagination-sm no-margin pull-right">
+  <li ng-disabled="pageData.first"><a href="#">«</a></li>
+  <li ng-repeat="number in numbers"><a href="#"  ng-bind="number"></a></li>
+  <li ng-disabled="pageData.last"><a href="#">»</a></li>
+  {{pageData.number}}
+</ul>
