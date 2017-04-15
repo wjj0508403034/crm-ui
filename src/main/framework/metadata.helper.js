@@ -11,6 +11,9 @@ huoyun.factory("MetadataHelper", [function () {
       result.propMap = {};
 
       boMeta.properties.forEach(function (prop, index) {
+        if (prop.validvalues && prop.validvalues.length > 0) {
+          prop.type = "ValidValues";
+        }
         result.propMap[prop.name] = prop;
       });
 

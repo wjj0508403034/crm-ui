@@ -71,7 +71,7 @@ huoyun.factory("MetadataService", ["$q", "$http", function ($q, $http) {
         label: "客户",
         sections: [{
           label: "客户信息",
-          properties: ["customerCode", "customerName", "contact", "completionDate", "housingDate", "email", "phone"]
+          properties: ["customerCode", "customerName", "contact", "completionDate", "housingDate", "email", "phone", "traceStatus"]
         }],
         listview: {
           properties: ["customerCode", "customerName", "contact", "completionDate", "housingDate", "email", "phone"]
@@ -111,6 +111,18 @@ huoyun.factory("MetadataService", ["$q", "$http", function ($q, $http) {
           label: "手机",
           type: "Phone",
           mandatory: false
+        }, {
+          name: "traceStatus",
+          label: "跟踪状态",
+          type: "String",
+          mandatory: true,
+          validvalues: [{
+            name: "solutionStage",
+            label: "方案阶段"
+          }, {
+            name: "reviewStage",
+            label: "综述阶段"
+          }]
         }
         ]
       };

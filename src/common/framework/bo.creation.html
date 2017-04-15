@@ -8,24 +8,27 @@
     <div class="box-body" ng-repeat="section in boMetadata.sections">
       <div class="form-group col-md-6 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" ng-repeat="prop in section.properties">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
-        <input ng-if="prop.type === 'String'" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+        <input ng-model="data[prop.name]" ng-if="prop.type === 'String'" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
 
-        <div widget-date-picker ng-if="prop.type === 'Date'"></div>
+        <div widget-date-picker ng-model="data[prop.name]" ng-if="prop.type === 'Date'"></div>
 
         <div class="input-group" ng-if="prop.type === 'Email'">
           <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" ng-model="data[prop.name]" class="form-control" placeholder="Email">
         </div>
         <div class="input-group" ng-if="prop.type === 'Phone'">
           <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-          <input type="text" class="form-control" placeholder="Email">
+          <input type="text" ng-model="data[prop.name]" class="form-control" placeholder="Email">
         </div>
+
+        <select class="form-control" ng-model="data[prop.name]" ng-if="prop.type === 'ValidValues'" ng-options="validvalue.label for validvalue in prop.validvalues">
+        </select>
       </div>
     </div>
     <!-- /.box-body -->
 
     <div class="box-footer">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" ng-click="onSaveButtonClicked()">Submit</button>
     </div>
   </form>
 </div>

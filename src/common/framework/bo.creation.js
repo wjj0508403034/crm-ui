@@ -7,7 +7,11 @@ huoyunWidget.directive('widgetBoCreation', function () {
       boMetadata: "="
     },
     templateUrl: 'framework/bo.creation.html',
-    link: function (scope, ele, attrs) {
+    link: function ($scope, ele, attrs) {
+      $scope.data = {};
+      $scope.onSaveButtonClicked = function () {
+        console.log($scope.data);
+      };
     }
   }
 });
