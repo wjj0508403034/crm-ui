@@ -2,8 +2,8 @@
 
 var huoyun = angular.module('huoyun', ["huoyun.widget", 'ui.router']);
 
-huoyun.controller("appController", ["$scope", "MetadataService", "MetadataHelper", "BoService",
-  function ($scope, MetadataService, MetadataHelper, BoService) {
+huoyun.controller("appController", ["$scope", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
+  function ($scope, MetadataService, MetadataHelper, BoService, BoDataHelper) {
     $scope.title = "火云CRM";
 
     MetadataService.getMetadata()
@@ -31,5 +31,15 @@ huoyun.controller("appController", ["$scope", "MetadataService", "MetadataHelper
           $scope.pageData = res;
           $scope.$apply();
         });
+    };
+
+    $scope.onSave = function (data, boMetadata) {
+      return new Promise(function (reslove, reject) {
+        reslove("Save Successfully");
+      });
+    };
+
+    $scope.onValid = function (data, boMetadata) {
+      return BoDataHelper.validator(data, boMetadata);
     };
   }]);

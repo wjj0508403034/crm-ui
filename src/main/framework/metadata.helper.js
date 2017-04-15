@@ -18,12 +18,12 @@ huoyun.factory("MetadataHelper", [function () {
       });
 
       result.sections = [];
-      boMeta.sections.forEach(function (section, index) {
+      boMeta.sections.forEach(function (section, sectionIndex) {
         var item = {
           label: section.label,
           properties: []
         };
-        section.properties.forEach(function (propName, index) {
+        section.properties.forEach(function (propName, propIndex) {
           if (result.propMap[propName]) {
             item.properties.push(result.propMap[propName]);
           } else {
