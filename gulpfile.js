@@ -33,12 +33,12 @@ gulp.task('build-widget-css', ['clean'], function () {
     .pipe(gulp.dest(DestFolder));
 });
 
-gulp.task('build-js', ['clean'], function () {
-  return gulp.src(['src/main/index.js','src/main/huoyun.router.js','src/main/**/*.js'])
-    .pipe(showFile())
-    .pipe(concat("app.js"))
-    .pipe(gulp.dest(DestFolder));
-});
+// gulp.task('build-js', ['clean'], function () {
+//   return gulp.src(['src/main/index.js', 'src/main/huoyun.router.js', 'src/main/**/*.js'])
+//     .pipe(showFile())
+//     .pipe(concat("app.js"))
+//     .pipe(gulp.dest(DestFolder));
+// });
 
 gulp.task('copy-resource', ['clean'], function () {
   return gulp.src(['res/**',
@@ -59,6 +59,29 @@ gulp.task('copy-thirdparty', ['clean'], function () {
   return gulp.src('libs/**')
     .pipe(showFile())
     .pipe(gulp.dest(`${DestFolder}/libs`));
+});
+
+gulp.task('view-template', ['clean'], function () {
+  var templateStream = gulp.src('src/main/view/**/*.html')
+    .pipe(showFile())
+    .pipe(minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe(angularTemplatecache('view.template.tpl.js', {
+      module: 'huoyun'
+    }));
+
+  var es = require('event-stream');
+  return es.merge([
+    gulp.src(['src/main/index.js', 'src/main/**/*.js']),
+    templateStream
+  ])
+    .pipe(showFile())
+    .pipe(concat('app.js'))
+    // .pipe(uglify())
+    .pipe(gulp.dest(DestFolder));
 });
 
 gulp.task('widget-template', ['clean'], function () {
@@ -84,7 +107,7 @@ gulp.task('widget-template', ['clean'], function () {
     .pipe(gulp.dest(`${DestFolder}/libs`));
 });
 
-gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'copy-resource', 'copy-font', 'build-css', 'build-js'], function () {
+gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'copy-resource', 'copy-font', 'build-css', 'view-template'], function () {
   var injectCss = gulp.src([
     `${DestFolder}/**/*.css`
   ], {
