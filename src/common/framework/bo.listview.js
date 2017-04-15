@@ -6,7 +6,8 @@ huoyunWidget.directive('widgetBoListView', function () {
     scope: {
       boMetadata: "=",
       pageData: "=",
-      onRowClicked: "&"
+      onRowClicked: "&",
+      onPagingChanged: "&"
     },
     templateUrl: 'framework/bo.listview.html',
     link: function ($scope, ele, attrs) {
@@ -16,6 +17,13 @@ huoyunWidget.directive('widgetBoListView', function () {
         $scope.onRowClicked({
           lineData: lineData,
           index: index
+        });
+      };
+
+      $scope.onPagingChangedHandler = function (pageIndex) {
+        console.log(`Paging button [${pageIndex}] clicked.`);
+        $scope.onPagingChanged({
+          pageIndex: pageIndex
         });
       };
     }

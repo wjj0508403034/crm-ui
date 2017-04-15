@@ -21,6 +21,6 @@
   <!-- /.box-body -->
 
   <div class="box-footer clearfix">
-    <div widget-pagination ng-show="pageData.totalPages" page-data="pageData"></div>
+    <div widget-pagination ng-show="pageData.totalPages" page-data="pageData" on-paging-changed="onPagingChangedHandler(pageIndex)"></div>
   </div>
 </div>

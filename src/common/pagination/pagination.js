@@ -4,37 +4,39 @@ huoyunWidget.directive('widgetPagination', function () {
   return {
     restrict: 'A',
     scope: {
-      pageData: "="
+      pageData: "=",
+      onPagingChanged: "&"
     },
     templateUrl: 'pagination/pagination.html',
-    controller: "paginationController",
     link: function ($scope, ele, attrs) {
+      const MAXNumberCount = 5;
       $scope.numbers = [];
-      if ($scope.pageData) {
-        const MAXNumberCount = 5;
-        for (var index = $scope.pageData.number; index + MAXNumberCount < $scope.pageData.totalPages; index++) {
+
+      $scope.$watch("pageData", function (newValue, oldValue) {
+        if (newValue) {
+          refresh(newValue);
+        } else {
+          $scope.numbers = [];
+        }
+      });
+
+      $scope.onPagingClicked = function (pageIndex) {
+        $scope.onPagingChanged({
+          pageIndex: pageIndex
+        });
+      };
+
+      function refresh(pageData) {
+        $scope.numbers = [];
+        var startIndex = parseInt(pageData.number / MAXNumberCount) * MAXNumberCount;
+        var endIndex = startIndex + MAXNumberCount;
+        if (endIndex > pageData.totalPages) {
+          endIndex = pageData.totalPages;
+        }
+        for (var index = startIndex; index < endIndex; index++) {
           $scope.numbers.push(index);
         }
       }
-
-      $scope.$on("pageData", function () {
-        const MAXNumberCount = 5;
-        for (var index = $scope.pageData.number; index + MAXNumberCount < $scope.pageData.totalPages; index++) {
-          $scope.numbers.push(index);
-        }
-      });
     }
   }
 });
-
-huoyunWidget.controller("paginationController",
-  ["$scope", function ($scope) {
-    var ss = $scope.pageData;
-
-    $scope.$on("pageData", function () {
-      const MAXNumberCount = 5;
-      for (var index = $scope.pageData.number; index + MAXNumberCount < $scope.pageData.totalPages; index++) {
-        $scope.numbers.push(index);
-      }
-    });
-  }]);

@@ -1,6 +1,6 @@
 'use strict';
 
-var huoyun = angular.module('huoyun', ["huoyun.widget",'ui.router']);
+var huoyun = angular.module('huoyun', ["huoyun.widget", 'ui.router']);
 
 huoyun.controller("appController", ["$scope", "MetadataService", "MetadataHelper", "BoService",
   function ($scope, MetadataService, MetadataHelper, BoService) {
@@ -13,10 +13,23 @@ huoyun.controller("appController", ["$scope", "MetadataService", "MetadataHelper
 
     BoService.query()
       .then(function (pageData) {
-        $scope.pageData = pageData;
+        var res = {};
+        angular.copy(pageData, res);
+        $scope.pageData = res;
       });
 
     $scope.onRowClicked = function (lineData, index) {
       var ss = index;
+    };
+
+    $scope.onPagingChanged = function (pageIndex) {
+      BoService.query()
+        .then(function (pageData) {
+          var res = {};
+          angular.copy(pageData, res);
+          res.number = pageIndex;
+          $scope.pageData = res;
+          $scope.$apply();
+        });
     };
   }]);

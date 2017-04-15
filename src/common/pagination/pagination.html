@@ -1,6 +1,11 @@
-<ul class="pagination pagination-sm no-margin pull-right">
-  <li ng-disabled="pageData.first"><a href="#">«</a></li>
-  <li ng-repeat="number in numbers"><a href="#"  ng-bind="number"></a></li>
-  <li ng-disabled="pageData.last"><a href="#">»</a></li>
-  {{pageData.number}}
+<ul class="pagination pagination-sm no-margin pull-right widget-pagination">
+  <li ng-disabled="pageData.first">
+    <span ng-click="onPagingClicked(pageData.number - 1)">«</span>
+  </li>
+  <li ng-repeat="number in numbers" ng-class="{true: 'active', false: ''}[number === pageData.number]">
+    <span ng-bind="number + 1" ng-click="onPagingClicked(number)"></span>
+  </li>
+  <li ng-disabled="pageData.last">
+    <span ng-click="onPagingClicked(pageData.number + 1)">»</span>
+  </li>
 </ul>

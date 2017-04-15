@@ -1,0 +1,15 @@
+.widget-pagination>li>span {
+  color: #666;
+}
+
+.widget-pagination>li>span:hover, .widget-pagination>li>span:focus {
+  cursor: pointer;
+}
+
+.widget-pagination>li[disabled="disabled"]>span {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}

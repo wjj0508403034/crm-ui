@@ -52,7 +52,7 @@ huoyun.factory("BoService", ["$q", "$http", function ($q, $http) {
         "sort": null,
         "first": true,
         "size": 10,
-        "number": 0
+        "number": 3
       };
 
       return new Promise(function (reslove, reject) {
