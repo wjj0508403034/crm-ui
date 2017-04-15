@@ -1,6 +1,6 @@
 'use strict';
 
-var huoyun = angular.module('huoyun', ["huoyun.widget"]);
+var huoyun = angular.module('huoyun', ["huoyun.widget",'ui.router']);
 
 huoyun.controller("appController", ["$scope", "MetadataService", "MetadataHelper", "BoService",
   function ($scope, MetadataService, MetadataHelper, BoService) {

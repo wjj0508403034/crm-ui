@@ -34,7 +34,7 @@ gulp.task('build-widget-css', ['clean'], function () {
 });
 
 gulp.task('build-js', ['clean'], function () {
-  return gulp.src('src/main/**/*.js')
+  return gulp.src(['src/main/index.js','src/main/huoyun.router.js','src/main/**/*.js'])
     .pipe(showFile())
     .pipe(concat("app.js"))
     .pipe(gulp.dest(DestFolder));
