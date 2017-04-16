@@ -1,5 +1,5 @@
 'use strict';
 angular.module('huoyun')
-.controller('HomeController',function($scope){
+.controller('BaseInfoController',function($scope){
     // alert('HomeController')
 });

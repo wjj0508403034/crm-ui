@@ -1,12 +1,12 @@
 'use strict';
 
-huoyunWidget.directive('widgetSidebar', function () {
+huoyunWidget.directive('widgetSidebar', ['$http',function ($http) {
   return {
     restrict: 'A',
     scope: {},
     templateUrl: 'sidebar/sidebar.html',
     link: function (scope, ele, attrs) {
-      // alert()
+      // $http.get('')
     }
   }
-});
+}]);
