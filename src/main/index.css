@@ -1,3 +1,7 @@
-.content-wrapper .content-wrapper-container{
+.huoyun .content-wrapper, .right-side{
+  background: white;
+}
+
+.huoyun .content-wrapper .content-wrapper-container{
   padding: 20px;
 }

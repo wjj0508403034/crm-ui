@@ -109,7 +109,9 @@ gulp.task('widget-template', ['clean'], function () {
 
 gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'copy-resource', 'copy-font', 'build-css', 'view-template'], function () {
   var injectCss = gulp.src([
-    `${DestFolder}/**/*.css`
+    `${DestFolder}/**/*.css`,
+    `${DestFolder}/huoyun.widget.css`,
+    `${DestFolder}/app.css`
   ], {
       read: false
     });

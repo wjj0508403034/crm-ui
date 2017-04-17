@@ -1,3 +1,4 @@
-.bo-listview-table .box-header .box-tools .input-group .btn{
+.box .box-header .box-tools .input-group .btn {
   padding: 4px 25px;
+  margin-left: 20px;
 }

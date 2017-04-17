@@ -80,22 +80,26 @@ huoyun.factory("MetadataService", ["$q", "$http", function ($q, $http) {
           name: "customerCode",
           label: "客户编号",
           type: "String",
-          mandatory: true
+          mandatory: true,
+          searchable: true
         }, {
           name: "customerName",
           label: "客户姓名",
           type: "String",
-          mandatory: true
+          mandatory: true,
+          searchable: true
         }, {
           name: "contact",
           label: "联系方式",
           type: "String",
-          mandatory: true
+          mandatory: true,
+          searchable: true
         }, {
           name: "completionDate",
           label: "交房时间",
           type: "Date",
-          mandatory: false
+          mandatory: false,
+          searchable: true
         }, {
           name: "housingDate",
           label: "量房时间",
@@ -105,7 +109,8 @@ huoyun.factory("MetadataService", ["$q", "$http", function ($q, $http) {
           name: "email",
           label: "邮箱",
           type: "Email",
-          mandatory: false
+          mandatory: false,
+          searchable: true
         }, {
           name: "phone",
           label: "手机",
@@ -116,6 +121,7 @@ huoyun.factory("MetadataService", ["$q", "$http", function ($q, $http) {
           label: "跟踪状态",
           type: "String",
           mandatory: true,
+          searchable: true,
           validvalues: [{
             name: "solutionStage",
             label: "方案阶段"
