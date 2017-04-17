@@ -1,13 +1,14 @@
 'use strict';
-huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
+huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
   function ($scope, $state, $stateParams, MetadataService, MetadataHelper, BoService, BoDataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
+    var boId = $stateParams.boId;
     if (!boName || !boNamespace) {
       $state.go("home");
     }
 
-    $scope.setPageTitle("新建客户", "客户列表");
+    $scope.setPageTitle("修改客户", "客户列表");
     $scope.setNavInfos([{
       label: "主页",
       state: "home"
@@ -15,7 +16,7 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       label: "客户列表",
       state: `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`
     }, {
-      label: "新建客户"
+      label: "修改客户"
     }]);
 
     MetadataService.getMetadata(boNamespace, boName)

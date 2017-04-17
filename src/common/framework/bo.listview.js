@@ -7,7 +7,8 @@ huoyunWidget.directive('widgetBoListView', function () {
       boMetadata: "=",
       pageData: "=",
       onRowClicked: "&",
-      onPagingChanged: "&"
+      onPagingChanged: "&",
+      onCreate: "&"
     },
     templateUrl: 'framework/bo.listview.html',
     link: function ($scope, ele, attrs) {
@@ -25,6 +26,10 @@ huoyunWidget.directive('widgetBoListView', function () {
         $scope.onPagingChanged({
           pageIndex: pageIndex
         });
+      };
+
+      $scope.onCreateButtonClicked = function () {
+        $scope.onCreate();
       };
     }
   }

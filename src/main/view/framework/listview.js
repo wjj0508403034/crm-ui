@@ -1,8 +1,20 @@
 'use strict';
-huoyun.controller('BoListViewController', ["$scope", "$state", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
-  function ($scope, $state, MetadataService, MetadataHelper, BoService, BoDataHelper) {
-    var boName = $state.current.data.boName;
-    var boNamespace = $state.current.data.boNamespace;
+huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
+  function ($scope, $state, $stateParams, MetadataService, MetadataHelper, BoService, BoDataHelper) {
+    var boName = $stateParams.boName;
+    var boNamespace = $stateParams.boNamespace;
+
+    if (!boName || !boNamespace) {
+      $state.go("home");
+    }
+
+    $scope.setPageTitle("客户列表");
+    $scope.setNavInfos([{
+      label: "主页",
+      state: "home"
+    }, {
+      label: "客户列表"
+    }]);
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function (boMeta) {
@@ -17,7 +29,11 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "MetadataService"
       });
 
     $scope.onRowClicked = function (lineData, index) {
-      var ss = index;
+      $state.go("boEdit",{
+        boId: lineData.id,
+        boName: boName,
+        boNamespace: boNamespace
+      });
     };
 
     $scope.onPagingChanged = function (pageIndex) {
@@ -31,4 +47,12 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "MetadataService"
         });
     };
 
-  }]);
+    $scope.onCreate = function () {
+      $state.go("boCreate", {
+        boName: boName,
+        boNamespace: boNamespace
+      });
+    };
+
+  }
+]);
