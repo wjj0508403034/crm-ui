@@ -1,137 +1,129 @@
  <aside class="main-sidebar">
       <!-- sidebar: style can be found in sidebar.less -->
       <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <li class="sidebar-toggler-wrapper">
-            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-            <div class="sidebar-toggler">
-              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"><span class="sr-only">Toggle navigation</span></a>
-            </div>
-            <!-- END SIDEBAR TOGGLER BUTTON -->
-        </li>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-          <!--基本信息-->
-          <li class="active treeview">
-            <a href="#">
-              <i class="fa fa fa-home"></i> <span>基本信息</span>
-              <span class="pull-right-container">
+            <!--基本信息-->
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa fa-home"></i> <span>基本信息</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                <div class="tri-angle"></div>
+              </a>
+              <ul class="treeview-menu"></ul>
+            </li>
+            <!--客户管理-->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-briefcase"></i>
+                <span>客户管理</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                <div class="tri-angle"></div>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-file-o"></i> 我的客户</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 添加客户</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 跟踪中B客户</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 回收站</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-home"></i> <span>工程管理</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                <div class="tri-angle"></div>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-file-o"></i> 已开工程客户</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 已开通平台客户</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 已禁用平台客户</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>数据统计</span>
+                <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
               <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu"></ul>
-          </li>
-          <!--客户管理-->
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-briefcas"></i>
-              <span>客户管理</span>
-              <span class="pull-right-container">
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-file-o"></i> 本月已定金客户</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 本月已合同客户</a></li>
+              </ul>
+            
+            </li>
+            <!--用户中心-->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>用户中心</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                <div class="tri-angle"></div>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-file-o"></i> 修改密码</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 修改公司信息</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 上传头像</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 员工列表</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 部门列表</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 添加员工</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 添加部门</a></li>
+              </ul>
+            </li>
+            <!--充值管理-->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-shopping-cart"></i> 
+                <span>充值管理</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                <div class="tri-angle"></div>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-file-o"></i> 账户充值</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 交易信息</a></li>
+              </ul>
+            </li>
+            <!--系统配置-->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-gear"></i> <span>系统配置</span>
+                <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
               <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="pages/layout/top-nav.html"><i class="fa fa-file-o"></i> 我的客户</a></li>
-              <li><a href="pages/layout/boxed.html"><i class="fa fa-file-o"></i> 添加客户</a></li>
-              <li><a href="pages/layout/boxed.html"><i class="fa fa-file-o"></i> 跟踪中B客户</a></li>
-              <li><a href="pages/layout/fixed.html"><i class="fa fa-file-o"></i> 回收站</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="pages/widgets.html">
-              <i class="fa fa-puzzle"></i> <span>工程管理</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-              <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="pages/layout/top-nav.html"><i class="fa fa-file-o"></i> 已开工程客户</a></li>
-              <li><a href="pages/layout/boxed.html"><i class="fa fa-file-o"></i> 已开通平台客户</a></li>
-              <li><a href="pages/layout/boxed.html"><i class="fa fa-file-o"></i> 已禁用平台客户</a></li>
-            </ul>
-          </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-bar-chart"></i>
-              <span>数据统计</span>
-              <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="pages/charts/chartjs.html"><i class="fa fa-file-o"></i> 本月已定金客户</a></li>
-              <li><a href="pages/charts/morris.html"><i class="fa fa-file-o"></i> 本月已合同客户</a></li>
-            </ul>
-          
-          </li>
-          <!--用户中心-->
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-user"></i>
-              <span>用户中心</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-              <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="pages/UI/general.html"><i class="fa fa-file-o"></i> 修改密码</a></li>
-              <li><a href="pages/UI/icons.html"><i class="fa fa-file-o"></i> 修改公司信息</a></li>
-              <li><a href="pages/UI/buttons.html"><i class="fa fa-file-o"></i> 上传头像</a></li>
-              <li><a href="pages/UI/sliders.html"><i class="fa fa-file-o"></i> 员工列表</a></li>
-              <li><a href="pages/UI/timeline.html"><i class="fa fa-file-o"></i> 部门列表</a></li>
-              <li><a href="pages/UI/modals.html"><i class="fa fa-file-o"></i> 添加员工</a></li>
-              <li><a href="pages/UI/modals.html"><i class="fa fa-file-o"></i> 添加部门</a></li>
-            </ul>
-          </li>
-          <!--充值管理-->
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-basket"></i> 
-              <span>充值管理</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-              <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="pages/forms/general.html"><i class="fa fa-file-o"></i> 账户充值</a></li>
-              <li><a href="pages/forms/advanced.html"><i class="fa fa-file-o"></i> 交易信息</a></li>
-            </ul>
-          </li>
-          <!--系统配置-->
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-settings"></i> <span>系统配置</span>
-              <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="pages/tables/simple.html"><i class="fa fa-file-o"></i> 选择客户状态</a></li>
-              <li><a href="pages/tables/data.html"><i class="fa fa-file-o"></i> 添加客户来源</a></li>
-              <li><a href="pages/tables/simple.html"><i class="fa fa-file-o"></i> 添加装修方式</a></li>
-              <li><a href="pages/tables/data.html"><i class="fa fa-file-o"></i> 添加施工工序</a></li>
-            </ul>
-          </li>
-          <!--版本更新-->
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-flag-o"></i> <span>版本信息</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-              <div class="tri-angle"></div>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="pages/tables/simple.html"><i class="fa fa-file-o"></i> 版本更新</a></li>
-            </ul>
-          </li>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-file-o"></i> 选择客户状态</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 添加客户来源</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 添加装修方式</a></li>
+                <li><a href="#"><i class="fa fa-file-o"></i> 添加施工工序</a></li>
+              </ul>
+            </li>
+            <!--版本更新-->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flag-o"></i> <span>版本信息</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                <div class="tri-angle"></div>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-file-o"></i> 版本更新</a></li>
+              </ul>
+            </li>
         </ul>
       </section>
       <!-- /.sidebar -->
