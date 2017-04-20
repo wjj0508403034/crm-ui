@@ -1,6 +1,7 @@
 'use strict';
 
 huoyun.constant("ServiceContext", "");
+huoyun.constant("DebugMode", true);
 
 huoyun.run(function ($rootScope) {
   $rootScope.$on('$stateChangeStart',

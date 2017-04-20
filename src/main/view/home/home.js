@@ -6,5 +6,9 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams",
     $scope.setNavInfos([{
       label: "主页"
     }]);
+
+    $scope.onButtonClick = function () {
+      $scope.showSuccessMessage("aaa");
+    };
   }
 ]);

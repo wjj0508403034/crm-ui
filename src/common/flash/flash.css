@@ -1,0 +1,8 @@
+.widget-flash.alert.alert-success{
+  background: transparent;
+  border: none;
+}
+
+.widget-flash.alert.alert-success .flash-icon{
+  margin-right: 10px;
+}

@@ -1,7 +1,19 @@
-.huoyun .content-wrapper, .right-side{
+.huoyun .content-wrapper, .right-side {
   background: white;
 }
 
-.huoyun .content-wrapper .content-wrapper-container{
+.huoyun .content-wrapper .content-wrapper-container {
   padding: 20px;
+}
+
+.huoyun .static-shell .flash-container {
+  position: fixed;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+}
+
+.huoyun .static-shell .flash-container .widget-flash {
+  width: 600px;
+  margin: 0 auto;
 }
