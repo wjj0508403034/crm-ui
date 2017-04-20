@@ -16,7 +16,11 @@
           <th ng-repeat="prop in boMetadata.listview.properties" property-name="{{prop.name}}" ng-bind="prop.label"></th>
         </tr>
         <tr ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)">
-          <td ng-repeat="prop in boMetadata.listview.properties" ng-bind="lineData[prop.name]"></td>
+          <td ng-repeat="prop in boMetadata.listview.properties" ng-switch="prop.type">
+            <span ng-bind="lineData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></span>
+            <span ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></span>
+            <span ng-bind="lineData[prop.name]" ng-switch-default></span>
+          </td>
         </tr>
       </tbody>
     </table>

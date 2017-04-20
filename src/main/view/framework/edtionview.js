@@ -1,6 +1,6 @@
 'use strict';
-huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
-  function ($scope, $state, $stateParams, MetadataService, MetadataHelper, BoService, BoDataHelper) {
+huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper",
+  function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
@@ -21,7 +21,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function (boMeta) {
-        $scope.boMetadata = MetadataHelper.convertTo(boMeta);
+        $scope.boMetadata = boMeta;
       });
 
 

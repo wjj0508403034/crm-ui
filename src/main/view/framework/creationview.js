@@ -1,8 +1,11 @@
 'use strict';
-huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
-  function ($scope, $state, $stateParams, MetadataService, MetadataHelper, BoService, BoDataHelper) {
+huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper",
+  function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
+
+    const BoListState = `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`;
+
     if (!boName || !boNamespace) {
       $state.go("home");
     }
@@ -13,21 +16,26 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       state: "home"
     }, {
       label: "客户列表",
-      state: `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`
+      state: BoListState
     }, {
       label: "新建客户"
     }]);
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function (boMeta) {
-        $scope.boMetadata = MetadataHelper.convertTo(boMeta);
+        $scope.boMetadata = boMeta;
       });
 
 
     $scope.onSave = function (data, boMetadata) {
-      return new Promise(function (reslove, reject) {
-        reslove("Save Successfully");
-      });
+      BoService.createBo(boNamespace, boName, data)
+        .then(function () {
+          console.log("Save Successfully");
+          $state.go("boList", {
+            boName: boName,
+            boNamespace: boNamespace
+          });
+        });
     };
 
     $scope.onValid = function (data, boMetadata) {

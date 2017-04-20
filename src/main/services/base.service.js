@@ -1,18 +1,26 @@
 'use strict';
 
-huoyun.factory("BaseService", function () {
+huoyun.factory("BaseService", ["$q", function ($q) {
 
   return {
-    baseUrl: "http://localhost:8080/"
+    getResponse: function (request) {
+      var dtd = $q.defer();
+      request.then(function (res) {
+        dtd.resolve(res.data);
+      }).catch(function (ex) {
+        console.error(ex);
+        dtd.reject(ex);
+      });
+      return dtd.promise;
+    }
   };
-});
+}]);
 
 huoyun.factory("HomepageService", ["$q", "$http", "BaseService", function ($q, $http, BaseService) {
 
   return {
     getMenus: function () {
       return new Promise(function (reslove, reject) {
-        console.log(BaseService.baseUrl);
         reslove([{
           text: "ceshi",
           id: 1
@@ -22,120 +30,41 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", function ($q, $
   };
 }]);
 
-huoyun.factory("BoService", ["$q", "$http", function ($q, $http) {
+huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", function ($http, ServiceContext, BaseService) {
 
   return {
+    createBo: function (boNamespace, boName, boData) {
+      var url = `${ServiceContext}/bo(${boNamespace},${boName})/create`;
+      return BaseService.getResponse($http.post(url, boData));
+    },
+
     query: function (boNamespace, boName) {
-      var data = {
-        "content": [{
-          "customerCode": "111111",
-          "customerName": "xxx",
-          "contact": "1@1.com",
-          "completionDate": 1489988504000,
-          "housingDate": 1489988504000,
-          "email": "1@1.com",
-          "phone": "12345"
-        }, {
-          "customerCode": "111112",
-          "customerName": "rrr",
-          "contact": "2@1.com",
-          "completionDate": 1489988504000,
-          "housingDate": 1489988504000,
-          "email": "2@1.com",
-          "phone": "12345"
-        }
-        ],
-        "last": false,
-        "totalPages": 23,
-        "totalElements": 227,
-        "numberOfElements": 10,
-        "sort": null,
-        "first": true,
-        "size": 10,
-        "number": 3
-      };
-
-      return new Promise(function (reslove, reject) {
-        reslove(data);
-      });
+      var url = `${ServiceContext}/bo(${boNamespace},${boName})`;
+      return BaseService.getResponse($http.get(url));
     }
   };
 }]);
 
-huoyun.factory("MetadataService", ["$q", "$http", function ($q, $http) {
-  return {
-    getMetadata: function (boNamespace, boName) {
-      var meta = {
-        boName: "Customer",
-        boNamespace: "com.huoyun.sbo",
-        label: "客户",
-        sections: [{
-          label: "客户信息",
-          properties: ["customerCode", "customerName", "contact", "completionDate", "housingDate", "email", "phone", "traceStatus"]
-        }],
-        listview: {
-          properties: ["customerCode", "customerName", "contact", "completionDate", "housingDate", "email", "phone"]
-        },
-        properties: [{
-          name: "customerCode",
-          label: "客户编号",
-          type: "String",
-          mandatory: true,
-          searchable: true
-        }, {
-          name: "customerName",
-          label: "客户姓名",
-          type: "String",
-          mandatory: true,
-          searchable: true
-        }, {
-          name: "contact",
-          label: "联系方式",
-          type: "String",
-          mandatory: true,
-          searchable: true
-        }, {
-          name: "completionDate",
-          label: "交房时间",
-          type: "Date",
-          mandatory: false,
-          searchable: true
-        }, {
-          name: "housingDate",
-          label: "量房时间",
-          type: "Date",
-          mandatory: false
-        }, {
-          name: "email",
-          label: "邮箱",
-          type: "Email",
-          mandatory: false,
-          searchable: true
-        }, {
-          name: "phone",
-          label: "手机",
-          type: "Phone",
-          mandatory: false
-        }, {
-          name: "traceStatus",
-          label: "跟踪状态",
-          type: "String",
-          mandatory: true,
-          searchable: true,
-          validvalues: [{
-            name: "solutionStage",
-            label: "方案阶段"
-          }, {
-            name: "reviewStage",
-            label: "综述阶段"
-          }]
-        }
-        ]
-      };
+huoyun.factory("MetadataService", ["$http", "ServiceContext", "BaseService", "MetadataHelper",
+  function ($http, ServiceContext, BaseService, MetadataHelper) {
 
-      return new Promise(function (reslove, reject) {
-        reslove(meta);
-      });
-    }
-  };
-}]);
+    var boMetaCache = {};
+
+    return {
+      getMetadata: function (boNamespace, boName) {
+        var metaKey = `${boNamespace}_${boName}`;
+        if (boMetaCache[metaKey]) {
+          return Promise.resolve(boMetaCache[metaKey]);
+        }
+
+        var url = `${ServiceContext}/ui-metadata/${boNamespace}/${boName}`;
+        return BaseService.getResponse($http.get(url))
+          .then(function (metadata) {
+            var boMetadata = MetadataHelper.convertTo(metadata);
+            boMetaCache[metaKey] = boMetadata;
+            return Promise.resolve(boMetadata);
+          });
+      }
+    };
+  }
+]);

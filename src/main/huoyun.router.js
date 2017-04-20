@@ -1,5 +1,7 @@
 'use strict';
 
+huoyun.constant("ServiceContext", "");
+
 huoyun.run(function ($rootScope) {
   $rootScope.$on('$stateChangeStart',
     function (event, toState) {

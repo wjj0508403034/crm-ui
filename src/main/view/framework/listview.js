@@ -1,6 +1,6 @@
 'use strict';
-huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "MetadataHelper", "BoService", "BoDataHelper",
-  function ($scope, $state, $stateParams, MetadataService, MetadataHelper, BoService, BoDataHelper) {
+huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper",
+  function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
 
@@ -18,7 +18,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function (boMeta) {
-        $scope.boMetadata = MetadataHelper.convertTo(boMeta);
+        $scope.boMetadata = boMeta;
       });
 
     BoService.query(boNamespace, boName)
@@ -29,7 +29,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       });
 
     $scope.onRowClicked = function (lineData, index) {
-      $state.go("boEdit",{
+      $state.go("boEdit", {
         boId: lineData.id,
         boName: boName,
         boNamespace: boNamespace
