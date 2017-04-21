@@ -63,7 +63,7 @@ huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", function 
 
     query: function (boNamespace, boName, pageIndex) {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})`;
-      if (pageIndex !== undefined || pageIndex !== null) {
+      if (pageIndex !== undefined && pageIndex !== null) {
         url = `${url}?pageIndex=${pageIndex}`;
       }
       return BaseService.getResponse($http.get(url));

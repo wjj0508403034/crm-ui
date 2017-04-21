@@ -31,7 +31,7 @@
         <select class="form-control" ng-model="data[prop.name]" ng-switch-when="ValidValues" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues">
         </select>
 
-        <input ng-model="data[prop.name]" ng-switch-when="BoLabel" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+        <div widget-bo-label prop="prop" ng-model="data[prop.name]" ng-switch-when="BoLabel" id="{{prop.name}}" ></div>
         <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
 
         <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']">

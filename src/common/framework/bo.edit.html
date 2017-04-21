@@ -26,19 +26,20 @@
             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
             <input type="text" ng-model="boData[prop.name]" class="form-control" placeholder="Email">
           </div>
+          <div widget-bo-label prop="prop" ng-model="boData[prop.name]" ng-switch-when="BoLabel" id="{{prop.name}}" ></div>
 
           <select class="form-control" ng-model="boData[prop.name]" ng-switch-when="ValidValues" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues"></select>
 
-          <input ng-model="boData[prop.name]" ng-switch-when="BoLabel" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
           <input ng-model="boData[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
 
           <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>
         </div>
         <div ng-if="prop.readonly" ng-switch="prop.type">
-          <label class="form-control" readonly ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date"></label>
-          <label class="form-control" readonly ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></label>
-          <label class="form-control" readonly ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></label>
-          <label class="form-control" readonly ng-bind="boData[prop.name]" ng-switch-default></label>
+          <input type="text" class="form-control" readonly ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date">
+          <input type="text" class="form-control" readonly ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime">
+          <input type="text" class="form-control" readonly ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues">
+          <input type="text" class="form-control" readonly ng-bind="boData[prop.name] | BoLabel : prop" ng-switch-when="ValidValues">
+          <input type="text" class="form-control" readonly ng-bind="boData[prop.name]" ng-switch-default>
         </div>
 
       </div>

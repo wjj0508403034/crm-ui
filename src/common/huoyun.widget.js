@@ -17,6 +17,16 @@ huoyunWidget.filter("ValidValueLabel", function () {
   };
 });
 
+huoyunWidget.filter("BoLabel", function () {
+
+  return function (input, propMeta) {
+    if (input && propMeta && propMeta.additionInfo && propMeta.additionInfo.labelField) {
+      return input[propMeta.additionInfo.labelField];
+    }
+    return input;
+  };
+});
+
 huoyunWidget.filter("joda", function () {
   return function (input) {
     if (typeof input === "number") {

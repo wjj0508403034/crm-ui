@@ -19,6 +19,7 @@
           <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></label>
 
           <label ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></label>
+          <label ng-bind="boData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></label>
 
           <label ng-bind="boData[prop.name]" ng-switch-default></label>
         </div>

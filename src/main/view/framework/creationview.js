@@ -1,6 +1,6 @@
 'use strict';
 huoyun.controller("testController", ["$scope", function ($scope) {
-  var ss = $scope;
+  $scope.aa = "aa";
 }]);
 huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog",
   function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog) {
@@ -45,6 +45,8 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       var options = {
         title: "提示",
         content: "当前内容没有保存，要放弃么？",
+        templateUrl: "framework/choosefromlistview.html",
+        appendClassName: "bo-choose-from-list-dialog",
         confirm: {
           callback: function () {
             $state.go("boList", {
@@ -52,6 +54,10 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
               boNamespace: boNamespace
             });
           }
+        },
+        params: {
+          boName: boName,
+          boNamespace: boNamespace
         }
       };
       var dialog = Dialog.showConfirm(options);

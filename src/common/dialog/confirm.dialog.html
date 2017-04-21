@@ -2,7 +2,13 @@
 	<div class="box-header with-border">
 		<h3 class="box-title" ng-bind="ngDialogData.title"></h3>
 	</div>
-	<div class="box-body" ng-bind="ngDialogData.content">
+	<div class="box-body" >
+		<div ng-if="!ngDialogData.templateUrl" ng-bind="ngDialogData.content">
+
+		</div>
+		<div ng-if="ngDialogData.templateUrl" ng-include="ngDialogData.templateUrl">
+
+		</div>
 	</div>
 	<div class="box-footer">
 		<button type="submit" class="btn btn-default pull-right" ng-click="closeThisDialog('Cancel')" ng-bind="ngDialogData.cancelButtonText"></button>
