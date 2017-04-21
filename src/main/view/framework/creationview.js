@@ -38,6 +38,13 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
         });
     };
 
+    $scope.onCancel = function () {
+      $state.go("boList", {
+        boName: boName,
+        boNamespace: boNamespace
+      });
+    };
+
     $scope.onValid = function (data, boMetadata) {
       return BoDataHelper.validator(data, boMetadata);
     };

@@ -6,12 +6,15 @@
   <!-- form start -->
   <form role="form">
     <div class="box-body" ng-repeat="section in boMetadata.sections">
-      <h4 class="section-title" ng-bind="section.label"></h4>
+      <h4 class="section-title">
+        <i class="fa fa-newspaper-o"></i>
+        <span ng-bind="section.label"></span>
+      </h4>
       <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}"
         property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}" ng-switch="prop.type"
         ng-if="!prop.readonly">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
-        <input ng-model="data[prop.name]" ng-switch-when="String" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+        
 
         <div widget-date-picker ng-model="data[prop.name]" ng-switch-when="Date"></div>
         <div widget-date-picker ng-model="data[prop.name]" ng-switch-when="DateTime"></div>
@@ -29,7 +32,8 @@
         </select>
 
         <input ng-model="data[prop.name]" ng-switch-when="BoLabel" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
-        
+        <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+
         <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']">
         </span>
       </div>

@@ -1,0 +1,54 @@
+<div class="box box-primary bo-edition-form">
+  <div class="box-header with-border">
+    <h3 class="box-title" ng-bind="boMetadata.label"></h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form role="form">
+    <div class="box-body" ng-repeat="section in boMetadata.sections">
+      <h4 class="section-title">
+        <i class="fa fa-newspaper-o"></i>
+        <span ng-bind="section.label"></span>
+      </h4>
+      <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}"
+        property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}">
+        <label for="{{prop.name}}" ng-bind="prop.label"></label>
+        <div ng-if="!prop.readonly" ng-switch="prop.type">
+
+          <div widget-date-picker ng-model="boData[prop.name]" ng-switch-when="Date"></div>
+          <div widget-date-picker ng-model="boData[prop.name]" ng-switch-when="DateTime"></div>
+
+          <div class="input-group" ng-switch-when="Email">
+            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+            <input type="email" ng-model="boData[prop.name]" class="form-control" placeholder="Email">
+          </div>
+          <div class="input-group" ng-switch-when="Phone">
+            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+            <input type="text" ng-model="boData[prop.name]" class="form-control" placeholder="Email">
+          </div>
+
+          <select class="form-control" ng-model="boData[prop.name]" ng-switch-when="ValidValues" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues"></select>
+
+          <input ng-model="boData[prop.name]" ng-switch-when="BoLabel" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+          <input ng-model="boData[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+
+          <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>
+        </div>
+        <div ng-if="prop.readonly" ng-switch="prop.type">
+          <label class="form-control" readonly ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date"></label>
+          <label class="form-control" readonly ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></label>
+          <label class="form-control" readonly ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></label>
+          <label class="form-control" readonly ng-bind="boData[prop.name]" ng-switch-default></label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- /.box-body -->
+
+    <div class="box-footer">
+      <button type="submit" class="btn btn-default" ng-click="onCancelButtonClicked()">取消</button>
+      <button type="submit" class="btn btn-primary" ng-click="onSaveButtonClicked()">保存</button>
+    </div>
+  </form>
+</div>

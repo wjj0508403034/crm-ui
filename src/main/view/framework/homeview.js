@@ -28,5 +28,13 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       .then(function (boData) {
         $scope.boData = boData;
       });
+
+    $scope.onEditButtonClicked = function () {
+      $state.go("boEdit", {
+        boId: boId,
+        boName: boName,
+        boNamespace: boNamespace
+      });
+    };
   }
 ]);

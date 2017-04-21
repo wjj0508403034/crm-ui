@@ -4,7 +4,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
-    if (!boName || !boNamespace) {
+    if (!boName || !boNamespace || !boId) {
       $state.go("home");
     }
 
@@ -24,10 +24,29 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
         $scope.boMetadata = boMeta;
       });
 
+    BoService.getBo(boNamespace, boName, boId)
+      .then(function (boData) {
+        $scope.boData = boData;
+      });
+
 
     $scope.onSave = function (data, boMetadata) {
-      return new Promise(function (reslove, reject) {
-        reslove("Save Successfully");
+      BoService.updateBo(boNamespace, boName, boId, data)
+        .then(function () {
+          console.log("Save Successfully");
+          $state.go("boHome", {
+            boName: boName,
+            boNamespace: boNamespace,
+            boId: boId
+          });
+        });
+    };
+
+    $scope.onCancel = function () {
+      $state.go("boHome", {
+        boName: boName,
+        boNamespace: boNamespace,
+        boId: boId
       });
     };
 
