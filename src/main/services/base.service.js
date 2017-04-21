@@ -2,7 +2,7 @@
 
 huoyun.factory("BaseService", ["$q", "DebugMode", "$http",
   function ($q, DebugMode, $http) {
-    
+
 
     return {
       getResponse: function (request) {
@@ -16,7 +16,8 @@ huoyun.factory("BaseService", ["$q", "DebugMode", "$http",
         return dtd.promise;
       }
     };
-  }]);
+  }
+]);
 
 huoyun.factory("HomepageService", ["$q", "$http", "BaseService", function ($q, $http, BaseService) {
 
@@ -60,8 +61,11 @@ huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", function 
       return BaseService.getResponse($http.patch(url, boData));
     },
 
-    query: function (boNamespace, boName) {
+    query: function (boNamespace, boName, pageIndex) {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})`;
+      if (pageIndex !== undefined || pageIndex !== null) {
+        url = `${url}?pageIndex=${pageIndex}`;
+      }
       return BaseService.getResponse($http.get(url));
     }
   };

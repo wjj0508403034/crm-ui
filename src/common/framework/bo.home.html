@@ -1,0 +1,29 @@
+<div class="box box-primary bo-home-form">
+  <div class="box-header with-border">
+    <h3 class="box-title" ng-bind="boMetadata.label"></h3>
+  </div>
+  <!-- /.box-header -->
+  <!-- form start -->
+  <form role="form">
+    <div class="box-body" ng-repeat="section in boMetadata.sections">
+      <h4 class="section-title">
+        <i class="fa fa-newspaper-o"></i>
+        <span ng-bind="section.label"></span>
+      </h4>
+
+      <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}"
+        property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}" ng-switch="prop.type">
+        <label class="col-sm-2 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
+        <div class="col-sm-10">
+          <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date"></label>
+          <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></label>
+
+          <label ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></label>
+
+          <label ng-bind="boData[prop.name]" ng-switch-default></label>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

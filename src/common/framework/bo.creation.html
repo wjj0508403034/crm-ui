@@ -6,24 +6,30 @@
   <!-- form start -->
   <form role="form">
     <div class="box-body" ng-repeat="section in boMetadata.sections">
+      <h4 class="section-title" ng-bind="section.label"></h4>
       <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}"
-        property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}">
+        property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}" ng-switch="prop.type"
+        ng-if="!prop.readonly">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
-        <input ng-model="data[prop.name]" ng-if="prop.type === 'String'" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+        <input ng-model="data[prop.name]" ng-switch-when="String" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
 
-        <div widget-date-picker ng-model="data[prop.name]" ng-if="prop.type === 'Date'"></div>
+        <div widget-date-picker ng-model="data[prop.name]" ng-switch-when="Date"></div>
+        <div widget-date-picker ng-model="data[prop.name]" ng-switch-when="DateTime"></div>
 
-        <div class="input-group" ng-if="prop.type === 'Email'">
+        <div class="input-group" ng-switch-when="Email">
           <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
           <input type="email" ng-model="data[prop.name]" class="form-control" placeholder="Email">
         </div>
-        <div class="input-group" ng-if="prop.type === 'Phone'">
+        <div class="input-group" ng-switch-when="Phone">
           <span class="input-group-addon"><i class="fa fa-phone"></i></span>
           <input type="text" ng-model="data[prop.name]" class="form-control" placeholder="Email">
         </div>
 
-        <select class="form-control" ng-model="data[prop.name]" ng-if="prop.type === 'ValidValues'" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues">
+        <select class="form-control" ng-model="data[prop.name]" ng-switch-when="ValidValues" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues">
         </select>
+
+        <input ng-model="data[prop.name]" ng-switch-when="BoLabel" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+        
         <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']">
         </span>
       </div>

@@ -62,6 +62,11 @@ huoyun.config(function ($stateProvider, $urlRouterProvider) {
       url: "/edit(:boNamespace,:boName)/:boId",
       templateUrl: "framework/edtionview.html",
       controller: 'BoEdtionViewController'
+    })
+    .state("boHome", {
+      url: "/home(:boNamespace,:boName)/:boId",
+      templateUrl: "framework/homeview.html",
+      controller: 'BoHomeViewController'
     });
 
 });

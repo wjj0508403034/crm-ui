@@ -14,3 +14,10 @@
   margin-bottom: 0px;
   margin-top: 2px;
 }
+
+.bo-creation-form .section-title, .bo-home-form .section-title {
+  border-bottom: 1px dashed #cecbcb;
+  line-height: 30px;
+  margin-bottom: 30px;
+  color: #676767;
+}

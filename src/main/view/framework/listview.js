@@ -3,6 +3,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
   function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
+    var pageIndex = 0;
+    var that = this;
 
     if (!boName || !boNamespace) {
       $state.go("home");
@@ -21,15 +23,13 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         $scope.boMetadata = boMeta;
       });
 
-    BoService.query(boNamespace, boName)
+    BoService.query(boNamespace, boName, pageIndex)
       .then(function (pageData) {
-        var res = {};
-        angular.copy(pageData, res);
-        $scope.pageData = res;
+        $scope.pageData = pageData;
       });
 
     $scope.onRowClicked = function (lineData, index) {
-      $state.go("boEdit", {
+      $state.go("boHome", {
         boId: lineData.id,
         boName: boName,
         boNamespace: boNamespace
@@ -37,13 +37,9 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     };
 
     $scope.onPagingChanged = function (pageIndex) {
-      BoService.query()
+      BoService.query(boNamespace, boName, pageIndex)
         .then(function (pageData) {
-          var res = {};
-          angular.copy(pageData, res);
-          res.number = pageIndex;
-          $scope.pageData = res;
-          $scope.$apply();
+          $scope.pageData = pageData;
         });
     };
 
