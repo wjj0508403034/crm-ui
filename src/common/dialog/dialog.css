@@ -1,0 +1,14 @@
+.huoyun-dialog-container.ngdialog .ngdialog-content {
+  background: white !important;
+  padding: 0 !important;
+  ;
+}
+
+.huoyun-dialog.box>.box-body {
+  min-height: 100px;
+}
+
+.huoyun-dialog.box>.box-footer .btn {
+  margin-left: 15px;
+  min-width: 80px;
+}

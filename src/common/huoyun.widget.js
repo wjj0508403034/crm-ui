@@ -1,6 +1,6 @@
 'use strict';
 
-var huoyunWidget = angular.module('huoyun.widget', []);
+var huoyunWidget = angular.module('huoyun.widget', ['ngDialog']);
 
 huoyunWidget.filter("ValidValueLabel", function () {
 

@@ -1,6 +1,9 @@
 'use strict';
-huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper",
-  function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
+huoyun.controller("testController", ["$scope", function ($scope) {
+  var ss = $scope;
+}]);
+huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog",
+  function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
 
@@ -39,10 +42,20 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
     };
 
     $scope.onCancel = function () {
-      $state.go("boList", {
-        boName: boName,
-        boNamespace: boNamespace
-      });
+      var options = {
+        title: "提示",
+        content: "当前内容没有保存，要放弃么？",
+        confirm: {
+          callback: function () {
+            $state.go("boList", {
+              boName: boName,
+              boNamespace: boNamespace
+            });
+          }
+        }
+      };
+      var dialog = Dialog.showConfirm(options);
+
     };
 
     $scope.onValid = function (data, boMetadata) {
