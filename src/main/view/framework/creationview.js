@@ -1,7 +1,5 @@
 'use strict';
-huoyun.controller("testController", ["$scope", function($scope) {
-  $scope.aa = "aa";
-}]);
+
 huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog",
   function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog) {
     var boName = $stateParams.boName;

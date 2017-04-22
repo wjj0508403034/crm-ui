@@ -1,3 +1,7 @@
-<div>tets</div>
-<a ui-sref="boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})">客户列表</a>
-<div class="btn" ng-click="onButtonClick()"></div>
+<section class="content">
+  <div class="row">
+    <div class="col-lg-3 col-xs-6" ng-repeat="tile in tiles">
+      <div widget-tile icon="{{tile.icon}}" number="{{tile.number}}" text="{{tile.text}}" state-link="{{tile.stateLink}}"></div>
+    </div>
+  </div>
+</section>
