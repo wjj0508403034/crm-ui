@@ -1,6 +1,6 @@
 'use strict';
 huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper",
-  function ($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
@@ -20,19 +20,19 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
     }]);
 
     MetadataService.getMetadata(boNamespace, boName)
-      .then(function (boMeta) {
+      .then(function(boMeta) {
         $scope.boMetadata = boMeta;
       });
 
     BoService.getBo(boNamespace, boName, boId)
-      .then(function (boData) {
+      .then(function(boData) {
         $scope.boData = boData;
       });
 
 
-    $scope.onSave = function (data, boMetadata) {
+    $scope.onSave = function(data, boMetadata) {
       BoService.updateBo(boNamespace, boName, boId, data)
-        .then(function () {
+        .then(function() {
           console.log("Save Successfully");
           $state.go("boHome", {
             boName: boName,
@@ -42,15 +42,24 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
         });
     };
 
-    $scope.onCancel = function () {
-      $state.go("boHome", {
-        boName: boName,
-        boNamespace: boNamespace,
-        boId: boId
-      });
+    $scope.onCancel = function() {
+      var options = {
+        title: "提示",
+        content: "当前内容没有保存，要放弃么？",
+        confirm: {
+          callback: function() {
+            $state.go("boHome", {
+              boName: boName,
+              boNamespace: boNamespace,
+              boId: boId
+            });
+          }
+        }
+      };
+      var dialog = Dialog.showConfirm(options);
     };
 
-    $scope.onValid = function (data, boMetadata) {
+    $scope.onValid = function(data, boMetadata) {
       return BoDataHelper.validator(data, boMetadata);
     };
   }

@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.config(["ngDialogProvider", function (ngDialogProvider) {
+huoyunWidget.config(["ngDialogProvider", function(ngDialogProvider) {
   ngDialogProvider.setDefaults({
     className: 'ngdialog-theme-default huoyun-dialog-container',
     showClose: false,
@@ -10,8 +10,8 @@ huoyunWidget.config(["ngDialogProvider", function (ngDialogProvider) {
 }]);
 
 huoyunWidget.controller("ConfirmDialogController", ["$scope",
-  function ($scope) {
-    $scope.onCancelButtonClicked = function () {
+  function($scope) {
+    $scope.onCancelButtonClicked = function() {
       if ($scope.ngDialogData && typeof $scope.ngDialogData.onCancelButtonClicked === "function") {
         $scope.ngDialogData.onCancelButtonClicked.apply(this);
       } else {
@@ -19,7 +19,7 @@ huoyunWidget.controller("ConfirmDialogController", ["$scope",
       }
     };
 
-    $scope.onConfirmButtonClicked = function () {
+    $scope.onConfirmButtonClicked = function() {
       if ($scope.ngDialogData && typeof $scope.ngDialogData.onConfirmButtonClicked === "function") {
         $scope.ngDialogData.onConfirmButtonClicked.apply(this);
       } else {
@@ -27,12 +27,13 @@ huoyunWidget.controller("ConfirmDialogController", ["$scope",
       }
     };
 
-  }]);
+  }
+]);
 
-huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function ($q, ngDialog) {
+huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function($q, ngDialog) {
 
   return {
-    showConfirm: function (options) {
+    showConfirm: function(options) {
       var dialogOptions = {
         template: "dialog/confirm.dialog.html",
         controller: "ConfirmDialogController",
@@ -50,15 +51,25 @@ huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function ($q, ngDialog) {
       };
 
       ngDialog.open(dialogOptions)
-        .closePromise.then(function (data) {
-          console.log(data);
-          if (data.value === 'OK' && options.confirm && typeof options.confirm.callback === "function") {
-            options.confirm.callback.apply(this, data.value)
-          } else if (data.value === 'Cancel' && options.cancel && typeof options.cancel.callback === "function") {
-            options.cancel.callback.apply(this, data.value)
-          } else if (typeof options.closeCallback === "function") {
-            options.closeCallback.apply(this, data.value);
+        .closePromise.then(function(data) {
+          if (data.value) {
+            if (Array.isArray(data.value) && data.value.length > 0) {
+              var key = data.value[0];
+              if (key === 'OK' && options.confirm && typeof options.confirm.callback === "function") {
+                return options.confirm.callback.apply(this, data.value);
+              }
+
+              if (key === "Cancel" && options.cancel && typeof options.cancel.callback === "function") {
+                return options.cancel.callback.apply(this, data.value);
+              }
+
+              return options.closeCallback.apply(this, data.value);
+            }
+
+            return options.closeCallback.apply(this, [data.value]);
           }
+
+          return options.closeCallback.apply(this);
         });
     }
   };

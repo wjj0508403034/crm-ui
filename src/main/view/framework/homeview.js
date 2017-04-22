@@ -1,6 +1,6 @@
 'use strict';
-huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService",
-  function ($scope, $state, $stateParams, MetadataService, BoService) {
+huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
+  function($scope, $state, $stateParams, MetadataService, BoService, Dialog) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
@@ -20,21 +20,40 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     }]);
 
     MetadataService.getMetadata(boNamespace, boName)
-      .then(function (boMeta) {
+      .then(function(boMeta) {
         $scope.boMetadata = boMeta;
       });
 
     BoService.getBo(boNamespace, boName, boId)
-      .then(function (boData) {
+      .then(function(boData) {
         $scope.boData = boData;
       });
 
-    $scope.onEditButtonClicked = function () {
+    $scope.onEditButtonClicked = function() {
       $state.go("boEdit", {
         boId: boId,
         boName: boName,
         boNamespace: boNamespace
       });
+    };
+
+    $scope.onDeleteButtonClicked = function() {
+      var options = {
+        title: "提示",
+        content: "确定要删除该对象么，一旦删除，数据将不可恢复？",
+        confirm: {
+          callback: function() {
+            BoService.deleteBo(boNamespace, boName, boId)
+              .then(function() {
+                $state.go("boList", {
+                  boName: boName,
+                  boNamespace: boNamespace
+                });
+              });
+          }
+        }
+      };
+      var dialog = Dialog.showConfirm(options);
     };
   }
 ]);
