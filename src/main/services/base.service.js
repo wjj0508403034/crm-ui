@@ -1,15 +1,15 @@
 'use strict';
 
 huoyun.factory("BaseService", ["$q", "DebugMode", "$http",
-  function ($q, DebugMode, $http) {
+  function($q, DebugMode, $http) {
 
 
     return {
-      getResponse: function (request) {
+      getResponse: function(request) {
         var dtd = $q.defer();
-        request.then(function (res) {
+        request.then(function(res) {
           dtd.resolve(res.data);
-        }).catch(function (ex) {
+        }).catch(function(ex) {
           console.error(ex);
           dtd.reject(ex);
         });
@@ -19,11 +19,11 @@ huoyun.factory("BaseService", ["$q", "DebugMode", "$http",
   }
 ]);
 
-huoyun.factory("HomepageService", ["$q", "$http", "BaseService", function ($q, $http, BaseService) {
+huoyun.factory("HomepageService", ["$q", "$http", "BaseService", function($q, $http, BaseService) {
 
   return {
-    getMenus: function () {
-      return new Promise(function (reslove, reject) {
+    getMenus: function() {
+      return new Promise(function(reslove, reject) {
         reslove([{
           text: "ceshi",
           id: 1
@@ -33,51 +33,60 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", function ($q, $
   };
 }]);
 
-huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", function ($http, ServiceContext, BaseService) {
+huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", function($http, ServiceContext, BaseService) {
 
   return {
-    initBo: function () {
+    initBo: function() {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})/init`;
       return BaseService.getResponse($http.get(url));
     },
 
-    createBo: function (boNamespace, boName, boData) {
+    createBo: function(boNamespace, boName, boData) {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})/create`;
       return BaseService.getResponse($http.post(url, boData));
     },
 
-    getBo: function (boNamespace, boName, boId) {
+    getBo: function(boNamespace, boName, boId) {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})/${boId}`;
       return BaseService.getResponse($http.get(url));
     },
 
-    deleteBo: function (boNamespace, boName, boId) {
+    deleteBo: function(boNamespace, boName, boId) {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})/${boId}`;
       return BaseService.getResponse($http.delete(url));
     },
 
-    updateBo: function (boNamespace, boName, boId, boData) {
+    updateBo: function(boNamespace, boName, boId, boData) {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})/${boId}`;
       return BaseService.getResponse($http.patch(url, boData));
     },
 
-    query: function (boNamespace, boName, pageIndex) {
+    query: function(boNamespace, boName, pageIndex, queryExpr) {
       var url = `${ServiceContext}/bo(${boNamespace},${boName})`;
+      var params = [];
       if (pageIndex !== undefined && pageIndex !== null) {
-        url = `${url}?pageIndex=${pageIndex}`;
+        params.push(`pageIndex=${pageIndex}`);
       }
+      if (queryExpr) {
+        params.push(`query=${queryExpr}`);
+      }
+
+      if (params.length > 0) {
+        url = `${url}?${params.join("&")}`;
+      }
+
       return BaseService.getResponse($http.get(url));
     }
   };
 }]);
 
 huoyun.factory("MetadataService", ["$http", "ServiceContext", "BaseService", "MetadataHelper",
-  function ($http, ServiceContext, BaseService, MetadataHelper) {
+  function($http, ServiceContext, BaseService, MetadataHelper) {
 
     var boMetaCache = {};
 
     return {
-      getMetadata: function (boNamespace, boName) {
+      getMetadata: function(boNamespace, boName) {
         var metaKey = `${boNamespace}_${boName}`;
         if (boMetaCache[metaKey]) {
           return Promise.resolve(boMetaCache[metaKey]);
@@ -85,7 +94,7 @@ huoyun.factory("MetadataService", ["$http", "ServiceContext", "BaseService", "Me
 
         var url = `${ServiceContext}/ui-metadata/${boNamespace}/${boName}`;
         return BaseService.getResponse($http.get(url))
-          .then(function (metadata) {
+          .then(function(metadata) {
             var boMetadata = MetadataHelper.convertTo(metadata);
             boMetaCache[metaKey] = boMetadata;
             return Promise.resolve(boMetadata);

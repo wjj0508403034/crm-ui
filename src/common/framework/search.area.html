@@ -1,7 +1,6 @@
 <div class="box box-primary bo-search-area box-solid">
   <div class="box-header">
     <h3 class="box-title">搜索</h3>
-
     <div class="box-tools">
       <div class="input-group input-group-sm">
 
@@ -14,7 +13,7 @@
 
   <div class="box-body">
     <div class="input-group" ng-if="!advanceSearch">
-      <input type="text" ng-model="simpleSearchText" name="message" placeholder="{{'搜索' + boMetadata.label}}" class="form-control">
+      <input type="text" ng-model="$parent.simpleSearchText" name="message" placeholder="{{'搜索' + boMetadata.label}}" class="form-control">
       <span class="input-group-btn">
         <button type="submit" class="btn btn-success btn-flat" ng-click="onSearchButtonClicked()">搜索</button>
       </span>
@@ -23,13 +22,12 @@
     <div class="advance-search-box-content" ng-if="advanceSearch">
       <div class="form-group col-md-6 bo-property-form-group" ng-if="prop.searchable" ng-repeat="prop in boMetadata.propMap">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
-        <input ng-model="data[prop.name]" ng-if="['Date','ValidValues'].indexOf(prop.type) === -1" type="text" class="form-control"
-          id="{{prop.name}}" placeholder="Enter email">
+        <input ng-model="data[prop.name]" ng-if="['Date','ValidValues'].indexOf(prop.type) === -1" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
         <div class="input-group" ng-if="prop.type === 'Date'">
           <input type="text" class="form-control" readonly>
           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
-        <div widget-search-valid-values-label ng-if="prop.type === 'ValidValues'" prop="prop" ng-model="data[prop.name]"></div>
+        <div widget-search-valid-values-label ng-if="prop.type === 'ValidValues'" prop="prop" ng-model="searchData[prop.name]"></div>
       </div>
 
 
@@ -39,7 +37,7 @@
   </div>
 
   <div class="box-footer" ng-if="advanceSearch">
-    <button type="submit" class="btn btn-primary pull-right" ng-click="onSaveButtonClicked()">搜索</button>
+    <button type="submit" class="btn btn-primary pull-right" ng-click="onAdvanceSearchButtonClicked()">搜索</button>
   </div>
 
 </div>

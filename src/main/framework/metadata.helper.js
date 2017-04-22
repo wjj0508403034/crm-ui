@@ -1,16 +1,18 @@
 'use strict';
 
-huoyun.factory("MetadataHelper", [function () {
+huoyun.factory("MetadataHelper", [function() {
 
   return {
-    convertTo: function (boMeta) {
+    convertTo: function(boMeta) {
       var result = {};
       result.boName = boMeta.boName;
       result.boNamespace = boMeta.boNamespace;
       result.label = boMeta.label;
+      result.businessKey = boMeta.businessKey;
+      result.primaryKey = boMeta.primaryKey;
       result.propMap = {};
 
-      boMeta.properties.forEach(function (prop, index) {
+      boMeta.properties.forEach(function(prop, index) {
         if (prop.validvalues && prop.validvalues.length > 0) {
           prop.type = "ValidValues";
         }
@@ -18,12 +20,12 @@ huoyun.factory("MetadataHelper", [function () {
       });
 
       result.sections = [];
-      boMeta.sections.forEach(function (section, sectionIndex) {
+      boMeta.sections.forEach(function(section, sectionIndex) {
         var item = {
           label: section.label,
           properties: []
         };
-        section.properties.forEach(function (propName, propIndex) {
+        section.properties.forEach(function(propName, propIndex) {
           if (result.propMap[propName]) {
             item.properties.push(result.propMap[propName]);
           } else {
@@ -38,7 +40,7 @@ huoyun.factory("MetadataHelper", [function () {
         properties: []
       };
 
-      boMeta.listview.properties.forEach(function (propName, index) {
+      boMeta.listview.properties.forEach(function(propName, index) {
         if (result.propMap[propName]) {
           result.listview.properties.push(result.propMap[propName]);
         } else {
