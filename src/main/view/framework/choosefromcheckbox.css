@@ -1,0 +1,22 @@
+.bo-choose-from-checkbox-dialog{
+    /*color: red;*/
+}
+.bo-choose-from-checkbox-dialog .form-group .icheckbox_flat-green{
+    position: relative;
+}
+.bo-choose-from-checkbox-dialog .icheckbox_flat-green > input{
+    position: absolute; 
+    opacity: 0;
+}
+.bo-choose-from-checkbox-dialog .icheckbox_flat-green > ins{
+    position: absolute; 
+    top: 0%; 
+    left: 0%; 
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    margin: 0px; 
+    padding: 0px; 
+    background: rgb(255, 255, 255); 
+    border: 0px; opacity: 0;
+}
