@@ -3,6 +3,11 @@
 huoyunWidget.controller('BoChooseFromCheckbox', ['$scope', function ($scope) {
 	$scope.validvalues = $scope.ngDialogData.params.prop.validvalues;
 
+	$scope.onSelectedAllChanged = function (checked) {
+		$scope.validvalues.forEach(function (validvalue, index) {
+			validvalue.selected = checked;
+		});
+	};
 
 	$scope.ngDialogData.onConfirmButtonClicked = function () {
 		var res = [];
