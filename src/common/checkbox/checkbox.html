@@ -1,9 +1,6 @@
-<div class="form-group">
-    <label class="">
-        <div class="icheckbox_flat-green" ng-class="{'checked':ngModel.checked}">
-            <input type="checkbox" class="flat-red" ng-click="selectCheckbox($event)"/>
-            <ins class="iCheck-helper"></ins>
-        </div>
-        {{ngModel.label}}
-    </label>
+<div class="widget-check-box" ng-click="onCheckBoxClicked($event)">
+  <div class="widget-check-box-icon icheckbox_flat-green" ng-class="{'checked':value}">
+    <input type="checkbox" class="flat-red" />
+  </div>
+  <label ng-bind="content"></label>
 </div>

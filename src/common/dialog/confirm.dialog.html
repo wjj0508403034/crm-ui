@@ -2,7 +2,7 @@
 	<div class="box-header with-border">
 		<h3 class="box-title" ng-bind="ngDialogData.title"></h3>
 	</div>
-	<div class="box-body" >
+	<div class="box-body">
 		<div ng-if="!ngDialogData.templateUrl" ng-bind="ngDialogData.content">
 
 		</div>
@@ -11,7 +11,9 @@
 		</div>
 	</div>
 	<div class="box-footer">
-		<button type="submit" ng-if="!ngDialogData.cancelButtonHidden" class="btn btn-default pull-right" ng-click="closeThisDialog(['Cancel'])" ng-bind="ngDialogData.cancelButtonText"></button>
-		<button type="submit" ng-if="!ngDialogData.confirmButtonHidden" class="btn btn-primary pull-right" ng-click="closeThisDialog(['OK'])" ng-bind="ngDialogData.confirmButtonText"></button>
+		<button type="submit" ng-if="!ngDialogData.cancelButtonHidden" class="btn btn-default pull-right" ng-click="onCancelButtonClicked()"
+		 ng-bind="ngDialogData.cancelButtonText"></button>
+		<button type="submit" ng-if="!ngDialogData.confirmButtonHidden" class="btn btn-primary pull-right" ng-click="onConfirmButtonClicked()"
+		 ng-bind="ngDialogData.confirmButtonText"></button>
 	</div>
 </div>

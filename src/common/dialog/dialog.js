@@ -11,6 +11,21 @@ huoyunWidget.config(["ngDialogProvider", function (ngDialogProvider) {
 
 huoyunWidget.controller("ConfirmDialogController", ["$scope",
   function ($scope) {
+    $scope.onCancelButtonClicked = function () {
+      if ($scope.ngDialogData && typeof $scope.ngDialogData.onCancelButtonClicked === "function") {
+        $scope.ngDialogData.onCancelButtonClicked.apply(this);
+      } else {
+        $scope.closeThisDialog(['Cancel']);
+      }
+    };
+
+    $scope.onConfirmButtonClicked = function () {
+      if ($scope.ngDialogData && typeof $scope.ngDialogData.onConfirmButtonClicked === "function") {
+        $scope.ngDialogData.onConfirmButtonClicked.apply(this);
+      } else {
+        $scope.closeThisDialog(['OK']);
+      }
+    };
 
   }]);
 

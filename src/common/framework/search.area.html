@@ -14,9 +14,9 @@
 
   <div class="box-body">
     <div class="input-group" ng-if="!advanceSearch">
-      <input type="text" name="message" placeholder="{{'搜索' + boMetadata.label}}" class="form-control">
+      <input type="text" ng-model="simpleSearchText" name="message" placeholder="{{'搜索' + boMetadata.label}}" class="form-control">
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-success btn-flat">搜索</button>
+        <button type="submit" class="btn btn-success btn-flat" ng-click="onSearchButtonClicked()">搜索</button>
       </span>
     </div>
 
@@ -29,11 +29,7 @@
           <input type="text" class="form-control" readonly>
           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
-        <div widget-bo-search ng-if="prop.type === 'ValidValues'" prop="prop" ng-model="data[prop.name]"></div>
-        <!--<div class="input-group" ng-if="prop.type === 'ValidValues'">
-          <input type="text" class="form-control" readonly ng-model="boMetadata.listview.properties[0].validvalues">
-          <span class="input-group-addon"><i class="fa fa-filter"></i></span>
-        </div>-->
+        <div widget-search-valid-values-label ng-if="prop.type === 'ValidValues'" prop="prop" ng-model="data[prop.name]"></div>
       </div>
 
 

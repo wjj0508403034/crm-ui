@@ -1,18 +1,21 @@
 'use strict';
-huoyunWidget.directive('widgetCheckBox',function(){
-    return{
-        restrict:'A',
-        templateUrl:'checkbox/checkbox.html',
-        scope:{
-            ngModel:'=',
-            updateValue:'&'
+huoyunWidget.directive('widgetCheckBox', function () {
+    return {
+        restrict: 'A',
+        templateUrl: 'checkbox/checkbox.html',
+        scope: {
+            value: '=ngModel',
+            content: "@",
+            onCheckboxValueChanged: '&'
         },
-        link:function($scope,ele,attr){
+        link: function ($scope, ele, attr) {
             /**选择操作 */
-            $scope.selectCheckbox=function($event){
+            $scope.onCheckBoxClicked = function ($event) {
                 $event.stopPropagation();
-                $scope.ngModel.checked=!$scope.ngModel.checked;
-                $scope.updateValue();
+                $scope.value = !$scope.value;
+                $scope.onCheckboxValueChanged({
+                    checked: $scope.value
+                });
             };
         }
     }
