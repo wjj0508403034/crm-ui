@@ -33,6 +33,18 @@ huoyunWidget.controller("ConfirmDialogController", ["$scope",
 huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function($q, ngDialog) {
 
   return {
+    showError: function(message) {
+      this.showConfirm({
+        title: "错误",
+        content: message,
+        cancel: {
+          hidden: true
+        },
+        confirm: {
+          text: "知道了"
+        }
+      });
+    },
     showConfirm: function(options) {
       var dialogOptions = {
         template: "dialog/confirm.dialog.html",

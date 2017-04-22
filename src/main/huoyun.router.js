@@ -1,37 +1,34 @@
 'use strict';
 
-huoyun.constant("ServiceContext", "");
-huoyun.constant("DebugMode", true);
-
-huoyun.run(function ($rootScope) {
+huoyun.run(function($rootScope) {
   $rootScope.$on('$stateChangeStart',
-    function (event, toState) {
+    function(event, toState) {
       console.log(arguments);
     });
 
   $rootScope.$on('$stateNotFound',
-    function (event, unfoundState, fromState, fromParams) {
+    function(event, unfoundState, fromState, fromParams) {
       console.log(arguments);
     });
 
   $rootScope.$on('$stateChangeSuccess',
-    function (event, toState, toParams, fromState, fromParams) {
+    function(event, toState, toParams, fromState, fromParams) {
       console.log(arguments);
     });
 
   $rootScope.$on('$stateChangeError',
-    function (event, toState, toParams, fromState, fromParams, error) {
+    function(event, toState, toParams, fromState, fromParams, error) {
       console.log(arguments);
     });
 });
 
-huoyun.config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.when("/", ["$state", function ($state) {
+huoyun.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.when("/", ["$state", function($state) {
     //console.log(arguments);
     $state.go("home");
   }]);
 
-  $urlRouterProvider.otherwise(function ($injector, $location) {
+  $urlRouterProvider.otherwise(function($injector, $location) {
     console.warn(`URL not found, URL: ${$location.$$absUrl}, Path: ${$location.$$url}`);
     $injector.get("$state").go("home");
   });
