@@ -28,6 +28,8 @@ huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function ($q, ngDialog) {
           templateUrl: options.templateUrl,
           confirmButtonText: (options.confirm && options.confirm.text) || "确定",
           cancelButtonText: (options.cancel && options.cancel.text) || "取消",
+          confirmButtonHidden: (options.confirm && options.confirm.hidden) || false,
+          cancelButtonHidden: (options.cancel && options.cancel.hidden) || false,
           params: options.params
         }
       };
@@ -35,13 +37,12 @@ huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function ($q, ngDialog) {
       ngDialog.open(dialogOptions)
         .closePromise.then(function (data) {
           console.log(data);
-
           if (data.value === 'OK' && options.confirm && typeof options.confirm.callback === "function") {
-            options.confirm.callback.apply(this, [data.value])
+            options.confirm.callback.apply(this, data.value)
           } else if (data.value === 'Cancel' && options.cancel && typeof options.cancel.callback === "function") {
-            options.cancel.callback.apply(this, [data.value])
+            options.cancel.callback.apply(this, data.value)
           } else if (typeof options.closeCallback === "function") {
-            options.closeCallback.apply(this, [data.value]);
+            options.closeCallback.apply(this, data.value);
           }
         });
     }

@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="box-footer">
-		<button type="submit" class="btn btn-default pull-right" ng-click="closeThisDialog('Cancel')" ng-bind="ngDialogData.cancelButtonText"></button>
-		<button type="submit" class="btn btn-primary pull-right" ng-click="closeThisDialog('OK')" ng-bind="ngDialogData.confirmButtonText"></button>
+		<button type="submit" ng-if="!ngDialogData.cancelButtonHidden" class="btn btn-default pull-right" ng-click="closeThisDialog(['Cancel'])" ng-bind="ngDialogData.cancelButtonText"></button>
+		<button type="submit" ng-if="!ngDialogData.confirmButtonHidden" class="btn btn-primary pull-right" ng-click="closeThisDialog(['OK'])" ng-bind="ngDialogData.confirmButtonText"></button>
 	</div>
 </div>

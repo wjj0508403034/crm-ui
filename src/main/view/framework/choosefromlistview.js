@@ -24,7 +24,7 @@ huoyun.controller('BoChooseFromListController', ["$scope", "$state", "MetadataSe
       });
 
     $scope.onRowClicked = function (lineData, index) {
-      $scope.closeThisDialog(lineData);
+      $scope.closeThisDialog(['selected',lineData]);
     };
 
     $scope.onPagingChanged = function (pageIndex) {

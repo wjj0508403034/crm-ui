@@ -19,8 +19,14 @@ huoyunWidget.directive('widgetBoLabel', ["Dialog", function (Dialog) {
             boName: $scope.prop.additionInfo.boName,
             boNamespace: $scope.prop.additionInfo.boNamespace
           },
-          closeCallback: function (data) {
-            $scope.value = data;
+          confirm: {
+            hidden: true,
+          },
+          closeCallback: function (key, data) {
+            if (key === "selected") {
+              $scope.value = data;
+            }
+
           }
         };
         var dialog = Dialog.showConfirm(options);
