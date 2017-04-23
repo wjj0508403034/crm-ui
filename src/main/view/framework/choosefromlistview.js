@@ -33,17 +33,23 @@ huoyun.controller('BoChooseFromListController', ["$scope", "$state", "MetadataSe
         setBoSelectedStatus($scope.pageData);
       });
 
-    function setBoSelectedStatus(pageData) {
+    $scope.onResetButtonClicked = function() {
       $scope.pageData.content.forEach(function(bo) {
-        if (selectedBoMap[bo.id]) {
-          bo.selected = true;
-        }
+        bo.selected = false;
       });
-    }
+      selectedBoMap = {};
+    };
 
     $scope.onRowClicked = function(lineData, index) {
       if (!$scope.multiSelected) {
         $scope.closeThisDialog(['selected', lineData]);
+      } else {
+        lineData.selected = !lineData.selected;
+        if (lineData.selected) {
+          selectedBoMap[lineData.id] = lineData;
+        } else {
+          delete selectedBoMap[lineData.id];
+        }
       }
     };
 
@@ -73,5 +79,14 @@ huoyun.controller('BoChooseFromListController', ["$scope", "$state", "MetadataSe
         $scope.closeThisDialog(['OK', res]);
       }
     };
+
+    function setBoSelectedStatus(pageData) {
+      $scope.pageData.content.forEach(function(bo) {
+        if (selectedBoMap[bo.id]) {
+          bo.selected = true;
+        }
+      });
+    }
+
   }
 ]);

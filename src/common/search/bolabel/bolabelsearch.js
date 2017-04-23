@@ -24,8 +24,8 @@ huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper",
               selectedBos: $scope.selectedBos
             },
             closeCallback: function(key, data) {
-              $scope.selectedBos = data || [];
               if (key === "OK") {
+                $scope.selectedBos = data || [];
                 var labels = [];
                 (data || []).forEach(function(bo, index) {
                   labels.push(bo[$scope.prop.additionInfo.labelField]);
