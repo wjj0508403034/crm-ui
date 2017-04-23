@@ -24,7 +24,7 @@
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
         <input ng-model="data[prop.name]" ng-if="['DateTime','ValidValues'].indexOf(prop.type) === -1" type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
         
-        <div widget-search-date-time-label ng-if="prop.type === 'DateTime'" prop="prop" ng-model="data[prop.name]"></div>
+        <div widget-search-date-time-label ng-if="prop.type === 'DateTime'" prop="prop" ng-model="searchData[prop.name]"></div>
         <div widget-search-valid-values-label ng-if="prop.type === 'ValidValues'" prop="prop" ng-model="searchData[prop.name]"></div>
       </div>
 

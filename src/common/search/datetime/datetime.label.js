@@ -27,7 +27,9 @@ huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", function (Dialog)
           },
           closeCallback: function (key, data) {
             if (key === "OK") {
-              $scope.value = data;
+              console.log(data)
+              data[0].label!='custom Range'&&($scope.value = $scope.prop.name +" eq " + data[0].name);
+              data[0].label==='custom Range'&&($scope.value = $scope.prop.name +" between "+ data[0].startDate +" and "+ data[0].endDate );
               var labels = [];
               (data || []).forEach(function (validvalue, index) {
                 labels.push(validvalue.name==='custom Range'?(validvalue.startDate+","+validvalue.endDate):validvalue.label);

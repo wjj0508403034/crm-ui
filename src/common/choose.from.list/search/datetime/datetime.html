@@ -4,11 +4,11 @@
     <div class="date-select" ng-if="validvalue.name=='custom Range' && validvalue.selected==true">
       <div class="form-group">
           <label>开始时间</label>
-          <div  widget-date-picker ng-model="validvalue.startDate" id="startDate"></div>
+          <div  widget-date-picker ng-model="validvalue.startDate" id="startDate" data-date-format="dd-mm-yyyy"></div>
       </div>
       <div class="form-group">
           <label>结束时间</label>
-          <div  widget-date-picker ng-model="validvalue.endDate" id="endDate"></div>
+          <div  widget-date-picker ng-model="validvalue.endDate" id="endDate" data-date-format="dd-mm-yyyy"></div>
       </div>
     </div>
   </div>
