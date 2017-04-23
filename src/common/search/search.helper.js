@@ -17,6 +17,16 @@ huoyunWidget.factory("SearchHelper", [function() {
       if (data && typeof data === "string") {
         return `${prop.name} like '${data}'`;
       }
+    },
+    getBoLabelSearchExpr: function(prop, data) {
+      if (data && Array.isArray(data) && data.length > 0) {
+        var names = [];
+        data.forEach(function(bo, index) {
+          names.push(`${bo[prop.additionInfo.idField]}`);
+        });
+
+        return `${prop.name} in (${names.join(",")})`;
+      }
     }
 
   };

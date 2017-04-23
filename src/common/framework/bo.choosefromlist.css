@@ -1,3 +1,11 @@
 .ngdialog.huoyun-dialog-container.bo-choose-from-list-dialog .ngdialog-content {
   width: 80%;
 }
+
+.ngdialog.huoyun-dialog-container.bo-choose-from-list-dialog .choose-from-list-view-dialog .box-header {
+  border-bottom: none;
+}
+
+.ngdialog.huoyun-dialog-container.bo-choose-from-list-dialog .choose-from-list-view-dialog .box-header .btn {
+  min-width: 80px;
+}
