@@ -1,26 +1,41 @@
 'use strict';
 
-huoyunWidget.controller('BoChooseFromDatePicker', ['$scope', function ($scope) {
-	$scope.validvalues = $scope.ngDialogData.params.prop.validvalues;
-   /**cancle all seleted radio */
-  $scope.onRadioChanged=function(selectedIndex){
-    $scope.validvalues.forEach(function(validvalue,index){
-       if(selectedIndex===index){
-         validvalue.selected=true;
-       }else{
-         validvalue.selected=false;
-       }
-    });
-  };
+huoyunWidget.controller('BoChooseFromDatePicker', ['$scope',
+  function($scope) {
 
-	$scope.ngDialogData.onConfirmButtonClicked = function () {
-		var res = [];
-		$scope.validvalues.forEach(function (validvalue, index) {
-			if (validvalue.selected) {
-				res.push(validvalue);
-			}
-		});
+    $scope.options = [{
+      name: "today",
+      label: "今天"
+    }, {
+      name: "yestoday",
+      label: "昨天"
+    }, {
+      name: "month",
+      label: "这个月"
+    }, {
+      name: "year",
+      label: "今年"
+    }, {
+      name: "custom",
+      label: "自定义时间段",
+      startDate: null,
+      endDate: null
+    }];
 
-		$scope.closeThisDialog(['OK', res]);
-	};
-}]);
+    $scope.onRadioChanged = function(option) {
+      $scope.options.forEach(function(optionItem) {
+        if (optionItem.name !== option.name) {
+          optionItem.selected = false;
+        }
+      });
+    };
+
+    $scope.ngDialogData.onConfirmButtonClicked = function() {
+      $scope.options.forEach(function(option, index) {
+        if (option.selected) {
+          $scope.closeThisDialog(['OK', option]);
+        }
+      });
+    };
+  }
+]);

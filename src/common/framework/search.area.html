@@ -24,8 +24,8 @@
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
         <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
         <div widget-search-bo-label ng-switch-when="BoLabel" prop="prop" ng-model="searchData[prop.name]"></div>
-        <div widget-search-date-time-label ng-switch-when="DateTime" prop="prop" ng-model="data[prop.name]"></div>
-        <div widget-search-date-time-label ng-switch-when="Date" prop="prop" ng-model="data[prop.name]"></div>
+        <div widget-search-date-time-label ng-switch-when="DateTime" prop="prop" ng-model="searchData[prop.name]"></div>
+        <div widget-search-date-time-label ng-switch-when="Date" prop="prop" ng-model="searchData[prop.name]"></div>
         <div widget-search-valid-values-label ng-switch-when="ValidValues" prop="prop" ng-model="searchData[prop.name]"></div>
       </div>
 

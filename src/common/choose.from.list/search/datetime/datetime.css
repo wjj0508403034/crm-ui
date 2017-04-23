@@ -1,9 +1,9 @@
-.valid-value-item {
- height: 40px;
- border-bottom: 1px dashed #cecbcb;
- padding: 8px 5px 0px 5px;
+.date-search-dialog .option-item {
+  height: 40px;
+  border-bottom: 1px dashed #cecbcb;
+  padding: 8px 5px 0px 5px;
 }
 
-.valid-value-item .date-select .form-group{
+.date-search-dialog .option-item .date-select .form-group {
   margin-top: 15px;
 }

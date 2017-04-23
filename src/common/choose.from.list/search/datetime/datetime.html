@@ -1,14 +1,14 @@
-<div ng-controller="BoChooseFromDatePicker">
-	<div class="valid-value-item" ng-repeat="validvalue in validvalues track by $index">
-		<div widget-radio-box ng-model="validvalue.selected" content="{{validvalue.label}}" on-radiobox-value-changed="onRadioChanged($index)"></div>
-    <div class="date-select" ng-if="validvalue.name=='custom Range' && validvalue.selected==true">
+<div class="date-search-dialog" ng-controller="BoChooseFromDatePicker">
+  <div class="option-item" ng-repeat="option in options track by $index">
+    <div widget-radio-box ng-model="option.selected" content="{{option.label}}" on-radiobox-value-changed="onRadioChanged(option)"></div>
+    <div class="date-select" ng-if="option.name === 'custom' && option.selected">
       <div class="form-group">
-          <label>开始时间</label>
-          <div  widget-date-picker ng-model="validvalue.startDate" id="startDate" data-date-format="dd-mm-yyyy"></div>
+        <label>开始时间</label>
+        <div widget-date-picker ng-model="option.startDate" id="startDate" data-date-format="dd-mm-yyyy"></div>
       </div>
       <div class="form-group">
-          <label>结束时间</label>
-          <div  widget-date-picker ng-model="validvalue.endDate" id="endDate" data-date-format="dd-mm-yyyy"></div>
+        <label>结束时间</label>
+        <div widget-date-picker ng-model="option.endDate" id="endDate" data-date-format="dd-mm-yyyy"></div>
       </div>
     </div>
   </div>
