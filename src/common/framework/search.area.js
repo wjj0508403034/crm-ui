@@ -1,5 +1,4 @@
 'use strict';
-
 huoyunWidget.directive('widgetSearchArea', ["SearchHelper",
   function(SearchHelper) {
     return {
@@ -13,7 +12,6 @@ huoyunWidget.directive('widgetSearchArea', ["SearchHelper",
         $scope.simpleSearchText = "";
         $scope.advanceSearch = false;
         $scope.searchData = {};
-
         $scope.onOpenAdvanceButtonClicked = function(isAdvance) {
           $scope.advanceSearch = isAdvance;
         };
