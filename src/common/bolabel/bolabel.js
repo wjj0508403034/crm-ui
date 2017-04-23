@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoLabel', ["Dialog", function (Dialog) {
+huoyunWidget.directive('widgetBoLabel', ["Dialog", function(Dialog) {
   return {
     restrict: 'A',
     scope: {
@@ -8,9 +8,9 @@ huoyunWidget.directive('widgetBoLabel', ["Dialog", function (Dialog) {
       prop: "="
     },
     templateUrl: 'bolabel/bolabel.html',
-    link: function ($scope, ele, attrs) {
+    link: function($scope, ele, attrs) {
 
-      $scope.onButtonClicked = function () {
+      $scope.onButtonClicked = function() {
         var options = {
           title: `选择${$scope.prop.label}`,
           templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/choosefromlistview.html",
@@ -22,7 +22,7 @@ huoyunWidget.directive('widgetBoLabel', ["Dialog", function (Dialog) {
           confirm: {
             hidden: true,
           },
-          closeCallback: function (key, data) {
+          closeCallback: function(key, data) {
             if (key === "selected") {
               $scope.value = data;
             }

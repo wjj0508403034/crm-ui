@@ -1,7 +1,7 @@
 'use strict';
 
 huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper",
-  function (Dialog, SearchHelper) {
+  function(Dialog, SearchHelper) {
     return {
       restrict: 'A',
       scope: {
@@ -9,8 +9,8 @@ huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper"
         prop: "="
       },
       templateUrl: 'search/validvalues/validvalues.label.html',
-      link: function ($scope, ele, attrs) {
-        $scope.onButtonClicked = function () {
+      link: function($scope, ele, attrs) {
+        $scope.onButtonClicked = function() {
           var options = {
             title: `设置搜索条件`,
             templateUrl: "choose.from.list/search/validvalues/validvalues.html",
@@ -18,11 +18,10 @@ huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper"
             params: {
               prop: $scope.prop
             },
-            closeCallback: function (key, data) {
+            closeCallback: function(key, data) {
               if (key === "OK") {
-                $scope.value = data;
                 var labels = [];
-                (data || []).forEach(function (validvalue, index) {
+                (data || []).forEach(function(validvalue, index) {
                   labels.push(validvalue.label);
                 });
                 $scope.text = labels.join(" , ");
@@ -35,4 +34,5 @@ huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper"
 
       }
     }
-  }]);
+  }
+]);
