@@ -39,11 +39,11 @@ huoyunWidget.directive('widgetBoListView', ['Dialog',function (Dialog) {
           appendClassName: "sort-list-view-dialog",
           params: {
             properties: $scope.boMetadata.listview.properties,
-            pageData:$scope.pageData
+            pageData:$scope.pageData.content
           },
           closeCallback: function(key, data) {
-            if (key === "selected") {
-              $scope.value = data;
+            if (key === "OK") {
+             $scope.pageData.content = data;
             }
 
           }
