@@ -2,8 +2,6 @@
 
 huoyun.factory("BaseService", ["$q", "DebugMode", "$http",
   function($q, DebugMode, $http) {
-
-
     return {
       getResponse: function(request) {
         var dtd = $q.defer();
@@ -18,20 +16,6 @@ huoyun.factory("BaseService", ["$q", "DebugMode", "$http",
     };
   }
 ]);
-
-huoyun.factory("HomepageService", ["$q", "$http", "BaseService", function($q, $http, BaseService) {
-
-  return {
-    getMenus: function() {
-      return new Promise(function(reslove, reject) {
-        reslove([{
-          text: "ceshi",
-          id: 1
-        }]);
-      });
-    }
-  };
-}]);
 
 huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", function($http, ServiceContext, BaseService) {
 

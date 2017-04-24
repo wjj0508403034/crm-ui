@@ -75,13 +75,19 @@ huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function($q, ngDialog) {
                 return options.cancel.callback.apply(this, data.value);
               }
 
-              return options.closeCallback.apply(this, data.value);
+              if (typeof options.closeCallback === "function") {
+                return options.closeCallback.apply(this, data.value);
+              }
             }
 
-            return options.closeCallback.apply(this, [data.value]);
+            if (typeof options.closeCallback === "function") {
+              return options.closeCallback.apply(this, [data.value]);
+            }
           }
 
-          return options.closeCallback.apply(this);
+          if (typeof options.closeCallback === "function") {
+            return options.closeCallback.apply(this);
+          }
         });
     }
   };

@@ -1,130 +1,27 @@
- <aside class="main-sidebar">
-      <!-- sidebar: style can be found in sidebar.less -->
-      <section class="sidebar">
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu">
-            <!--基本信息-->
-            <li class="active treeview">
-              <a href="#">
-                <i class="fa fa fa-home"></i> <span>基本信息</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu"></ul>
-            </li>
-            <!--客户管理-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-briefcase"></i>
-                <span>客户管理</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-file-o"></i> 我的客户</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 添加客户</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 跟踪中B客户</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 回收站</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-home"></i> <span>工程管理</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-file-o"></i> 已开工程客户</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 已开通平台客户</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 已禁用平台客户</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-bar-chart"></i>
-                <span>数据统计</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-              <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-file-o"></i> 本月已定金客户</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 本月已合同客户</a></li>
-              </ul>
-            
-            </li>
-            <!--用户中心-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-user"></i>
-                <span>用户中心</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-file-o"></i> 修改密码</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 修改公司信息</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 上传头像</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 员工列表</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 部门列表</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 添加员工</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 添加部门</a></li>
-              </ul>
-            </li>
-            <!--充值管理-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-shopping-cart"></i> 
-                <span>充值管理</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-file-o"></i> 账户充值</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 交易信息</a></li>
-              </ul>
-            </li>
-            <!--系统配置-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-gear"></i> <span>系统配置</span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-              <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-file-o"></i> 选择客户状态</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 添加客户来源</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 添加装修方式</a></li>
-                <li><a href="#"><i class="fa fa-file-o"></i> 添加施工工序</a></li>
-              </ul>
-            </li>
-            <!--版本更新-->
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-flag-o"></i> <span>版本信息</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                <div class="tri-angle"></div>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-file-o"></i> 版本更新</a></li>
-              </ul>
-            </li>
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+      <!--基本信息-->
+      <li class="treeview" ng-repeat="menu in items">
+        <a href="#">
+          <i class="fa fa fa-home" ng-class="menu.icon"></i> <span ng-bind="menu.label"></span>
+          <span class="pull-right-container">
+             <i class="fa fa-angle-left pull-right"></i>
+          </span>
+          <div class="tri-angle"></div>
+        </a>
+        <ul class="treeview-menu" ng-if="menu.items && menu.items.length > 0">
+          <li ng-repeat="menuitem in menu.items">
+            <a ui-sref="{{menuitem.stateLink || '#'}}">
+              <i class="fa" ng-class="menuitem.icon"></i>
+              <span ng-bind="menuitem.label"></span>
+            </a>
+          </li>
         </ul>
-      </section>
-      <!-- /.sidebar -->
-    </aside>
+      </li>
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

@@ -2,8 +2,8 @@
 
 var huoyun = angular.module('huoyun', ["huoyun.widget", 'ui.router']);
 
-huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler",
-  function($scope, Dialog, HttpErrorHandlerProvider) {
+huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "HomepageService",
+  function($scope, Dialog, HttpErrorHandlerProvider, HomepageService) {
     HttpErrorHandlerProvider.setDialog(Dialog);
     $scope.title = "火云CRM";
     $scope.navs = [];
@@ -15,5 +15,10 @@ huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler",
     $scope.setNavInfos = function(navs) {
       $scope.navs = navs;
     };
+
+    HomepageService.getMenus()
+      .then(function(menus) {
+        $scope.sideBarItems = menus;
+      });
   }
 ]);

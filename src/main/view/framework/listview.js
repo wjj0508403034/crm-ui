@@ -10,18 +10,21 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       $state.go("home");
     }
 
-    $scope.setPageTitle("客户列表");
-    $scope.setNavInfos([{
-      label: "主页",
-      state: "home"
-    }, {
-      label: "客户列表"
-    }]);
-
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
+        setTitleAndNav(boMeta);
       });
+
+    function setTitleAndNav(boMeta) {
+      $scope.setPageTitle(`${boMeta.label}列表`);
+      $scope.setNavInfos([{
+        label: "主页",
+        state: "home"
+      }, {
+        label: `${boMeta.label}列表`
+      }]);
+    }
 
     BoService.query(boNamespace, boName)
       .then(function(pageData) {

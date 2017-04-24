@@ -8,21 +8,24 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
       $state.go("home");
     }
 
-    $scope.setPageTitle("修改客户", "客户列表");
-    $scope.setNavInfos([{
-      label: "主页",
-      state: "home"
-    }, {
-      label: "客户列表",
-      state: `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`
-    }, {
-      label: "修改客户"
-    }]);
-
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
+        setTitleAndNav(boMeta);
       });
+
+    function setTitleAndNav(boMeta) {
+      $scope.setPageTitle(`修改${boMeta.label}`, `${boMeta.label}列表`);
+      $scope.setNavInfos([{
+        label: "主页",
+        state: "home"
+      }, {
+        label: `${boMeta.label}列表`,
+        state: `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`
+      }, {
+        label: `修改${boMeta.label}`
+      }]);
+    }
 
     BoService.getBo(boNamespace, boName, boId)
       .then(function(boData) {

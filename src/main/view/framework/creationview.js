@@ -11,21 +11,24 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       $state.go("home");
     }
 
-    $scope.setPageTitle("新建客户", "客户列表");
-    $scope.setNavInfos([{
-      label: "主页",
-      state: "home"
-    }, {
-      label: "客户列表",
-      state: BoListState
-    }, {
-      label: "新建客户"
-    }]);
-
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
+        setTitleAndNav(boMeta);
       });
+
+    function setTitleAndNav(boMeta) {
+      $scope.setPageTitle(`新建${boMeta.label}`, `${boMeta.label}列表`);
+      $scope.setNavInfos([{
+        label: "主页",
+        state: "home"
+      }, {
+        label: `${boMeta.label}列表`,
+        state: BoListState
+      }, {
+        label: `新建${boMeta.label}`
+      }]);
+    }
 
 
     $scope.onSave = function(data, boMetadata) {

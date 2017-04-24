@@ -3,6 +3,18 @@
 huoyun.run(function($rootScope) {
   $rootScope.$on('$stateChangeStart',
     function(event, toState) {
+      if (event.currentScope) {
+
+        if (typeof event.currentScope.setPageTitle === "function") {
+          event.currentScope.setPageTitle();
+        }
+
+        if (typeof event.currentScope.setNavInfos === "function") {
+          event.currentScope.setNavInfos([]);
+        }
+      }
+
+
       console.log(arguments);
     });
 
@@ -24,7 +36,6 @@ huoyun.run(function($rootScope) {
 
 huoyun.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.when("/", ["$state", function($state) {
-    //console.log(arguments);
     $state.go("home");
   }]);
 
@@ -64,6 +75,22 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
       url: "/home(:boNamespace,:boName)/:boId",
       templateUrl: "framework/homeview.html",
       controller: 'BoHomeViewController'
+    })
+    .state("company", {
+      url: "/company",
+      templateUrl: "framework/homeview.html",
+      controller: 'BoHomeViewController'
     });
-
 });
+
+huoyun.factory("StateHelper", [function() {
+
+  return {
+    getBoListState: function(boNamespace, boName) {
+      return `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`;
+    },
+    getBoEditState: function(boNamespace, boName, boId) {
+      return `edit({"boNamespace":"${boNamespace}","boName": "${boName}"})/${boId}`;
+    }
+  };
+}]);
