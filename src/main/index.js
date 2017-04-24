@@ -20,5 +20,12 @@ huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "Hom
       .then(function(menus) {
         $scope.sideBarItems = menus;
       });
+
+    $scope.reloadMenus = function() {
+      HomepageService.reloadMenus()
+        .then(function(menus) {
+          $scope.sideBarItems = menus;
+        });
+    };
   }
 ]);

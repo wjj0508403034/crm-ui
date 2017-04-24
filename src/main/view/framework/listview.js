@@ -3,7 +3,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
   function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
-    var queryExprText = "";
+    var queryExprText = $stateParams.queryExpr || "";
     var that = this;
 
     if (!boName || !boNamespace) {
@@ -26,7 +26,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       }]);
     }
 
-    BoService.query(boNamespace, boName)
+    BoService.query(boNamespace, boName, null, queryExprText)
       .then(function(pageData) {
         $scope.pageData = pageData;
       });

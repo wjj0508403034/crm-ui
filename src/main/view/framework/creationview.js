@@ -1,14 +1,13 @@
 'use strict';
 
-huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog",
-  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog) {
+huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog", "StateHelper",
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, StateHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
 
-    const BoListState = `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`;
-
     if (!boName || !boNamespace) {
-      $state.go("home");
+      StateHelper.gotoHome();
+      return;
     }
 
     MetadataService.getMetadata(boNamespace, boName)
@@ -21,10 +20,10 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       $scope.setPageTitle(`新建${boMeta.label}`, `${boMeta.label}列表`);
       $scope.setNavInfos([{
         label: "主页",
-        state: "home"
+        state: StateHelper.getHome()
       }, {
         label: `${boMeta.label}列表`,
-        state: BoListState
+        state: StateHelper.getBoListState(boNamespace, boName)
       }, {
         label: `新建${boMeta.label}`
       }]);
@@ -35,10 +34,10 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       BoService.createBo(boNamespace, boName, data)
         .then(function() {
           console.log("Save Successfully");
-          $state.go("boList", {
-            boName: boName,
-            boNamespace: boNamespace
-          });
+          if (boNamespace === "com.huoyun.sbo" && boName === "CustomerStatus") {
+            $scope.reloadMenus();
+          }
+          StateHelper.gotoBoList(boNamespace, boName);
         });
     };
 
@@ -48,10 +47,7 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
         content: "当前内容没有保存，要放弃么？",
         confirm: {
           callback: function() {
-            $state.go("boList", {
-              boName: boName,
-              boNamespace: boNamespace
-            });
+            StateHelper.gotoBoList(boNamespace, boName);
           }
         }
       };

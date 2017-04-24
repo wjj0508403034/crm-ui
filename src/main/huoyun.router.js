@@ -13,9 +13,6 @@ huoyun.run(function($rootScope) {
           event.currentScope.setNavInfos([]);
         }
       }
-
-
-      console.log(arguments);
     });
 
   $rootScope.$on('$stateNotFound',
@@ -57,7 +54,7 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
       label: "主页"
     })
     .state("boList", {
-      url: "/list(:boNamespace,:boName)",
+      url: "/list(:boNamespace,:boName)?:queryExpr",
       templateUrl: "framework/listview.html",
       controller: 'BoListViewController'
     })
@@ -83,14 +80,35 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
     });
 });
 
-huoyun.factory("StateHelper", [function() {
+huoyun.factory("StateHelper", ["$state", function($state) {
 
   return {
-    getBoListState: function(boNamespace, boName) {
-      return `boList({"boNamespace":"${boNamespace}","boName": "${boName}"})`;
+    getBoListState: function(boNamespace, boName, queryExpr) {
+      if (!queryExpr) {
+        return `boList({"boNamespace":"${boNamespace}","boName": "${boName}","queryExpr":""})`;
+      } else {
+        return `boList({"boNamespace":"${boNamespace}","boName": "${boName}","queryExpr": "${queryExpr}"})`;
+      }
+
     },
     getBoEditState: function(boNamespace, boName, boId) {
       return `edit({"boNamespace":"${boNamespace}","boName": "${boName}"})/${boId}`;
+    },
+
+    getHome: function() {
+      return "home";
+    },
+
+    gotoBoList: function(boNamespace, boName, queryExpr) {
+      $state.go("boList", {
+        boNamespace: boNamespace,
+        boName: boName,
+        queryExpr: queryExpr || ""
+      });
+    },
+
+    gotoHome: function() {
+      $state.go("home");
     }
   };
 }]);
