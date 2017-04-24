@@ -1,11 +1,11 @@
-<div class="box box-primary bo-listview-table box-solid">
+<div class="box bo-listview-table">
   <div class="box-header">
-    <h3 class="box-title" ng-bind="boMetadata.label"></h3>
+    <h3 class="box-title" ng-bind="boMetadata.label + '列表'"></h3>
 
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button class="btn btn-primary" ng-click="onSortHandler()" ng-bind="'排序'"></button>
-        <button class="btn btn-primary pull-right" ng-click="onCreateButtonClicked()" ng-bind="'创建' + boMetadata.label"></button>
+        <button class="btn btn-default" ng-click="onSortHandler()" ng-bind="'排序'"></button>
+        <button class="btn btn-default pull-right" ng-click="onCreateButtonClicked()" ng-bind="'创建' + boMetadata.label"></button>
       </div>
     </div>
   </div>

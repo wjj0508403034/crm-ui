@@ -1,11 +1,11 @@
-<div class="box box-primary bo-search-area box-solid">
+<div class="box bo-search-area">
   <div class="box-header">
     <h3 class="box-title">搜索</h3>
     <div class="box-tools">
       <div class="input-group input-group-sm">
 
-        <button class="btn btn-primary pull-right" ng-if="!advanceSearch" ng-click="onOpenAdvanceButtonClicked(true)">高级搜索</button>
-        <button class="btn btn-primary pull-right" ng-if="advanceSearch" ng-click="onOpenAdvanceButtonClicked(false)">普通搜索</button>
+        <button class="btn btn-default pull-right" ng-if="!advanceSearch" ng-click="onOpenAdvanceButtonClicked(true)">高级搜索</button>
+        <button class="btn btn-default pull-right" ng-if="advanceSearch" ng-click="onOpenAdvanceButtonClicked(false)">普通搜索</button>
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
   </div>
 
   <div class="box-footer" ng-if="advanceSearch">
-    <button type="submit" class="btn btn-primary pull-right" ng-click="onAdvanceSearchButtonClicked()">搜索</button>
+    <button type="submit" class="btn btn-default pull-right" ng-click="onAdvanceSearchButtonClicked()">搜索</button>
   </div>
 
 </div>
