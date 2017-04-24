@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoListView', function () {
+huoyunWidget.directive('widgetBoListView', ['Dialog',function (Dialog) {
   return {
     restrict: 'A',
     scope: {
@@ -31,6 +31,25 @@ huoyunWidget.directive('widgetBoListView', function () {
       $scope.onCreateButtonClicked = function () {
         $scope.onCreate();
       };
+
+      $scope.onSortHandler=function(){
+        var options = {
+          title: `${$scope.boMetadata.label}排序`,
+          templateUrl:"framework/sortListView.html",
+          appendClassName: "sort-list-view-dialog",
+          params: {
+            properties: $scope.boMetadata.listview.properties,
+            pageData:$scope.pageData
+          },
+          closeCallback: function(key, data) {
+            if (key === "selected") {
+              $scope.value = data;
+            }
+
+          }
+        };
+        var dialog = Dialog.showConfirm(options);
+      }
     }
   }
-});
+}]);

@@ -3,7 +3,8 @@
     <h3 class="box-title" ng-bind="boMetadata.label"></h3>
 
     <div class="box-tools">
-      <div class="input-group input-group-sm" style="width: 150px;">
+      <div class="input-group input-group-sm">
+        <button class="btn btn-primary" ng-click="onSortHandler()" ng-bind="'排序'"></button>
         <button class="btn btn-primary pull-right" ng-click="onCreateButtonClicked()" ng-bind="'创建' + boMetadata.label"></button>
       </div>
     </div>
