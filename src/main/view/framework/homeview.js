@@ -1,26 +1,44 @@
 'use strict';
-huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog", "BoHomeHelper",
-  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, BoHomeHelper) {
-    var boName = $stateParams.boName;
-    var boNamespace = $stateParams.boNamespace;
-    var boId = $stateParams.boId;
+huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog", "BoHomeHelper", "StateHelper",
+  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, BoHomeHelper, StateHelper) {
+    var params = {};
+    initParams();
 
-    if ($state.current.name === "company") {
-      boName = "Company";
-      boNamespace = "com.huoyun.sbo";
-    } else {
-      if (!boName || !boNamespace || !boId) {
-        $state.go("home");
+    function initParams() {
+      if ($state.current.data) {
+        params.boName = $state.current.data.boName;
+        params.boNamespace = $state.current.data.boNamespace;
+      }
+
+      if (!params.boNamespace) {
+        params.boNamespace = $stateParams.boNamespace;
+      }
+
+      if (!params.boName) {
+        params.boName = $stateParams.boName;
       }
     }
 
-    MetadataService.getMetadata(boNamespace, boName)
+    params.boId = $stateParams.boId;
+
+    if (StateHelper.getCurrentStateName() === "company") {
+      params.boName = "Company";
+      params.boNamespace = "com.huoyun.sbo";
+    } else {
+      if (!params.boName || !params.boNamespace || !params.boId) {
+        StateHelper.gotoHome();
+      }
+    }
+
+    $scope.buttons = BoHomeHelper.getButtonsConfig();
+
+    MetadataService.getMetadata(params.boNamespace, params.boName)
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
         BoHomeHelper.setTitleAndNav($scope, boMeta, $state);
       });
 
-    BoHomeHelper.loadBoData(boNamespace, boName, boId)
+    BoHomeHelper.loadBoData(params.boNamespace, params.boName, params.boId)
       .then(function(boData) {
         $scope.boData = boData;
         if ($state.current.name === "company") {
@@ -28,31 +46,10 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         }
       });
 
-    $scope.onEditButtonClicked = function() {
-      $state.go("boEdit", {
-        boId: boId,
-        boName: boName,
-        boNamespace: boNamespace
-      });
-    };
-
-    $scope.onDeleteButtonClicked = function() {
-      var options = {
-        title: "提示",
-        content: "确定要删除该对象么，一旦删除，数据将不可恢复？",
-        confirm: {
-          callback: function() {
-            BoService.deleteBo(boNamespace, boName, boId)
-              .then(function() {
-                $state.go("boList", {
-                  boName: boName,
-                  boNamespace: boNamespace
-                });
-              });
-          }
-        }
-      };
-      var dialog = Dialog.showConfirm(options);
+    $scope.onButtonClicked = function(buttonName, button) {
+      if (typeof button.onButtonClicked === "function") {
+        button.onButtonClicked.apply(this, [params.boNamespace, params.boName, params.boId]);
+      }
     };
   }
 ]);

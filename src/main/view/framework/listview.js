@@ -1,38 +1,64 @@
 'use strict';
-huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper",
-  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper) {
-    var boName = $stateParams.boName;
-    var boNamespace = $stateParams.boNamespace;
-    var queryExprText = $stateParams.queryExpr || "";
+huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "StateHelper",
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper) {
+    var params = {};
+
+    initParams();
+
+    function initParams() {
+      if ($state.current.data) {
+        params.boName = $state.current.data.boName;
+        params.boNamespace = $state.current.data.boNamespace;
+        params.queryExprText = $state.current.data.queryExpr || "";
+        params.pageTitle = $state.current.data.title;
+        params.detailStateName = $state.current.data.detailStateName;
+      }
+
+      if (!params.boNamespace) {
+        params.boNamespace = $stateParams.boNamespace;
+      }
+
+      if (!params.boName) {
+        params.boName = $stateParams.boName;
+      }
+    }
+
     var that = this;
 
-    if (!boName || !boNamespace) {
+    if (!params.boName || !params.boNamespace) {
       $state.go("home");
     }
 
-    MetadataService.getMetadata(boNamespace, boName)
+    $scope.disableCreate = false;
+    if (params.boNamespace === "com.huoyun.sbo" && params.boName === "Customer" &&
+      StateHelper.getCurrentStateName() !== "myCustomer") {
+      $scope.disableCreate = true;
+    }
+
+    MetadataService.getMetadata(params.boNamespace, params.boName)
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
         setTitleAndNav(boMeta);
       });
 
     function setTitleAndNav(boMeta) {
-      $scope.setPageTitle(`${boMeta.label}列表`);
+      var title = params.pageTitle || `${boMeta.label}列表`;
+      $scope.setPageTitle(title);
       $scope.setNavInfos([{
         label: "主页",
         state: "home"
       }, {
-        label: `${boMeta.label}列表`
+        label: title
       }]);
     }
 
-    BoService.query(boNamespace, boName, null, queryExprText)
+    BoService.query(params.boNamespace, params.boName, null, params.queryExprText)
       .then(function(pageData) {
         $scope.pageData = pageData;
       });
 
     $scope.onSearch = function(queryExpr) {
-      queryExprText = queryExpr;
+      params.queryExprText = queryExpr;
       BoService.query(boNamespace, boName, null, queryExpr)
         .then(function(pageData) {
           $scope.pageData = pageData;
@@ -40,15 +66,11 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     };
 
     $scope.onRowClicked = function(lineData, index) {
-      $state.go("boHome", {
-        boId: lineData.id,
-        boName: boName,
-        boNamespace: boNamespace
-      });
+      StateHelper.gotoBoDetail(params.boNamespace, params.boName, lineData.id);
     };
 
     $scope.onPagingChanged = function(pageIndex) {
-      BoService.query(boNamespace, boName, pageIndex, queryExprText)
+      BoService.query(params.boNamespace, params.boName, pageIndex, params.queryExprText)
         .then(function(pageData) {
           $scope.pageData = pageData;
         });
@@ -56,8 +78,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
 
     $scope.onCreate = function() {
       $state.go("boCreate", {
-        boName: boName,
-        boNamespace: boNamespace
+        boName: params.boName,
+        boNamespace: params.boNamespace
       });
     };
 

@@ -1,8 +1,7 @@
 <div class="bo-home-view">
   <div class="box">
     <div class="box-header with-border">
-      <button type="submit" class="btn btn-default pull-right" ng-click="onEditButtonClicked()">编辑</button>
-      <button type="submit" class="btn btn-default pull-right" ng-click="onDeleteButtonClicked()">删除</button>
+      <button type="submit" class="btn btn-default pull-right" ng-repeat="button in buttons" ng-if="button.visibility !== false" ng-click="onButtonClicked(button.name,button)" ng-bind="button.text"></button>
     </div>
   </div>
   <div widget-bo-home bo-metadata="boMetadata" bo-data="boData"></div>

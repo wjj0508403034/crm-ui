@@ -15,9 +15,36 @@
   margin-top: 2px;
 }
 
-.bo-creation-form .section-title, .bo-home-form .section-title {
+.bo-creation-form .section-title,
+.bo-home-form .section-title {
   border-bottom: 1px dashed #cecbcb;
   line-height: 30px;
   margin-bottom: 30px;
   color: #676767;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.form-group label {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+input[placeholder],
+[placeholder],
+*[placeholder] {
+  color: #676767 !important;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.datepicker.dropdown-menu th,
+.datepicker.dropdown-menu td {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.bo-creation-form .box-footer .btn {
+  margin-left: 15px;
+  min-width: 60px;
 }

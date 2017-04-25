@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoListView', ['Dialog',function (Dialog) {
+huoyunWidget.directive('widgetBoListView', ['Dialog', function(Dialog) {
   return {
     restrict: 'A',
     scope: {
@@ -8,12 +8,13 @@ huoyunWidget.directive('widgetBoListView', ['Dialog',function (Dialog) {
       pageData: "=",
       onRowClicked: "&",
       onPagingChanged: "&",
-      onCreate: "&"
+      onCreate: "&",
+      disableCreate: "="
     },
     templateUrl: 'framework/bo.listview.html',
-    link: function ($scope, ele, attrs) {
+    link: function($scope, ele, attrs) {
 
-      $scope.clickRow = function (lineData, index) {
+      $scope.clickRow = function(lineData, index) {
         console.log(`Click table line ${index}`);
         $scope.onRowClicked({
           lineData: lineData,
@@ -21,29 +22,29 @@ huoyunWidget.directive('widgetBoListView', ['Dialog',function (Dialog) {
         });
       };
 
-      $scope.onPagingChangedHandler = function (pageIndex) {
+      $scope.onPagingChangedHandler = function(pageIndex) {
         console.log(`Paging button [${pageIndex}] clicked.`);
         $scope.onPagingChanged({
           pageIndex: pageIndex
         });
       };
 
-      $scope.onCreateButtonClicked = function () {
+      $scope.onCreateButtonClicked = function() {
         $scope.onCreate();
       };
 
-      $scope.onSortHandler=function(){
+      $scope.onSortHandler = function() {
         var options = {
           title: `${$scope.boMetadata.label}排序`,
-          templateUrl:"framework/sortListView.html",
+          templateUrl: "framework/sortListView.html",
           appendClassName: "sort-list-view-dialog",
           params: {
             properties: $scope.boMetadata.listview.properties,
-            pageData:$scope.pageData.content
+            pageData: $scope.pageData.content
           },
           closeCallback: function(key, data) {
             if (key === "OK") {
-             $scope.pageData.content = data;
+              $scope.pageData.content = data;
             }
 
           }

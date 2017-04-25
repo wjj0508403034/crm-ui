@@ -2,6 +2,7 @@
 
 huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", "BoService",
   function($q, $http, BaseService, StateHelper, BoService) {
+    var cachedMenu = null;
 
     function getMenuItems(menuMap) {
       var menus = [];
@@ -14,7 +15,14 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
       return menus;
     }
 
-    var cachedMenu = null;
+    function addTrashMenuForCustomer(customerManagement) {
+      const stateName = "trash.list";
+      customerManagement.items.push({
+        icon: "fa-file-o",
+        label: "回收站",
+        stateLink: stateName
+      });
+    }
 
     return {
       reloadMenus: function() {
@@ -40,7 +48,7 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
             items: [{
               icon: "fa-file-o",
               label: "我的客户",
-              stateLink: StateHelper.getBoListState('com.huoyun.sbo', 'Customer')
+              stateLink: "myCustomer"
             }]
           },
           "projectManagement": {
@@ -89,20 +97,28 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
         };
 
 
-
         return BoService.query("com.huoyun.sbo", "CustomerStatus")
           .then(function(data) {
             data.content.forEach(function(customerStatus, index) {
+              var stateName = customerStatus.name;
+              StateHelper.registerBoListState(stateName, {
+                boNamespace: "com.huoyun.sbo",
+                boName: "Customer",
+                title: customerStatus.name,
+                queryExpr: `status%20eq%20${customerStatus.id}%20and%20deleted%20eq%20false`
+              });
               menuMap["customerManagement"].items.push({
                 icon: "fa-file-o",
                 label: customerStatus.name,
-                stateLink: StateHelper.getBoListState('com.huoyun.sbo', 'Customer', `status%20eq%20${customerStatus.id}`)
+                stateLink: `${stateName}.list`
               });
             });
 
+            addTrashMenuForCustomer(menuMap["customerManagement"]);
             cachedMenu = getMenuItems(menuMap);
             return Promise.resolve(cachedMenu);
           }).catch(function(err) {
+            addTrashMenuForCustomer(menuMap["customerManagement"]);
             return Promise.resolve(getMenuItems(menuMap));
           });
       }

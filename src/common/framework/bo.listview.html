@@ -5,7 +5,7 @@
     <div class="box-tools">
       <div class="input-group input-group-sm">
         <button class="btn btn-default" ng-click="onSortHandler()" ng-bind="'排序'"></button>
-        <button class="btn btn-default pull-right" ng-click="onCreateButtonClicked()" ng-bind="'创建' + boMetadata.label"></button>
+        <button class="btn btn-default pull-right" ng-if="!disableCreate" ng-click="onCreateButtonClicked()" ng-bind="'创建' + boMetadata.label"></button>
       </div>
     </div>
   </div>
