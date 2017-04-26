@@ -4,7 +4,7 @@
       <tbody>
         <tr>
           <th ng-repeat="prop in ngDialogData.params.properties" property-name="{{prop.name}}" ng-bind="prop.label"></th>
-          <th>排序</th>
+          <th class="sort-title">排序</th>
         </tr>
         <tr ng-repeat="lineData in pageData" ng-click="clickRow(lineData,$index)">
           <td ng-repeat="prop in ngDialogData.params.properties" ng-switch="prop.type">
@@ -13,9 +13,9 @@
             <span ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></span>
             <span ng-bind="lineData[prop.name]" ng-switch-default></span>
           </td>
-          <td>
-            <i class="fa fa-arrow-up" ng-click="onMoveRow('up',$index)"></i>
-            <i class="fa fa-arrow-down" ng-click="onMoveRow('down',$index)"></i>
+          <td class="sort-icons">
+            <i class="fa fa-arrow-up sort-icon" ng-click="onMoveRow('up',$index)"></i>
+            <i class="fa fa-arrow-down sort-icon" ng-click="onMoveRow('down',$index)"></i>
             </td>
         </tr>
       </tbody>

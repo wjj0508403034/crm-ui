@@ -4,3 +4,17 @@
 .sort-list-view-dialog .ngdialog-content{
   width: 750px;
 }
+.sort-list-view-dialog .ngdialog-content .sort-title{
+  text-align: center;
+}
+.sort-list-view-dialog .ngdialog-content .sort-icons{
+  text-align: center;
+}
+.sort-list-view-dialog .ngdialog-content .sort-icons > i{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.sort-list-view-dialog .ngdialog-content .sort-icons > i:hover{
+  cursor: pointer;
+  color: #1caace;
+}
