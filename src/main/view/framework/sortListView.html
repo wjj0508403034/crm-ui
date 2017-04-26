@@ -3,11 +3,11 @@
     <table class="table table-hover">
       <tbody>
         <tr>
-          <th ng-repeat="prop in ngDialogData.params.properties" property-name="{{prop.name}}" ng-bind="prop.label"></th>
+          <th ng-repeat="prop in ngDialogData.params.boMetadata.listview.properties" property-name="{{prop.name}}" ng-bind="prop.label"></th>
           <th class="sort-title">排序</th>
         </tr>
         <tr ng-repeat="lineData in pageData" ng-click="clickRow(lineData,$index)">
-          <td ng-repeat="prop in ngDialogData.params.properties" ng-switch="prop.type">
+          <td ng-repeat="prop in ngDialogData.params.boMetadata.listview.properties" ng-switch="prop.type">
             <span ng-bind="lineData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></span>
             <span ng-bind="lineData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></span>
             <span ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></span>
@@ -16,7 +16,7 @@
           <td class="sort-icons">
             <i class="fa fa-arrow-up sort-icon" ng-click="onMoveRow('up',$index)"></i>
             <i class="fa fa-arrow-down sort-icon" ng-click="onMoveRow('down',$index)"></i>
-            </td>
+          </td>
         </tr>
       </tbody>
     </table>

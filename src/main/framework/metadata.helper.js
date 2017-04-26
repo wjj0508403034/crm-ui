@@ -37,6 +37,9 @@ huoyun.factory("MetadataHelper", [function() {
       });
 
       result.listview = {
+        orderBy: boMeta.listview.orderby || "id",
+        enableSort: boMeta.listview.enableSort,
+        sortProperty: boMeta.listview.sortProperty,
         properties: []
       };
 

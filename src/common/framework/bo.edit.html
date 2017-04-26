@@ -10,7 +10,7 @@
         <i class="fa fa-newspaper-o"></i>
         <span ng-bind="section.label"></span>
       </h4>
-      <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}">
+      <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}" ng-if="prop.type !== 'Image'">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
         <div ng-if="!prop.readonly" ng-switch="prop.type">
 
@@ -29,7 +29,7 @@
 
           <select class="form-control" ng-model="boData[prop.name]" ng-switch-when="ValidValues" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues"></select>
 
-          <input ng-model="boData[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+          <input ng-model="boData[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
 
           <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>
         </div>

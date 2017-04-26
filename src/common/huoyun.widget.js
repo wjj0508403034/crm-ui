@@ -46,3 +46,12 @@ huoyunWidget.filter("UploadURL", function() {
     return input;
   };
 });
+
+huoyunWidget.filter("TableDataFooter", function() {
+  return function(input) {
+    if (input) {
+      return `第${input.number}页／共${input.totalPages}页 共${input.totalElements}条数据`;
+    }
+    return input;
+  };
+});

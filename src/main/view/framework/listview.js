@@ -39,6 +39,12 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
         setTitleAndNav(boMeta);
+        return Promise.resolve(boMeta);
+      })
+      .then(function(boMeta) {
+        return BoService.query(params.boNamespace, params.boName, null, params.queryExprText, boMeta.listview.orderBy)
+      }).then(function(pageData) {
+        $scope.pageData = pageData;
       });
 
     function setTitleAndNav(boMeta) {
@@ -52,14 +58,9 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       }]);
     }
 
-    BoService.query(params.boNamespace, params.boName, null, params.queryExprText)
-      .then(function(pageData) {
-        $scope.pageData = pageData;
-      });
-
     $scope.onSearch = function(queryExpr) {
       params.queryExprText = queryExpr;
-      BoService.query(boNamespace, boName, null, queryExpr)
+      BoService.query(boNamespace, boName, null, queryExpr, $scope.boMetadata.listview.orderBy)
         .then(function(pageData) {
           $scope.pageData = pageData;
         });

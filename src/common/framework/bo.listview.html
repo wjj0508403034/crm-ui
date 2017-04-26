@@ -4,7 +4,7 @@
 
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button class="btn btn-default" ng-click="onSortHandler()" ng-bind="'排序'"></button>
+        <button class="btn btn-default" ng-if="boMetadata.listview.enableSort" ng-click="onSortHandler()" ng-bind="'排序'"></button>
         <button class="btn btn-default pull-right" ng-if="!disableCreate" ng-click="onCreateButtonClicked()" ng-bind="'创建' + boMetadata.label"></button>
       </div>
     </div>
@@ -30,6 +30,7 @@
   <!-- /.box-body -->
 
   <div class="box-footer clearfix">
+    <div class="pull-left table-footer-total" ng-bind="pageData | TableDataFooter"></div>
     <div widget-pagination ng-show="pageData.totalPages" page-data="pageData" on-paging-changed="onPagingChangedHandler(pageIndex)"></div>
   </div>
 </div>

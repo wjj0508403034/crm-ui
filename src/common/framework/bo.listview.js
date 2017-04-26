@@ -39,8 +39,8 @@ huoyunWidget.directive('widgetBoListView', ['Dialog', function(Dialog) {
           templateUrl: "framework/sortListView.html",
           appendClassName: "sort-list-view-dialog",
           params: {
-            properties: $scope.boMetadata.listview.properties,
-            pageData: $scope.pageData.content
+            pageData: angular.copy($scope.pageData.content),
+            boMetadata: $scope.boMetadata
           },
           closeCallback: function(key, data) {
             if (key === "OK") {

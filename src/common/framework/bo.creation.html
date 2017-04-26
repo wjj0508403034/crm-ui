@@ -10,10 +10,8 @@
         <i class="fa fa-newspaper-o"></i>
         <span ng-bind="section.label"></span>
       </h4>
-      <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}" ng-switch="prop.type" ng-if="!prop.readonly">
+      <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}" ng-switch="prop.type" ng-if="!prop.readonly && prop.type !== 'Image'">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
-
-
         <div widget-date-picker ng-model="data[prop.name]" ng-switch-when="Date"></div>
         <div widget-date-picker ng-model="data[prop.name]" ng-switch-when="DateTime"></div>
 
@@ -30,7 +28,7 @@
         </select>
 
         <div widget-bo-label prop="prop" ng-model="data[prop.name]" ng-switch-when="BoLabel" id="{{prop.name}}"></div>
-        <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+        <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
 
         <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']">
         </span>

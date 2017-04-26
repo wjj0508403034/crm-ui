@@ -22,7 +22,7 @@
     <div class="advance-search-box-content" ng-if="advanceSearch">
       <div class="form-group col-md-6 bo-property-form-group" ng-if="prop.searchable" ng-repeat="prop in boMetadata.propMap" ng-switch="prop.type">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
-        <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}" placeholder="Enter email">
+        <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
         <div widget-search-bo-label ng-switch-when="BoLabel" prop="prop" ng-model="searchData[prop.name]"></div>
         <div widget-search-date-time-label ng-switch-when="DateTime" prop="prop" ng-model="searchData[prop.name]"></div>
         <div widget-search-date-time-label ng-switch-when="Date" prop="prop" ng-model="searchData[prop.name]"></div>

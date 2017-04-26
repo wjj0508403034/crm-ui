@@ -8,29 +8,55 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
     }]);
 
     $scope.tiles = [{
-      icon: "on-person-add",
-      text: "公司本月到店客户",
-      stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
-      number: "--"
-    }, {
-      icon: "on-person-add",
-      text: "公司本月到店客户",
-      stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
-      number: "--"
-    }, {
-      icon: "on-person-add",
-      text: "公司本月到店客户",
-      stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
-      number: "--"
-    }, {
-      icon: "on-person-add",
-      text: "公司本月到店客户",
-      stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
-      number: "--"
-    }];
+        icon: "on-person-add",
+        text: "公司本月到店客户",
+        stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
+        number: "--",
+        service: function() {
+          countCustomerInCurrentMonth.bind(this)("visitDate");
+        }
+      },
+      {
+        icon: "on-person-add",
+        text: "公司本月定金",
+        stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
+        number: "--",
+        service: function() {
+          countCustomerInCurrentMonth.bind(this)("payDepositDate");
+        }
+      },
+      {
+        icon: "on-person-add",
+        text: "公司本月合同",
+        stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
+        number: "--",
+        service: function() {
+          countCustomerInCurrentMonth.bind(this)("contractDate");
+        }
+      },
+      {
+        icon: "on-person-add",
+        text: "公司本月签单率",
+        stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
+        number: "--"
+      }
+    ];
 
     $scope.tiles.forEach(function(tile, tileIndex) {
-
+      if (typeof tile.service === "function") {
+        tile.service();
+      }
     });
+
+
+
+    function countCustomerInCurrentMonth(propertyName) {
+      var queryExpr = `payDepositDate%20between%20currentMonth()`;
+      BoService.count("com.huoyun.sbo", "Customer", queryExpr)
+        .then(function(data) {
+          this.number = data;
+          this.stateLink = `boList({boName:'Customer',boNamespace:'com.huoyun.sbo',queryExpr:'${queryExpr}'})`
+        }.bind(this))
+    }
   }
 ]);
