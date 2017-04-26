@@ -11,18 +11,29 @@
         <span ng-bind="section.label"></span>
       </h4>
 
-      <div class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" ng-repeat="prop in section.properties" property-type="{{prop.type}}" ng-switch="prop.type">
-        <label class="col-sm-2 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
-        <div class="col-sm-10">
-          <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date"></label>
-          <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></label>
-
-          <label ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></label>
-          <label ng-bind="boData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></label>
-
-          <label ng-bind="boData[prop.name]" ng-switch-default></label>
+      <div ng-repeat="prop in section.properties" ng-switch="prop.type">
+        <div class="form-group col-md-12 bo-property-form-group" ng-switch-when="Image" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
+          <label class="col-sm-1 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
+          <div class="col-sm-5">
+            <div widget-image src="{{boData['id'] | UploadURL: boMetadata: prop}}"></div>
+            <div widget-upload-button upload-url="{{boData['id'] | UploadURL: boMetadata: prop}}"></div>
+          </div>
         </div>
 
+        <div ng-if="prop.type !== 'Image'" class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
+          <label class="col-sm-2 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
+          <div class="col-sm-10">
+
+            <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date"></label>
+            <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></label>
+
+            <label ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></label>
+            <label ng-bind="boData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></label>
+
+            <label ng-bind="boData[prop.name]" ng-switch-default></label>
+          </div>
+
+        </div>
       </div>
     </div>
   </form>
