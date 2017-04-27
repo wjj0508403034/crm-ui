@@ -3,8 +3,8 @@
 huoyun.constant("ServiceContext", "");
 huoyun.constant("DebugMode", true);
 
-huoyun.config(["$httpProvider", "$logProvider", "HttpErrorHandlerProvider",
-  function($httpProvider, $logProvider, HttpErrorHandlerProvider) {
+huoyun.config(["$httpProvider", "$logProvider", "HttpErrorHandlerProvider", "ServiceContext",
+  function($httpProvider, $logProvider, HttpErrorHandlerProvider, ServiceContext) {
 
     $httpProvider.interceptors.push("HttpInterceptor");
 
@@ -19,7 +19,9 @@ huoyun.config(["$httpProvider", "$logProvider", "HttpErrorHandlerProvider",
             title: "提示",
             content: "当前会话已经过期，请重新登陆？",
             confirm: {
-              callback: function() {}
+              callback: function() {
+                window.location.href = `${ServiceContext}/saml2/sp/logout`;
+              }
             }
           });
         } else {
