@@ -17,28 +17,27 @@
       <ul class="nav navbar-nav">
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="libs/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs">Alexander Pierce</span>
+          <a class="dropdown-toggle" data-toggle="dropdown">
+            <img ng-src="{{user.id|UploadURL : boMeta :boMeta.propMap['avatar']}}" class="user-image" alt="User Image">
+            <span class="hidden-xs" ng-bind="user.userName"></span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="libs/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <img ng-src="{{user.id|UploadURL : boMeta :boMeta.propMap['avatar']}}" class="img-circle" alt="User Image">
 
               <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
+                <span ng-bind="user.userName"></span>-<span ng-bind="user.title | ValidValueLabel:boMeta.propMap['title'] "></span>
               </p>
             </li>
 
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                <a ui-sref="profile" class="btn btn-default btn-flat">我的主页</a>
               </div>
               <div class="pull-right">
-                <a href="/saml2/sp/logout" class="btn btn-default btn-flat">Sign out</a>
+                <a href="/saml2/sp/logout" class="btn btn-default btn-flat">登出</a>
               </div>
             </li>
           </ul>

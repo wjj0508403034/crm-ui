@@ -116,7 +116,32 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
       url: "/company",
       templateUrl: "framework/homeview.html",
       controller: 'BoHomeViewController'
-    });
+    })
+    .state("profile", {
+      url: "/profile",
+      templateUrl: "framework/homeview.html",
+      controller: 'BoHomeViewController',
+      data: {
+        boName: "Employee",
+        boNamespace: "com.huoyun.sbo",
+        title: "我的主页",
+        subTitle: "主页",
+        navs: [{
+          label: "主页",
+          state: "home"
+        }, {
+          label: "我的主页"
+        }],
+        loadBoDataService: function($injector) {
+          return $injector.get("EmployeeService").getProfile();
+        },
+        buttons: {
+          "delete": {
+            visibility: false
+          }
+        }
+      }
+    })
 });
 
 huoyun.provider('DynamicState', function runtimeStates($stateProvider) {

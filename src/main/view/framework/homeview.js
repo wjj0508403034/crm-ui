@@ -1,6 +1,7 @@
 'use strict';
-huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog", "BoHomeHelper", "StateHelper",
-  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, BoHomeHelper, StateHelper) {
+huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
+  "BoHomeHelper", "StateHelper", "$injector",
+  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, BoHomeHelper, StateHelper, $injector) {
     var params = {};
     initParams();
 
@@ -21,14 +22,14 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
 
     params.boId = $stateParams.boId;
 
-    if (StateHelper.getCurrentStateName() === "company") {
-      params.boName = "Company";
-      params.boNamespace = "com.huoyun.sbo";
-    } else {
-      if (!params.boName || !params.boNamespace || !params.boId) {
-        StateHelper.gotoHome();
-      }
-    }
+    // if (StateHelper.getCurrentStateName() === "company") {
+    //   params.boName = "Company";
+    //   params.boNamespace = "com.huoyun.sbo";
+    // } else {
+    //   if (!params.boName || !params.boNamespace || !params.boId) {
+    //     StateHelper.gotoHome();
+    //   }
+    // }
 
     $scope.buttons = BoHomeHelper.getButtonsConfig();
 
@@ -38,13 +39,21 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         BoHomeHelper.setTitleAndNav($scope, boMeta, $state);
       });
 
-    BoHomeHelper.loadBoData(params.boNamespace, params.boName, params.boId)
-      .then(function(boData) {
-        $scope.boData = boData;
-        if ($state.current.name === "company") {
-          boId = boData.id;
-        }
-      });
+    if ($state.current.data && typeof $state.current.data.loadBoDataService === "function") {
+      $state.current.data.loadBoDataService.apply($scope, [$injector])
+        .then(function(boData) {
+          $scope.boData = boData;
+        });
+    } else {
+      BoHomeHelper.loadBoData(params.boNamespace, params.boName, params.boId)
+        .then(function(boData) {
+          $scope.boData = boData;
+          if ($state.current.name === "company") {
+            boId = boData.id;
+          }
+        });
+    }
+
 
     $scope.onButtonClicked = function(buttonName, button) {
       if (typeof button.onButtonClicked === "function") {

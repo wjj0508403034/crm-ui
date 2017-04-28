@@ -1,11 +1,14 @@
 'use strict';
 
-huoyunWidget.directive('widgetHeader', function () {
+huoyunWidget.directive('widgetHeader', function() {
   return {
     restrict: 'A',
-    scope: {},
+    scope: {
+      user: "=",
+      boMeta: "="
+    },
     templateUrl: 'header/header.html',
-    link: function (scope, ele, attrs) {
+    link: function(scope, ele, attrs) {
       // alert()
     }
   }

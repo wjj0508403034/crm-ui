@@ -95,6 +95,19 @@ huoyun.factory("BoHomeHelper", ["$injector", "BoService", "StateHelper", "Dialog
       },
 
       setTitleAndNav: function($scope, boMeta, $state) {
+        if ($state.current.data) {
+          if (Array.isArray($state.current.data.navs)) {
+            $scope.setNavInfos($state.current.data.navs);
+          }
+
+          if ($state.current.data.title) {
+            $scope.setPageTitle($state.current.data.title, $state.current.data.subTitle);
+          }
+
+          return;
+        }
+
+
         if ($state.current.data && $state.current.data.listStateName) {
           $scope.setPageTitle(`${boMeta.label}详情`, $state.current.data.listStateLabel);
           $scope.setNavInfos([{
