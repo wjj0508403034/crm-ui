@@ -30,8 +30,61 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     //     StateHelper.gotoHome();
     //   }
     // }
+    var defaultButtonMap = {
+      "delete": {
+        text: "删除",
+        onButtonClicked: onDeleteButtonClicked
+      },
+      "edit": {
+        text: "编辑",
+        onButtonClicked: onEditButtonClicked
+      }
+    };
 
-    $scope.buttons = BoHomeHelper.getButtonsConfig();
+    if ($state.current.data && $state.current.data.buttons) {
+      Object.keys($state.current.data.buttons).forEach(function(buttonKey, index) {
+        if (defaultButtonMap[buttonKey]) {
+          angular.extend(defaultButtonMap[buttonKey], $state.current.data.buttons[buttonKey]);
+        } else {
+          defaultButtonMap[buttonKey] = $state.current.data.buttons[buttonKey];
+        }
+      });
+    }
+
+    $scope.buttons = [];
+
+    Object.keys(defaultButtonMap).forEach(function(key, index) {
+      defaultButtonMap[key].name = key;
+      $scope.buttons.push(defaultButtonMap[key]);
+    });
+
+    function onDeleteButtonClicked(button) {
+      var options = {
+        title: "提示",
+        content: "确定要删除本条信息吗? 一旦删除，数据将不可恢复？",
+        confirm: {
+          callback: function() {
+            BoService.deleteBo(params.boNamespace, params.boName, params.boId)
+              .then(function() {
+                if (typeof button.onDeleteCallback === "function") {
+                  button.onDeleteCallback.apply($scope, [button, $injector]);
+                } else {
+                  StateHelper.gotoBoList(params.boNamespace, params.boName);
+                }
+
+              });
+          }
+        }
+      };
+      var dialog = Dialog.showConfirm(options);
+    }
+
+    function onEditButtonClicked(button) {
+      StateHelper.gotoBoEdit(params.boNamespace, params.boName, params.boId);
+    }
+
+
+    //$scope.buttons = BoHomeHelper.getButtonsConfig();
 
     MetadataService.getMetadata(params.boNamespace, params.boName)
       .then(function(boMeta) {
@@ -57,7 +110,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
 
     $scope.onButtonClicked = function(buttonName, button) {
       if (typeof button.onButtonClicked === "function") {
-        button.onButtonClicked.apply(this, [params.boNamespace, params.boName, params.boId]);
+        button.onButtonClicked.apply($scope, [button, $injector]);
       }
     };
   }

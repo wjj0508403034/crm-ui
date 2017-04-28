@@ -58,45 +58,17 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "framework/listview.html",
       controller: 'BoListViewController'
     })
-    .state("myCustomer", {
-      url: "/myCustomer",
-      templateUrl: "framework/listview.html",
-      controller: 'BoListViewController',
-      data: {
-        boNamespace: "com.huoyun.sbo",
-        boName: "Customer",
-        title: "我的客户",
-        queryExpr: "deleted eq false"
-      }
-    })
-    .state("trash", {
-      abstract: true,
-      url: "/trash",
-      templateUrl: "framework/general.html",
-      data: {
-        boNamespace: "com.huoyun.sbo",
-        boName: "Customer"
-      }
-    })
-    .state("trash.list", {
-      url: "/list",
-      templateUrl: "framework/listview.html",
-      controller: 'BoListViewController',
-      data: {
-        title: "回收站",
-        queryExpr: "deleted eq true",
-        detailStateName: "trash.detail"
-      }
-    })
-    .state("trash.detail", {
-      url: "/list/:boId",
-      templateUrl: "framework/homeview.html",
-      controller: 'BoHomeViewController',
-      data: {
-        listStateName: "trash.list",
-        listStateLabel: "回收站"
-      }
-    })
+    // .state("myCustomer", {
+    //   url: "/myCustomer",
+    //   templateUrl: "framework/listview.html",
+    //   controller: 'BoListViewController',
+    //   data: {
+    //     boNamespace: "com.huoyun.sbo",
+    //     boName: "Customer",
+    //     title: "我的客户",
+    //     queryExpr: "deleted eq false"
+    //   }
+    // })
     .state("boCreate", {
       url: "/create(:boNamespace,:boName)",
       templateUrl: "framework/ceationview.html",
@@ -111,37 +83,8 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
       url: "/home(:boNamespace,:boName)/:boId",
       templateUrl: "framework/homeview.html",
       controller: 'BoHomeViewController'
-    })
-    .state("company", {
-      url: "/company",
-      templateUrl: "framework/homeview.html",
-      controller: 'BoHomeViewController'
-    })
-    .state("profile", {
-      url: "/profile",
-      templateUrl: "framework/homeview.html",
-      controller: 'BoHomeViewController',
-      data: {
-        boName: "Employee",
-        boNamespace: "com.huoyun.sbo",
-        title: "我的主页",
-        subTitle: "主页",
-        navs: [{
-          label: "主页",
-          state: "home"
-        }, {
-          label: "我的主页"
-        }],
-        loadBoDataService: function($injector) {
-          return $injector.get("EmployeeService").getProfile();
-        },
-        buttons: {
-          "delete": {
-            visibility: false
-          }
-        }
-      }
-    })
+    });
+
 });
 
 huoyun.provider('DynamicState', function runtimeStates($stateProvider) {

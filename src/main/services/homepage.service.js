@@ -48,7 +48,7 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
             items: [{
               icon: "fa-file-o",
               label: "我的客户",
-              stateLink: "myCustomer"
+              stateLink: "myCustomer.list"
             }]
           },
           "projectManagement": {
@@ -66,7 +66,7 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
             items: [{
               icon: "fa-file-o",
               label: "公司信息",
-              stateLink: "company"
+              stateLink: "company.show"
             }, {
               icon: "fa-file-o",
               label: "部门列表",
