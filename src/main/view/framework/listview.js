@@ -32,6 +32,10 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         $scope.disableCreate = true;
       }
 
+      if ($state.current.data.disableSearch === true) {
+        $scope.disableSearch = true;
+      }
+
       if (typeof $state.current.data.onCreate === "function") {
         onCreate = $state.current.data.onCreate;
       }

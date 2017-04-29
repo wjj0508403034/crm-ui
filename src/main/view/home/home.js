@@ -10,7 +10,7 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
     $scope.tiles = [{
         icon: "on-person-add",
         text: "公司本月到店客户",
-        stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
+        stateLink: "customerReport.visit",
         number: "--",
         service: function() {
           countCustomerInCurrentMonth.bind(this)("visitDate");
@@ -19,7 +19,7 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
       {
         icon: "on-person-add",
         text: "公司本月定金",
-        stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
+        stateLink: "customerReport.payDeposit",
         number: "--",
         service: function() {
           countCustomerInCurrentMonth.bind(this)("payDepositDate");
@@ -28,7 +28,7 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
       {
         icon: "on-person-add",
         text: "公司本月合同",
-        stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
+        stateLink: "customerReport.contract",
         number: "--",
         service: function() {
           countCustomerInCurrentMonth.bind(this)("contractDate");
@@ -55,7 +55,7 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
       BoService.count("com.huoyun.sbo", "Customer", queryExpr)
         .then(function(data) {
           this.number = data;
-          this.stateLink = `boList({boName:'Customer',boNamespace:'com.huoyun.sbo',queryExpr:'${queryExpr}'})`
+          //this.stateLink = `boList({boName:'Customer',boNamespace:'com.huoyun.sbo',queryExpr:'${queryExpr}'})`
         }.bind(this))
     }
   }
