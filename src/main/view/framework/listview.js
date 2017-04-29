@@ -43,44 +43,9 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
 
     if (!boName || !boNamespace) {
       Dialog.showError("参数错误");
-      $state.go("home");
+      StateHelper.getHome();
       return;
     }
-
-
-    var params = {};
-
-    //initParams();
-
-    // function initParams() {
-    //   if ($state.current.data) {
-    //     params.boName = $state.current.data.boName;
-    //     params.boNamespace = $state.current.data.boNamespace;
-    //     params.queryExprText = $state.current.data.queryExpr || "";
-    //     params.pageTitle = $state.current.data.title;
-    //     params.detailStateName = $state.current.data.detailStateName;
-    //   }
-
-    //   if (!params.boNamespace) {
-    //     params.boNamespace = $stateParams.boNamespace;
-    //   }
-
-    //   if (!params.boName) {
-    //     params.boName = $stateParams.boName;
-    //   }
-    // }
-
-    var that = this;
-
-    // if (!params.boName || !params.boNamespace) {
-    //   $state.go("home");
-    // }
-
-
-    // if (params.boNamespace === "com.huoyun.sbo" && params.boName === "Customer" &&
-    //   StateHelper.getCurrentStateName() !== "myCustomer") {
-    //   $scope.disableCreate = true;
-    // }
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
@@ -106,17 +71,6 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         $scope.pageData = pageData;
       });
 
-    // function setTitleAndNav(boMeta) {
-    //   var title = params.pageTitle || `${boMeta.label}列表`;
-    //   $scope.setPageTitle(title);
-    //   $scope.setNavInfos([{
-    //     label: "主页",
-    //     state: "home"
-    //   }, {
-    //     label: title
-    //   }]);
-    // }
-
     $scope.onSearch = function(queryExpr) {
       params.queryExprText = queryExpr;
       BoService.query(boNamespace, boName, null, queryExpr, $scope.boMetadata.listview.orderBy)
@@ -126,7 +80,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     };
 
     $scope.onRowClicked = function(lineData, index) {
-      if ($state.current.data.onRowClicked) {
+      if (onRowClicked) {
         $state.current.data.onRowClicked.apply($scope, [$injector, lineData, index]);
       } else {
         StateHelper.gotoBoDetail(boNamespace, boName, lineData.id);
@@ -144,10 +98,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       if (onCreate) {
         onCreate.apply($scope, [$injector]);
       } else {
-        $state.go("boCreate", {
-          boName: params.boName,
-          boNamespace: params.boNamespace
-        });
+        StateHelper.gotoBoCreate(boNamespace, boName);
       }
     };
 

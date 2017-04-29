@@ -58,17 +58,6 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "framework/listview.html",
       controller: 'BoListViewController'
     })
-    // .state("myCustomer", {
-    //   url: "/myCustomer",
-    //   templateUrl: "framework/listview.html",
-    //   controller: 'BoListViewController',
-    //   data: {
-    //     boNamespace: "com.huoyun.sbo",
-    //     boName: "Customer",
-    //     title: "我的客户",
-    //     queryExpr: "deleted eq false"
-    //   }
-    // })
     .state("boCreate", {
       url: "/create(:boNamespace,:boName)",
       templateUrl: "framework/ceationview.html",
@@ -172,6 +161,13 @@ huoyun.factory("StateHelper", ["$state", "DynamicState",
       gotoBoEdit: function(boNamespace, boName, boId) {
         $state.go("boEdit", {
           boId: boId,
+          boName: boName,
+          boNamespace: boNamespace
+        });
+      },
+
+      gotoBoCreate: function(boNamespace, boName) {
+        $state.go("boCreate", {
           boName: boName,
           boNamespace: boNamespace
         });
