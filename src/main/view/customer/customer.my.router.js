@@ -94,13 +94,11 @@ huoyun.config(function($stateProvider) {
         }, {
           label: "客户详情"
         }],
-        buttons: {
-          onSaveCallback: function($injector) {
-            $injector.get("$state").go("myCustomer.list");
-          },
-          onCancelCallback: function($injector) {
-            $injector.get("$state").go("myCustomer.list");
-          }
+        onSaveCallback: function($injector) {
+          $injector.get("$state").go("myCustomer.list");
+        },
+        onCancelCallback: function($injector) {
+          $injector.get("$state").go("myCustomer.list");
         }
       }
     });

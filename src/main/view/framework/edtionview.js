@@ -1,6 +1,6 @@
 'use strict';
-huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog", "$injector",
-  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, $injector) {
+huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog", "$injector", "StateHelper",
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, $injector, StateHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
@@ -86,13 +86,9 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
       boSaveService.then(function() {
         console.log("Save Successfully");
         if (onSaveCallback) {
-          onSaveCallback.apply($scope, [$injector]);
+          onSaveCallback.apply($scope, [$injector, boNamespace, boName, boId]);
         } else {
-          $state.go("boHome", {
-            boName: boName,
-            boNamespace: boNamespace,
-            boId: boId
-          });
+          StateHelper.gotoBoDetail(boNamespace, boName, boId);
         }
       });
     };
@@ -104,13 +100,9 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
         confirm: {
           callback: function() {
             if (onCancelCallback) {
-              onCancelCallback.apply($scope, [$injector]);
+              onCancelCallback.apply($scope, [$injector, boNamespace, boName, boId]);
             } else {
-              $state.go("boHome", {
-                boName: boName,
-                boNamespace: boNamespace,
-                boId: boId
-              });
+              StateHelper.gotoBoDetail(boNamespace, boName, boId);
             }
 
           }

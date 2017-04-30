@@ -174,11 +174,6 @@ huoyun.factory("StateHelper", ["$state", "DynamicState",
       },
 
       gotoBoDetail: function(boNamespace, boName, boId) {
-        if ($state.current.data && $state.current.data.detailStateName) {
-          $state.go($state.current.data.detailStateName, { boId: boId });
-          return;
-        }
-
         $state.go("boHome", {
           boId: boId,
           boName: boName,
