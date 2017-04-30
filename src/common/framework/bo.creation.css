@@ -1,16 +1,16 @@
-.bo-creation-form .bo-property-form-group[mandatory="true"] label::before {
+form .form-group[mandatory="true"] label::before {
   content: " * ";
   color: red;
 }
 
-.bo-creation-form .bo-property-form-group[has-error="true"] .form-control {
+form .form-group[has-error="true"] .form-control {
   border-color: #dd4b39;
   box-shadow: none;
 }
 
-.bo-creation-form .bo-property-form-group[has-error="true"] .help-block {
+form .form-group[has-error="true"] .help-block {
   color: #dd4b39;
-  font-size: 6px;
+  font-size: 10px;
   margin-bottom: 0px;
   margin-top: 2px;
 }

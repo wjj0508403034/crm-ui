@@ -35,6 +35,17 @@ huoyun.config(function($stateProvider) {
             onButtonClicked: function(button, $injector) {
               $injector.get("$state").go("profile.update");
             }
+          },
+          "changePassword": {
+            text: "修改密码",
+            onButtonClicked: function(button, $injector) {
+              var $scope = this;
+              var options = {
+                title: "修改密码",
+                templateUrl: "profile/change.password.html"
+              };
+              var dialog = $injector.get("Dialog").showConfirm(options);
+            }
           }
         }
       }

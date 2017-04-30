@@ -1,4 +1,4 @@
 .bo-home-view>.box>.box-header>.btn {
   margin-left: 15px;
-  max-width: 60px;
+  min-width: 60px;
 }
