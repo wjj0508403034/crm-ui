@@ -25,7 +25,7 @@ huoyun.config(["$httpProvider", "$logProvider", "HttpErrorHandlerProvider", "Ser
             }
           });
         } else {
-          if (res.data && res.data.message) {
+          if (res.data && res.data.code) {
             Dialog.showError(res.data.message);
           } else {
             Dialog.showError("系统错误，请联系管理员。");

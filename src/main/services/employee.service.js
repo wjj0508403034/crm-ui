@@ -10,7 +10,12 @@ huoyun.factory("EmployeeService", ["$http", "BaseService", "ServiceContext",
       },
 
       changePassword: function(oldPassword, newPassword, repeatNewPassword) {
-        return Promise.resolve();
+        var url = `${ServiceContext}/changePassword`;
+        return BaseService.getResponse($http.post(url, {
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          repeatNewPassword: repeatNewPassword
+        }));
       }
     };
   }
