@@ -1,6 +1,6 @@
 'use strict';
-huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "StateHelper", "$injector",
-  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper, $injector) {
+huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "StateHelper", "$injector", "$timeout",
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper, $injector, $timeout) {
     var navs = null;
     var title = null;
     var subTitle = null;
@@ -72,7 +72,9 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
 
         return BoService.query(boNamespace, boName, null, queryExprText, boMeta.listview.orderBy)
       }).then(function(pageData) {
-        $scope.pageData = pageData;
+        $timeout(function() {
+          $scope.pageData = pageData;
+        });
       });
 
     $scope.onSearch = function(queryExpr) {
