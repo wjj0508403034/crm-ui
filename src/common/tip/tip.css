@@ -1,0 +1,15 @@
+.widget-tip.alert.alert-success {
+  background: transparent;
+  border: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  word-wrap: break-word;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.widget-tip.alert.alert-success .tip-icon {
+  margin-right: 10px;
+}

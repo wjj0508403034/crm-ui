@@ -19,6 +19,10 @@ huoyunWidget.directive('widgetDatePicker', function() {
           $scope.$apply();
         });
       }
+
+      $scope.onClickDate = function() {
+        $input.focus();
+      };
     }
   }
 });
