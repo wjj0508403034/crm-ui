@@ -13,7 +13,7 @@
 
   <div class="box-body">
     <div class="input-group" ng-if="!advanceSearch">
-      <input type="text" ng-model="$parent.simpleSearchText" name="message" placeholder="{{'搜索' + boMetadata.label}}" class="form-control">
+      <input type="text" ng-model="$parent.simpleSearchText" name="message" placeholder="{{simpleSearchPlaceHolder}}" class="form-control">
       <span class="input-group-btn">
         <button type="submit" class="btn btn-success btn-flat" ng-click="onSearchButtonClicked()">搜索</button>
       </span>
@@ -22,11 +22,17 @@
     <div class="advance-search-box-content" ng-if="advanceSearch">
       <div class="form-group col-md-6 bo-property-form-group" ng-if="prop.searchable" ng-repeat="prop in boMetadata.propMap" ng-switch="prop.type">
         <label for="{{prop.name}}" ng-bind="prop.label"></label>
-        <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
+
         <div widget-search-bo-label ng-switch-when="BoLabel" prop="prop" ng-model="searchData[prop.name]"></div>
         <div widget-search-date-time-label ng-switch-when="DateTime" prop="prop" ng-model="searchData[prop.name]"></div>
         <div widget-search-date-time-label ng-switch-when="Date" prop="prop" ng-model="searchData[prop.name]"></div>
         <div widget-search-valid-values-label ng-switch-when="ValidValues" prop="prop" ng-model="searchData[prop.name]"></div>
+
+        <div widget-search-string-label ng-model="searchData[prop.name]" prop="prop" ng-switch-when="String"></div>
+
+        <div widget-search-number-label ng-model="searchData[prop.name]" prop="prop" ng-switch-when="Price"></div>
+
+        <input ng-model="searchData[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
       </div>
 
 

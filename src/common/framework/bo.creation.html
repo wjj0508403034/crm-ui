@@ -28,6 +28,11 @@
         </select>
 
         <div widget-bo-label prop="prop" ng-model="data[prop.name]" ng-switch-when="BoLabel" id="{{prop.name}}"></div>
+
+        <div class="input-group" ng-switch-when="Price" id="{{prop.name}}">
+          <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+          <input type="number" ng-model="data[prop.name]" class="form-control">
+        </div>
         <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
 
         <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']">

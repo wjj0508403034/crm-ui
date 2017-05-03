@@ -55,3 +55,23 @@ huoyunWidget.filter("TableDataFooter", function() {
     return input;
   };
 });
+
+huoyunWidget.filter("ConditionLabel", ["GeneralCondition",
+  function(GeneralCondition) {
+
+    return function(input) {
+      if (input) {
+        if (input.rule === "between") {
+          return `[ ${input.from} , ${input.to} ]`
+        }
+        var rules = GeneralCondition.getRules();
+        for (var index = 0; index < rules.length; index++) {
+          if (rules[index].name === input.rule) {
+            return `${rules[index].label} ${input.value}`;
+          }
+        }
+
+      }
+    };
+  }
+]);

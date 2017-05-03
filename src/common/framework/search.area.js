@@ -12,16 +12,27 @@ huoyunWidget.directive('widgetSearchArea', ["SearchHelper",
         $scope.simpleSearchText = "";
         $scope.advanceSearch = false;
         $scope.searchData = {};
+        var businessKeyProp = null;
+
+        $scope.$watch("boMetadata", function(newValue, oldValue, scope) {
+          if (newValue) {
+            businessKeyProp = $scope.boMetadata.propMap[$scope.boMetadata.businessKey];
+            $scope.simpleSearchPlaceHolder = `搜索${$scope.boMetadata.label} (${businessKeyProp.label})`;
+          }
+        });
+
         $scope.onOpenAdvanceButtonClicked = function(isAdvance) {
           $scope.advanceSearch = isAdvance;
         };
 
         $scope.onSearchButtonClicked = function() {
-          var propName = $scope.boMetadata.businessKey;
-          var simpleSearchText = $scope.simpleSearchText;
-          $scope.onSearch({
-            "query": `${propName} like '${simpleSearchText}'`
-          });
+          if (businessKeyProp) {
+            $scope.onSearch({
+              "query": SearchHelper.getGeneralSearchExpr(businessKeyProp, $scope.simpleSearchText)
+            });
+          } else {
+            console.log("Cannot search, beacuse no set business key.");
+          }
         };
 
         $scope.onAdvanceSearchButtonClicked = function() {

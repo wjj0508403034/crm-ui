@@ -78,7 +78,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       });
 
     $scope.onSearch = function(queryExpr) {
-      params.queryExprText = queryExpr;
+      queryExprText = queryExpr;
       BoService.query(boNamespace, boName, null, queryExpr, $scope.boMetadata.listview.orderBy)
         .then(function(pageData) {
           $scope.pageData = pageData;
