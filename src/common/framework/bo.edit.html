@@ -29,6 +29,8 @@
 
           <select class="form-control" ng-model="boData[prop.name]" ng-switch-when="ValidValues" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues"></select>
 
+          <textarea class="form-control" rows="4" ng-model="boData[prop.name]" ng-switch-when="Text" id="{{prop.name}}"></textarea>
+
           <input ng-model="boData[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
 
           <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>

@@ -33,6 +33,9 @@
           <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
           <input type="number" ng-model="data[prop.name]" class="form-control">
         </div>
+
+        <textarea class="form-control" rows="4" ng-model="data[prop.name]" ng-switch-when="Text" id="{{prop.name}}"></textarea>
+
         <input ng-model="data[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
 
         <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']">

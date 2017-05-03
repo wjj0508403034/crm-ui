@@ -6,12 +6,12 @@
   position: relative;
 }
 
-.widget-check-box .icheckbox_flat-green > input {
+.widget-check-box .icheckbox_flat-green>input {
   position: absolute;
   opacity: 0;
 }
 
-.widget-check-box .icheckbox_flat-green > ins {
+.widget-check-box .icheckbox_flat-green>ins {
   position: absolute;
   top: 0%;
   left: 0%;
@@ -23,4 +23,9 @@
   background: rgb(255, 255, 255);
   border: 0px;
   opacity: 0;
+}
+
+.widget-check-box label {
+  font-weight: normal;
+  font-size: 14px;
 }
