@@ -7,14 +7,20 @@ huoyunWidget.controller('BoChooseFromDatePicker', ['$scope',
       name: "today",
       label: "今天"
     }, {
-      name: "yestoday",
+      name: "yesterday",
       label: "昨天"
     }, {
-      name: "month",
-      label: "这个月"
+      name: "last_7_days",
+      label: "过去7天内"
     }, {
-      name: "year",
-      label: "今年"
+      name: "last_30_days",
+      label: "过去30天内"
+    }, {
+      name: "this_month",
+      label: "这个月内"
+    }, {
+      name: "last_month",
+      label: "上个月"
     }, {
       name: "custom",
       label: "自定义时间段",
@@ -31,11 +37,12 @@ huoyunWidget.controller('BoChooseFromDatePicker', ['$scope',
     };
 
     $scope.ngDialogData.onConfirmButtonClicked = function() {
-      $scope.options.forEach(function(option, index) {
-        if (option.selected) {
-          $scope.closeThisDialog(['OK', option]);
+      for (var index = 0; index < $scope.options.length; index++) {
+        if ($scope.options[index].selected) {
+          $scope.closeThisDialog(['OK', $scope.options[index]]);
+          return;
         }
-      });
+      }
     };
   }
 ]);

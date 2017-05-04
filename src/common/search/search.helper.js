@@ -83,6 +83,40 @@ huoyunWidget.factory("SearchHelper", ["GeneralCondition",
             }
           }
         }
+      },
+      getDataSearchExpr: function(prop, data) {
+
+        if (data.name === "today") {
+          return `${prop.name} eq today()`;
+        }
+
+        if (data.name === "yesterday") {
+          return `${prop.name} eq yesterday()`;
+        }
+
+        if (data.name === "yesterday") {
+          return `${prop.name} eq yesterday()`;
+        }
+
+        if (data.name === "last_7_days") {
+          return `${prop.name} ge last_7_days()`;
+        }
+
+        if (data.name === "last_30_days") {
+          return `${prop.name} ge last_30_days()`;
+        }
+
+        if (data.name === "this_month") {
+          return `${prop.name} between this_month()`;
+        }
+
+        if (data.name === "last_month") {
+          return `${prop.name} between last_month()`;
+        }
+
+        if (data.name === "custom") {
+          return `${prop.name} between (${data.startDate},${data.endDate})`;
+        }
       }
 
     };

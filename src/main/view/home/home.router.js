@@ -27,7 +27,7 @@ huoyun.config(function($stateProvider) {
         }, {
           label: "公司本月到店客户"
         }],
-        queryExpr: `visitDate between currentMonth()`
+        queryExpr: `visitDate between this_month()`
       }
     })
     .state("customerReport.payDeposit", {
@@ -42,7 +42,7 @@ huoyun.config(function($stateProvider) {
         }, {
           label: "公司本月定金"
         }],
-        queryExpr: `payDepositDate between currentMonth()`
+        queryExpr: `payDepositDate between this_month()`
       }
     })
     .state("customerReport.contract", {
@@ -57,7 +57,7 @@ huoyun.config(function($stateProvider) {
         }, {
           label: "公司本月合同"
         }],
-        queryExpr: `contractDate between currentMonth()`
+        queryExpr: `contractDate between this_month()`
       }
     });
 

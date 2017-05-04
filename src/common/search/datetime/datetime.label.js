@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", "$filter",
-  function(Dialog, $filter) {
+huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", "$filter", "SearchHelper",
+  function(Dialog, $filter, SearchHelper) {
     return {
       restrict: 'A',
       scope: {
@@ -25,11 +25,13 @@ huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", "$filter",
                   var startDate = formatDate(data.startDate);
                   var endDate = formatDate(data.endDate);
                   $scope.text = `${startDate} ~ ${endDate}`;
-                  $scope.value = `${$scope.prop.name} between (${data.startDate},${data.endDate})`;
+                  //$scope.value = `${$scope.prop.name} between (${data.startDate},${data.endDate})`;
                 } else {
                   $scope.text = data.label;
-                  $scope.value = `${$scope.prop.name} eq ${data.name}()`
+                  //$scope.value = `${$scope.prop.name} eq ${data.name}()`
                 }
+
+                $scope.value = SearchHelper.getDataSearchExpr($scope.prop, data);
               }
             }
           };

@@ -51,7 +51,7 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
 
 
     function countCustomerInCurrentMonth(propertyName) {
-      var queryExpr = `payDepositDate%20between%20currentMonth()`;
+      var queryExpr = `payDepositDate between this_month()`;
       BoService.count("com.huoyun.sbo", "Customer", queryExpr)
         .then(function(data) {
           this.number = data;
