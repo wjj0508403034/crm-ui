@@ -21,6 +21,7 @@
             <span ng-bind="lineData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></span>
             <span ng-bind="lineData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></span>
             <span ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></span>
+            <span ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date"></span>
             <span ng-bind="lineData[prop.name]" ng-switch-default></span>
           </td>
         </tr>

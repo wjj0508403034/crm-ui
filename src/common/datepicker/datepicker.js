@@ -13,7 +13,8 @@ huoyunWidget.directive('widgetDatePicker', function() {
       var $input = ele.find("input");
       if ($input.length > 0 && typeof $input.datepicker === "function") {
         $input.datepicker({
-          autoclose: true
+          autoclose: true,
+          language: "zh-CN"
         }).on('changeDate', function(event) {
           $scope.value = event.date.getTime();
           $scope.$apply();
