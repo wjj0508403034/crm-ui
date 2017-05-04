@@ -1,26 +1,6 @@
-.widget-radio-box .widget-radio-box-icon {
-  margin-right: 10px;
-}
-
-.widget-radio-box .iradio_flat-green {
-  position: relative;
-}
-
-.widget-radio-box .iradio_flat-green > input {
-  position: absolute;
-  opacity: 0;
-}
-
-.widget-radio-box .iradio_flat-green > ins {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  display: block;
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  background: rgb(255, 255, 255);
-  border: 0px;
-  opacity: 0;
+.widget-radio-button>.widget-radio-button-content {
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 0px;
 }

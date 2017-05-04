@@ -9,13 +9,33 @@ huoyunWidget.directive('widgetRadioBox', function() {
       onRadioboxValueChanged: '&'
     },
     link: function($scope, ele, attr) {
-      /**选择操作 */
-      $scope.onCheckBoxClicked = function($event) {
-        $event.stopPropagation();
-        //select current radio
-        $scope.value = true;
-        $scope.onRadioboxValueChanged();
+
+      var $radiobutton = ele.find("input[type='radio']");
+
+      $radiobutton.iCheck({
+        radioClass: "iradio_square-blue",
+        increaseArea: '0%'
+      });
+
+      $radiobutton.on("ifClicked", function(event) {
+        onRadioButtonValueChanged(event);
+      });
+
+      $scope.$watch("value", function(newValue, oldValue, scope) {
+        $radiobutton.iCheck(newValue === true ? "check" : "uncheck");
+      });
+
+      $scope.onRadioButtonClicked = function(event) {
+        onRadioButtonValueChanged(event);
       };
+
+      function onRadioButtonValueChanged(event) {
+        event.stopPropagation();
+        $scope.value = !$scope.value;
+        $scope.onRadioboxValueChanged({
+          checked: $scope.value
+        });
+      }
     }
   }
 });
