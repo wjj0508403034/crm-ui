@@ -12,12 +12,7 @@
       </h4>
 
       <div ng-repeat="prop in section.properties" ng-switch="prop.type">
-        <div class="form-group col-md-12 bo-property-form-group" ng-switch-when="Image" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
-          <label class="col-sm-2 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
-          <div class="col-sm-4">
-            <div widget-image src="{{boData['id'] | UploadURL: boMetadata: prop}}"></div>
-            <div widget-upload-button upload-url="{{boData['id'] | UploadURL: boMetadata: prop}}"></div>
-          </div>
+        <div widget-form-group-image ng-switch-when="Image" prop="prop" bo-metadata="boMetadata" ng-model="boData['id']">
         </div>
 
         <div ng-if="prop.type !== 'Image'" class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
