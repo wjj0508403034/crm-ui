@@ -51,6 +51,12 @@ huoyun.factory("MetadataHelper", [function() {
         }
       });
 
+      result.nodeTypes = {};
+
+      boMeta.nodeTypes.forEach(function(nodeType, nodeTypeIndex) {
+        result.nodeTypes[`${nodeType.boNamespace}@${nodeType.boName}`] = this.convertTo(nodeType);
+      }.bind(this));
+
       return result;
     }
   };

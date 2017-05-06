@@ -1,0 +1,23 @@
+.widgets-form-group-image-list .image-list-item {
+  height: 200px;
+}
+
+.widgets-form-group-image-list .image-list-item.btn-add {
+  border: 1px dashed gray;
+  text-align: center;
+  cursor: pointer;
+}
+
+.widgets-form-group-image-list .image-list-item.btn-add .icon {
+  line-height: 200px;
+}
+
+.widgets-form-group-image-list .image-list-item.btn-add .text {
+  margin-left: 10px;
+  line-height: 200px;
+}
+
+.widgets-form-group-image-list .image-list-item .widget-image {
+  height: 100%;
+  width: 100%;
+}

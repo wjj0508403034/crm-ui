@@ -47,6 +47,25 @@ huoyunWidget.filter("UploadURL", function() {
   };
 });
 
+huoyunWidget.filter("ImageList", function() {
+  return function(input, boMetadata, propMeta) {
+    if (typeof input === "number" && propMeta.additionInfo) {
+      var nodeMeta = boMetadata.nodeTypes[`${propMeta.additionInfo.boNamespace}@${propMeta.additionInfo.boName}`];
+      if (nodeMeta) {
+        var keys = Object.keys(nodeMeta.propMap);
+        for (var index = 0; index < keys.length; index++) {
+          var prop = nodeMeta.propMap[keys[index]];
+          if (prop.type === "Image") {
+            return `/upload/${nodeMeta.boNamespace}/${nodeMeta.boName}/${input}/${prop.name}`;
+          }
+        }
+      }
+    }
+
+    return input;
+  };
+});
+
 huoyunWidget.filter("TableDataFooter", function() {
   return function(input) {
     if (input) {

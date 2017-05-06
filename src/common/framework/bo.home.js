@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoHome', function () {
+huoyunWidget.directive('widgetBoHome', function() {
   return {
     restrict: 'A',
     scope: {
@@ -8,6 +8,8 @@ huoyunWidget.directive('widgetBoHome', function () {
       boData: "="
     },
     templateUrl: 'framework/bo.home.html',
-    link: function ($scope, ele, attrs) {}
+    link: function($scope, ele, attrs) {
+
+    }
   }
 });
