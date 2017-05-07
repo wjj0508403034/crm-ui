@@ -1,6 +1,17 @@
 'use strict';
 
 huoyun.config(function($stateProvider) {
+
+  function removePhotosSection(boMeta) {
+    for (var index = 0; index < boMeta.sections.length; index++) {
+      if (boMeta.sections[index].label === "作品图册") {
+        boMeta.sections.splice(index, 1);
+        break;
+      }
+    }
+    return Promise.resolve(boMeta);
+  }
+
   $stateProvider
     .state("finishwork", {
       abstract: true,
@@ -74,6 +85,9 @@ huoyun.config(function($stateProvider) {
           $injector.get("$state").go("finishwork.detail", {
             boId: boId
           });
+        },
+        loadBoMetadataCallback: function($injector, boMeta) {
+          return removePhotosSection(boMeta);
         }
       }
     })
@@ -96,6 +110,9 @@ huoyun.config(function($stateProvider) {
         },
         onCancelCallback: function($injector) {
           $injector.get("$state").go("finishwork.list");
+        },
+        loadBoMetadataCallback: function($injector, boMeta) {
+          return removePhotosSection(boMeta);
         }
       }
     });

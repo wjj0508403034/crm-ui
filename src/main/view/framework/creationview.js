@@ -11,6 +11,7 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
     var onSave = null;
     var onSaveCallback = null;
     var onCancelCallback = null;
+    var loadBoMetadataCallback = null;
 
     if ($state.current.data) {
       boName = $state.current.data.boName;
@@ -37,14 +38,22 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       if (typeof $state.current.data.onCancelCallback === "function") {
         onCancelCallback = $state.current.data.onCancelCallback;
       }
+
+      if (typeof $state.current.data.loadBoMetadataCallback === "function") {
+        loadBoMetadataCallback = $state.current.data.loadBoMetadataCallback;
+      }
     }
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
-        $scope.boMetadata = boMeta;
+        if (loadBoMetadataCallback) {
+          return loadBoMetadataCallback.apply($scope, [$injector, boMeta]);
+        }
+
         return Promise.resolve(boMeta);
       })
       .then(function(boMeta) {
+        $scope.boMetadata = boMeta;
         if (!title) {
           $scope.setPageTitle(`修改${boMeta.label}`, `${boMeta.label}列表`);
         }
@@ -62,6 +71,10 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
         }
       });
 
+    BoService.initBo(boNamespace, boName)
+      .then(function(boData) {
+        $scope.boData = boData;
+      });
 
     $scope.onSave = function(data, boMetadata) {
 

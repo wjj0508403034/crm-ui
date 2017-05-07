@@ -10,6 +10,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
     var onSave = null;
     var onSaveCallback = null;
     var onCancelCallback = null;
+    var loadBoMetadataCallback = null;
 
     var loadBoDataService = null;
     if ($state.current.data) {
@@ -41,6 +42,10 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
       if (typeof $state.current.data.onCancelCallback === "function") {
         onCancelCallback = $state.current.data.onCancelCallback;
       }
+
+      if (typeof $state.current.data.loadBoMetadataCallback === "function") {
+        loadBoMetadataCallback = $state.current.data.loadBoMetadataCallback;
+      }
     }
 
     if (!loadBoDataService) {
@@ -53,10 +58,13 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
-        $scope.boMetadata = boMeta;
+        if (loadBoMetadataCallback) {
+          return loadBoMetadataCallback.apply($scope, [$injector, boMeta]);
+        }
         return Promise.resolve(boMeta);
       })
       .then(function(boMeta) {
+        $scope.boMetadata = boMeta;
         if (!title) {
           $scope.setPageTitle(`修改${boMeta.label}`, `${boMeta.label}列表`);
         }

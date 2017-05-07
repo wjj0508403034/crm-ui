@@ -21,7 +21,7 @@ huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService",
   function($http, ServiceContext, BaseService) {
 
     return {
-      initBo: function() {
+      initBo: function(boNamespace, boName) {
         var url = `${ServiceContext}/bo(${boNamespace},${boName})/init`;
         return BaseService.getResponse($http.get(url));
       },
@@ -96,7 +96,7 @@ huoyun.factory("MetadataService", ["$http", "ServiceContext", "BaseService", "Me
       getMetadata: function(boNamespace, boName) {
         var metaKey = `${boNamespace}_${boName}`;
         if (boMetaCache[metaKey]) {
-          return Promise.resolve(boMetaCache[metaKey]);
+          return Promise.resolve(angular.copy(boMetaCache[metaKey]));
         }
 
         var url = `${ServiceContext}/ui-metadata/${boNamespace}/${boName}`;
