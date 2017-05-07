@@ -15,7 +15,7 @@
         <div ng-if="!prop.readonly" ng-switch="prop.type">
 
           <div widget-date-picker ng-model="boData[prop.name]" ng-switch-when="Date"></div>
-          <div widget-date-picker ng-model="boData[prop.name]" ng-switch-when="DateTime"></div>
+          <div widget-date-time-picker ng-model="boData[prop.name]" ng-switch-when="DateTime"></div>
 
           <div class="input-group" ng-switch-when="Email">
             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>

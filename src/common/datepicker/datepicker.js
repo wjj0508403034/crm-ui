@@ -1,14 +1,21 @@
 'use strict';
 
-huoyunWidget.directive('widgetDatePicker', function() {
+huoyunWidget.directive('widgetDatePicker', ['$filter', function($filter) {
   return {
     restrict: 'A',
     scope: {
-      value: "=ngModel",
-      date: "="
+      value: "=ngModel"
     },
     templateUrl: 'datepicker/datepicker.html',
     link: function($scope, ele, attrs) {
+      /**用于控件里显示的日期格式 */
+      var cancleWatch = $scope.$watch('value', function(newV, oldV) {
+        if (newV && newV !== oldV) {
+          var date = $filter("joda")(newV);
+          $scope.date = $filter("date")(date, "yyyy-MM-dd HH:mm");
+          cancleWatch();
+        }
+      });
 
       var $input = ele.find("input");
       if ($input.length > 0 && typeof $input.datepicker === "function") {
@@ -26,4 +33,4 @@ huoyunWidget.directive('widgetDatePicker', function() {
       };
     }
   }
-});
+}]);
