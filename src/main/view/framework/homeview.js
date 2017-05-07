@@ -95,7 +95,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     };
 
     function loadBoDataService() {
-      if (typeof $state.current.data.loadBoDataService === "function") {
+      if ($state.current.data && typeof $state.current.data.loadBoDataService === "function") {
         return $state.current.data.loadBoDataService.apply($scope, [$injector]);
       }
 
