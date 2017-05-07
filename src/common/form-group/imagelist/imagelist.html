@@ -3,6 +3,8 @@
     <div widget-image src="{{image['id'] | ImageList: boMetadata : prop }}"></div>
   </div>
   <div class="col-sm-3 image-list-item btn-add" ngf-select="upload($file)" accept="image/*">
-    <i class="fa fa-plus icon"><span class="text">上传</span></i>
+    <div class="btn-add">
+      <i class="fa fa-plus icon"><span class="text">上传</span></i>
+    </div>
   </div>
 </div>

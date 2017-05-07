@@ -8,7 +8,8 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
         prop: "=",
         boMetadata: "=",
         images: "=ngModel",
-        boId: "="
+        boId: "=",
+        onFileUploadSuccessed: "&"
       },
       replace: true,
       templateUrl: 'form-group/imagelist/imagelist.html',
@@ -23,10 +24,10 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
               }
             }).then(function(successResponse) {
               console.log(successResponse);
-              // $scope.onFileUploadSuccessed({
-              //   file: file,
-              //   event: successResponse
-              // });
+              $scope.onFileUploadSuccessed({
+                file: file,
+                event: successResponse
+              });
             }, function(failedResponse) {
               console.log(failedResponse);
               // $scope.onFileUploadFailed({

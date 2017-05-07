@@ -5,11 +5,14 @@ huoyunWidget.directive('widgetBoHome', function() {
     restrict: 'A',
     scope: {
       boMetadata: "=",
-      boData: "="
+      boData: "=",
+      refresh: "&"
     },
     templateUrl: 'framework/bo.home.html',
     link: function($scope, ele, attrs) {
-
+      $scope.onFileUploadSuccessed = function(file, event) {
+        $scope.refresh();
+      };
     }
   }
 });

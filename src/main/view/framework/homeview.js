@@ -2,7 +2,6 @@
 huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
   "StateHelper", "$injector",
   function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector) {
-    var loadBoDataService = null;
     var title = null;
     var subTitle = null;
     var navs = null;
@@ -23,10 +22,6 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       navs = $state.current.data.navs;
       if (Array.isArray(navs)) {
         $scope.setNavInfos(navs);
-      }
-
-      if (typeof $state.current.data.loadBoDataService === "function") {
-        loadBoDataService = $state.current.data.loadBoDataService.apply($scope, [$injector]);
       }
     }
 
@@ -81,21 +76,31 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         }
       });
 
-    if (!loadBoDataService) {
-      loadBoDataService = BoService.getBo(boNamespace, boName, boId);
-    }
-
-    loadBoDataService
+    loadBoDataService()
       .then(function(boData) {
         $scope.boData = boData;
       });
 
+    $scope.refresh = function() {
+      loadBoDataService()
+        .then(function(boData) {
+          $scope.boData = boData;
+        });
+    };
 
     $scope.onButtonClicked = function(buttonName, button) {
       if (typeof button.onButtonClicked === "function") {
         button.onButtonClicked.apply($scope, [button, $injector]);
       }
     };
+
+    function loadBoDataService() {
+      if (typeof $state.current.data.loadBoDataService === "function") {
+        return $state.current.data.loadBoDataService.apply($scope, [$injector]);
+      }
+
+      return BoService.getBo(boNamespace, boName, boId);
+    }
 
     function onDeleteButtonClicked(button) {
       var options = {

@@ -1,11 +1,18 @@
 .widgets-form-group-image-list .image-list-item {
   height: 200px;
+  margin-bottom: 10px;
 }
 
-.widgets-form-group-image-list .image-list-item.btn-add {
-  border: 1px dashed gray;
+.widgets-form-group-image-list .image-list-item .btn-add {
+  border: 1px dashed #8c8c8c;
   text-align: center;
   cursor: pointer;
+  color: #333;
+}
+
+.widgets-form-group-image-list .image-list-item .btn-add:focus,
+.widgets-form-group-image-list .image-list-item .btn-add:hover {
+  background: #d4d4d4;
 }
 
 .widgets-form-group-image-list .image-list-item.btn-add .icon {
