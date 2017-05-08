@@ -14,7 +14,7 @@
       <div ng-repeat="prop in section.properties" ng-switch="prop.type">
         <div widget-form-group-image ng-switch-when="Image" prop="prop" bo-metadata="boMetadata" ng-model="boData['id']">
         </div>
-        <div widget-form-group-image-list ng-switch-when="ImageList" prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]" on-file-upload-successed="onFileUploadSuccessed(file,event)">
+        <div widget-form-group-image-list ng-switch-when="ImageList" prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]" on-file-remove-successed="onFileRemoveSuccessed(image,boMeta,prop)" on-file-upload-successed="onFileUploadSuccessed(file,event)">
         </div>
 
         <div ng-if="prop.type !== 'Image' && prop.type !== 'ImageList'" class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">

@@ -9,7 +9,8 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
         boMetadata: "=",
         images: "=ngModel",
         boId: "=",
-        onFileUploadSuccessed: "&"
+        onFileUploadSuccessed: "&",
+        onFileRemoveSuccessed: '&'
       },
       replace: true,
       templateUrl: 'form-group/imagelist/imagelist.html',
@@ -43,8 +44,17 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
             });
           }
         };
-
-        /**图片预览 */
+        /**
+         * 图片删除
+         */
+        $scope.onRemoveImage = function(image) {
+            $scope.onFileRemoveSuccessed({
+              image: image,
+              boMeta: $scope.boMetadata,
+              prop: $scope.prop
+            });
+          }
+          /**图片预览 */
         $scope.previewImage = function(currentImageIndex) {
           console.log($scope.images);
           //获取当前页面所有图片的Urls

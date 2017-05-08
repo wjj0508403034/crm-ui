@@ -1,4 +1,30 @@
 .widget-image img {
   height: 100%;
   width: 100%;
+  position: relative;
+}
+
+.widget-image .remove-image-icon {
+  display: none;
+  position: absolute;
+  right: 6px;
+  top: -6px;
+  z-index: 1;
+  font-size: 2rem;
+  background: #fff;
+  cursor: pointer;
+  padding: 0px;
+  line-height: 1rem;
+  color: #666;
+  opacity: 0.8;
+}
+
+.widget-image .remove-image-icon:hover {
+  opacity: 1;
+  font-size: 2.5rem;
+  line-height: 1.25rem;
+}
+
+.widget-image:hover .remove-image-icon {
+  display: inline;
 }

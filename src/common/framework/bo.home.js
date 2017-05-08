@@ -13,6 +13,12 @@ huoyunWidget.directive('widgetBoHome', function() {
       $scope.onFileUploadSuccessed = function(file, event) {
         $scope.refresh();
       };
+      $scope.onFileRemoveSuccessed == function(image, boMeta, prop) {
+        //删除服务
+        console.log(arguments);
+        //刷新
+        // $scope.refresh();
+      };
     }
   }
 });
