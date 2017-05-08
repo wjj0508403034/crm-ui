@@ -1,0 +1,78 @@
+.preview-image-dialog.ngdialog {
+  /*border: 1px solid red;*/
+}
+
+.preview-image-dialog.ngdialog .ngdialog-content {
+  width: 60% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.preview-image-dialog.ngdialog .box-header,
+.preview-image-dialog.ngdialog .box-footer {
+  display: none;
+}
+
+.preview-image-dialog.ngdialog .huoyun-dialog {
+  border-top: 0px;
+}
+
+.preview-image-dialog.ngdialog .box-body>div {
+  height: 500px;
+  overflow: hidden;
+}
+
+.preview-image-dialog.ngdialog .preview-image-dialog {
+  position: relative;
+  display: table;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.preview-image-dialog.ngdialog .preview-image-dialog .center-block {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.preview-image-dialog.ngdialog .preview-image-dialog img {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+}
+
+.preview-image-dialog .change-image-btn {
+  position: absolute;
+  top: 0px;
+  width: 50px;
+  height: 100%;
+  text-align: center;
+  opacity: 0.4;
+  color: #ccc;
+}
+
+.preview-image-dialog .change-image-btn:hover {
+  opacity: 1;
+  color: #999;
+}
+
+.preview-image-dialog .change-image-btn .fa {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 50%;
+  margin-top: -25px;
+  display: block;
+  line-height: 50px;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.preview-image-dialog .pre-image-btn {
+  left: 0px;
+}
+
+.preview-image-dialog .next-image-btn {
+  right: 0px;
+}

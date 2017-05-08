@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Upload",
-  function($filter, $timeout, Upload) {
+huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Upload", "Dialog",
+  function($filter, $timeout, Upload, Dialog) {
     return {
       restrict: 'A',
       scope: {
@@ -43,6 +43,36 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
             });
           }
         };
+
+        /**图片预览 */
+        $scope.previewImage = function(currentImageIndex) {
+          console.log($scope.images);
+          //获取当前页面所有图片的Urls
+          var ImageUrls = [];
+          for (var i = 0; i < $scope.images.length; i++) {
+            ImageUrls.push({ id: i, url: $filter('ImageList')($scope.images[i]['id'], $scope.boMetadata, $scope.prop) });
+          }
+          var options = {
+            title: ``,
+            closeByEscape: false,
+            templateUrl: "framework/previewImage.html",
+            appendClassName: "preview-image-dialog",
+            params: {
+              CIndex: currentImageIndex,
+              imageUrls: ImageUrls
+            },
+            confirm: {
+              hidden: true,
+            },
+            closeCallback: function(key, data) {
+              if (key === "selected") {
+                $scope.value = data;
+              }
+
+            }
+          };
+          var dialog = Dialog.showConfirm(options);
+        }
       }
     }
   }
