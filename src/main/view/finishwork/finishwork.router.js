@@ -77,6 +77,7 @@ huoyun.config(function($stateProvider) {
           label: "作品详情"
         }],
         onSaveCallback: function($injector, boNamespace, boName, boId) {
+          $injector.get("Tip").show("保存成功！");
           $injector.get("$state").go("finishwork.detail", {
             boId: boId
           });
@@ -106,6 +107,7 @@ huoyun.config(function($stateProvider) {
           label: "作品详情"
         }],
         onSaveCallback: function($injector) {
+          $injector.get("Tip").show("创建成功！");
           $injector.get("$state").go("finishwork.list");
         },
         onCancelCallback: function($injector) {

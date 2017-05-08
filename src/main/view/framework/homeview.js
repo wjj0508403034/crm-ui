@@ -1,7 +1,7 @@
 'use strict';
 huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
-  "StateHelper", "$injector",
-  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector) {
+  "StateHelper", "$injector", "Tip",
+  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip) {
     var title = null;
     var subTitle = null;
     var navs = null;
@@ -79,6 +79,8 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     loadBoDataService()
       .then(function(boData) {
         $scope.boData = boData;
+      }).catch(function(err) {
+        $scope.loadDataFailed = true;
       });
 
     $scope.refresh = function() {
@@ -113,6 +115,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
                 if (typeof button.onDeleteCallback === "function") {
                   button.onDeleteCallback.apply($scope, [button, $injector]);
                 } else {
+                  Tip.show("删除成功！");
                   StateHelper.gotoBoList(boNamespace, boName);
                 }
               });

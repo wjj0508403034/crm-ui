@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+ * https://github.com/likeastore/ngDialog
+ */
+
 huoyunWidget.config(["ngDialogProvider", function(ngDialogProvider) {
   ngDialogProvider.setDefaults({
     className: 'ngdialog-theme-default huoyun-dialog-container',
@@ -50,6 +54,7 @@ huoyunWidget.factory("Dialog", ['$q', 'ngDialog', function($q, ngDialog) {
         template: "dialog/confirm.dialog.html",
         controller: "ConfirmDialogController",
         appendClassName: options.appendClassName || "",
+        closeByDocument: !!options.closeByDocument,
         data: {
           title: options.title || "无标题",
           content: options.content,

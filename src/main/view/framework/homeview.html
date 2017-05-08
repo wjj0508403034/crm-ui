@@ -1,4 +1,4 @@
-<div class="bo-home-view">
+<div class="bo-home-view" ng-if="!loadDataFailed">
   <div class="box">
     <div class="box-header with-border">
       <button type="submit" class="btn btn-default pull-right" ng-repeat="button in buttons" ng-if="button.visibility !== false" ng-click="onButtonClicked(button.name,button)" ng-bind="button.text"></button>

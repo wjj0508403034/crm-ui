@@ -1,25 +1,25 @@
 'use strict';
 
-huoyunWidget.factory('widgetTip', ['$templateCache', '$compile', '$rootScope', '$timeout', function($templateCache, $compile, $rootScope, $timeout) {
-  var $scope = $rootScope.$new();
+huoyunWidget.factory('Tip', ['$templateCache', '$compile', '$rootScope', '$timeout',
+  function($templateCache, $compile, $rootScope, $timeout) {
 
-  function showTip(message) {
-    var tplStr = $templateCache.get('tip/tip.html');
-    $scope.message = message;
-    $scope.showTip = true;
-    $scope.tipAnimate = false;
-    if (!$('body #tip-dialog').get(0)) {
-      $('body').append($compile(tplStr)($scope));
-    } else {
-      $compile(tplStr)($scope);
+    return {
+      show: function(message) {
+        var id = "tip-" + new Date().getTime();
+        var $scope = $rootScope.$new();
+        var template = $templateCache.get('tip/tip.html');
+        $scope.message = message;
+        var $tip = $compile(template)($scope);
+        $tip.attr("id", id);
+        $('body').append($tip);
+        $tip.show();
+        var timer = setTimeout(function() {
+          $tip.fadeOut(300, function() {
+            $tip.remove();
+          });
+          clearTimeout(timer);
+        }, 1000);
+      }
     }
-    window.clearTimeout();
-    $('body #tip-dialog').show();
-    setTimeout(function() {
-      $('body #tip-dialog').hide(2000);
-    }, 2000);
   }
-  return {
-    showTip: showTip
-  }
-}]);
+]);

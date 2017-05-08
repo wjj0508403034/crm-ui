@@ -1,7 +1,7 @@
 'use strict';
 
-huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog", "StateHelper", "$injector",
-  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, StateHelper, $injector) {
+huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog", "StateHelper", "$injector", "Tip",
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, StateHelper, $injector, Tip) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
@@ -87,10 +87,10 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       }
 
       boSaveService.then(function() {
-        console.log("Save Successfully");
         if (onSaveCallback) {
           onSaveCallback.apply($scope, [$injector]);
         } else {
+          Tip.show("创建成功！");
           StateHelper.gotoBoList(boNamespace, boName);
         }
       });

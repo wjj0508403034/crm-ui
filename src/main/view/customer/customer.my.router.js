@@ -95,6 +95,7 @@ huoyun.config(function($stateProvider) {
           label: "客户详情"
         }],
         onSaveCallback: function($injector) {
+          $injector.get("Tip").show("创建成功！");
           $injector.get("$state").go("myCustomer.list");
         },
         onCancelCallback: function($injector) {

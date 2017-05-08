@@ -54,6 +54,8 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
 
     loadBoDataService.then(function(boData) {
       $scope.boData = boData;
+    }).catch(function(err) {
+      $scope.loadDataFailed = true;
     });
 
     MetadataService.getMetadata(boNamespace, boName)

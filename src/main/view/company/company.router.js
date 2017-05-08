@@ -48,6 +48,7 @@ huoyun.config(function($stateProvider) {
           return $injector.get("BoService").updateBo("com.huoyun.sbo", "Company", data.id, data);
         },
         onSaveCallback: function($injector) {
+          $injector.get("Tip").show("保存成功！");
           $injector.get("$state").go("company.show");
         },
         onCancelCallback: function($injector) {
