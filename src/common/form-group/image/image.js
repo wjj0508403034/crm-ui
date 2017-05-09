@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout",
-  function($filter, $timeout) {
+huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip",
+  function($filter, $timeout, Tip) {
     return {
       restrict: 'A',
       scope: {
@@ -22,6 +22,7 @@ huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout",
         });
 
         $scope.onFileUploadSuccessed = function(file, event) {
+          Tip.show("上传成功！");
           $scope.imageUrl = null;
           $timeout(function() {
             $scope.imageUrl = getImageUrl();

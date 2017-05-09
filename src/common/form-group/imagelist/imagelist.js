@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Upload", "Dialog",
-  function($filter, $timeout, Upload, Dialog) {
+huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Upload", "Dialog", "Tip",
+  function($filter, $timeout, Upload, Dialog, Tip) {
     return {
       restrict: 'A',
       scope: {
@@ -10,7 +10,7 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
         images: "=ngModel",
         boId: "=",
         onFileUploadSuccessed: "&",
-        onFileRemoveSuccessed: '&'
+        onImageRemovedHandler: '&'
       },
       replace: true,
       templateUrl: 'form-group/imagelist/imagelist.html',
@@ -24,6 +24,7 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
                 file: file
               }
             }).then(function(successResponse) {
+              Tip.show("上传成功！");
               console.log(successResponse);
               $scope.onFileUploadSuccessed({
                 file: file,
@@ -44,17 +45,19 @@ huoyunWidget.directive('widgetFormGroupImageList', ["$filter", "$timeout", "Uplo
             });
           }
         };
+
         /**
          * 图片删除
          */
-        $scope.onRemoveImage = function(image) {
-            $scope.onFileRemoveSuccessed({
-              image: image,
-              boMeta: $scope.boMetadata,
-              prop: $scope.prop
-            });
-          }
-          /**图片预览 */
+        $scope.onImageRemoved = function(image) {
+          $scope.onImageRemovedHandler({
+            image: image,
+            boMeta: $scope.boMetadata,
+            prop: $scope.prop
+          });
+        };
+
+        /**图片预览 */
         $scope.previewImage = function(currentImageIndex) {
           console.log($scope.images);
           //获取当前页面所有图片的Urls

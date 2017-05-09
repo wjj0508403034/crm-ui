@@ -6,18 +6,21 @@ huoyunWidget.directive('widgetBoHome', function() {
     scope: {
       boMetadata: "=",
       boData: "=",
-      refresh: "&"
+      refresh: "&",
+      onImageRemoved: "&"
     },
     templateUrl: 'framework/bo.home.html',
     link: function($scope, ele, attrs) {
       $scope.onFileUploadSuccessed = function(file, event) {
         $scope.refresh();
       };
-      $scope.onFileRemoveSuccessed == function(image, boMeta, prop) {
-        //删除服务
-        console.log(arguments);
-        //刷新
-        // $scope.refresh();
+
+      $scope.onImageRemovedHandler = function(image, boMeta, prop) {
+        $scope.onImageRemoved({
+          image: image,
+          boMeta: boMeta,
+          prop: prop
+        });
       };
     }
   }

@@ -1,7 +1,7 @@
 'use strict';
 huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
-  "StateHelper", "$injector", "Tip",
-  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip) {
+  "StateHelper", "$injector", "Tip", "UploadService",
+  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip, UploadService) {
     var title = null;
     var subTitle = null;
     var navs = null;
@@ -76,17 +76,17 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         }
       });
 
-    loadBoDataService()
-      .then(function(boData) {
-        $scope.boData = boData;
-      }).catch(function(err) {
-        $scope.loadDataFailed = true;
-      });
+    loadBoData();
 
     $scope.refresh = function() {
-      loadBoDataService()
-        .then(function(boData) {
-          $scope.boData = boData;
+      loadBoData();
+    };
+
+    $scope.onImageRemoved = function(image, boMeta, prop) {
+      UploadService.deleteImageForImageList(prop.additionInfo.boNamespace, prop.additionInfo.boName, image.id, prop.name)
+        .then(function() {
+          Tip.show("删除成功！");
+          $scope.refresh();
         });
     };
 
@@ -95,14 +95,6 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         button.onButtonClicked.apply($scope, [button, $injector]);
       }
     };
-
-    function loadBoDataService() {
-      if ($state.current.data && typeof $state.current.data.loadBoDataService === "function") {
-        return $state.current.data.loadBoDataService.apply($scope, [$injector]);
-      }
-
-      return BoService.getBo(boNamespace, boName, boId);
-    }
 
     function onDeleteButtonClicked(button) {
       var options = {
@@ -127,6 +119,23 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
 
     function onEditButtonClicked(button) {
       StateHelper.gotoBoEdit(boNamespace, boName, boId);
+    }
+
+    function loadBoDataService() {
+      if ($state.current.data && typeof $state.current.data.loadBoDataService === "function") {
+        return $state.current.data.loadBoDataService.apply($scope, [$injector]);
+      }
+
+      return BoService.getBo(boNamespace, boName, boId);
+    }
+
+    function loadBoData() {
+      loadBoDataService()
+        .then(function(boData) {
+          $scope.boData = boData;
+        }).catch(function(err) {
+          $scope.loadDataFailed = true;
+        });
     }
   }
 ]);
