@@ -91,7 +91,7 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
             }, {
               icon: "fa-file-o",
               label: "装修方式",
-              stateLink: StateHelper.getBoListState('com.huoyun.sbo', 'FinishType')
+              stateLink: "finishtype.list"
             }, {
               icon: "fa-file-o",
               label: "户型",

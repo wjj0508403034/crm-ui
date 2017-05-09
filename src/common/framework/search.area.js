@@ -5,6 +5,7 @@ huoyunWidget.directive('widgetSearchArea', ["SearchHelper",
       restrict: 'A',
       scope: {
         boMetadata: "=",
+        disableAdvanceSearch: "=",
         onSearch: "&"
       },
       templateUrl: 'framework/search.area.html',

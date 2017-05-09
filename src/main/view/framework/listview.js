@@ -11,6 +11,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     var onRowClicked = null;
 
     $scope.disableCreate = false;
+    $scope.disableAdvanceSearch = false;
 
     if ($state.current.data) {
       boName = $state.current.data.boName;
@@ -35,6 +36,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       if ($state.current.data.disableSearch === true) {
         $scope.disableSearch = true;
       }
+
+      $scope.disableAdvanceSearch = !!$state.current.data.disableAdvanceSearch;
 
       if (typeof $state.current.data.onCreate === "function") {
         onCreate = $state.current.data.onCreate;

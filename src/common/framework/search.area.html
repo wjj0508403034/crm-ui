@@ -2,7 +2,7 @@
   <div class="box-header">
     <h3 class="box-title">搜索</h3>
     <div class="box-tools">
-      <div class="input-group input-group-sm">
+      <div class="input-group input-group-sm" ng-if="!disableAdvanceSearch">
 
         <button class="btn btn-default pull-right" ng-if="!advanceSearch" ng-click="onOpenAdvanceButtonClicked(true)">高级搜索</button>
         <button class="btn btn-default pull-right" ng-if="advanceSearch" ng-click="onOpenAdvanceButtonClicked(false)">普通搜索</button>
