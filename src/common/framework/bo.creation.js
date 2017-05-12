@@ -8,7 +8,8 @@ huoyunWidget.directive('widgetBoCreation', function() {
       boData: "=",
       onSave: "&",
       onValid: "&",
-      onCancel: "&"
+      onCancel: "&",
+      propTemplates: "="
     },
     templateUrl: 'framework/bo.creation.html',
     link: function($scope, ele, attrs) {

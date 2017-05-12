@@ -9,6 +9,7 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
     var title = null;
     var subTitle = null;
     var onSave = null;
+    var beforeSave = null;
     var onSaveCallback = null;
     var onCancelCallback = null;
     var loadBoMetadataCallback = null;
@@ -35,12 +36,20 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
         onSaveCallback = $state.current.data.onSaveCallback;
       }
 
+      if (typeof $state.current.data.beforeSave === "function") {
+        beforeSave = $state.current.data.beforeSave;
+      }
+
       if (typeof $state.current.data.onCancelCallback === "function") {
         onCancelCallback = $state.current.data.onCancelCallback;
       }
 
       if (typeof $state.current.data.loadBoMetadataCallback === "function") {
         loadBoMetadataCallback = $state.current.data.loadBoMetadataCallback;
+      }
+
+      if ($state.current.data.propTemplates) {
+        $scope.propTemplates = $state.current.data.propTemplates;
       }
     }
 
@@ -69,14 +78,21 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
             label: `修改${boMeta.label}`
           }]);
         }
+
+        return Promise.resolve(boMeta);
       });
+
 
     BoService.initBo(boNamespace, boName)
       .then(function(boData) {
         $scope.boData = boData;
       });
 
-    $scope.onSave = function(data, boMetadata) {
+    $scope.onSave = function(dataParam, boMetadata) {
+      var data = angular.copy(dataParam);
+      if (beforeSave != null) {
+        beforeSave.apply($scope, [$injector, data, boMetadata]);
+      }
 
       var boSaveService = null;
       if (onSave) {

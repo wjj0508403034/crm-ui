@@ -1,8 +1,10 @@
 'use strict';
 
 huoyun.config(function($stateProvider) {
+  var boState = new huoyun.BoState("myCustomer");
+
   $stateProvider
-    .state("myCustomer", {
+    .state(boState.Root, {
       abstract: true,
       url: "/myCustomer",
       templateUrl: "framework/general.html",
@@ -11,7 +13,7 @@ huoyun.config(function($stateProvider) {
         boName: "Customer"
       }
     })
-    .state("myCustomer.list", {
+    .state(boState.List, {
       url: "/list",
       templateUrl: "framework/listview.html",
       controller: 'BoListViewController',
@@ -26,9 +28,12 @@ huoyun.config(function($stateProvider) {
         }],
         queryExpr: "deleted eq false",
         onRowClicked: function($injector, lineData, index) {
-          $injector.get("$state").go("myCustomer.detail", {
+          $injector.get("$state").go(boState.Detail, {
             boId: lineData.id
           });
+        },
+        onCreate: function($injector) {
+          $injector.get("$state").go(boState.Create);
         }
       }
     })
@@ -44,10 +49,13 @@ huoyun.config(function($stateProvider) {
           state: "home"
         }, {
           label: "我的客户",
-          state: "myCustomer.list"
+          state: boState.List
         }, {
           label: "客户详情"
         }],
+        propTemplates: {
+          "statusList": "customer/templates/detail/property.statusList.html"
+        },
         buttons: {
           "delete": {
             onButtonClicked: function(button, $injector) {
@@ -60,7 +68,7 @@ huoyun.config(function($stateProvider) {
                     $injector.get("BoService").updateBo("com.huoyun.sbo", "Customer", $scope.boData.id, {
                       deleted: true
                     }).then(function() {
-                      $injector.get("$state").go("myCustomer.list");
+                      $injector.get("$state").go(boState.List);
                     });
                   }
                 }
@@ -70,7 +78,7 @@ huoyun.config(function($stateProvider) {
           },
           "edit": {
             onButtonClicked: function(button, $injector) {
-              $injector.get("$state").go("myCustomer.edit", {
+              $injector.get("$state").go(boState.Edit, {
                 boId: this.boData.id
               });
             }
@@ -78,8 +86,8 @@ huoyun.config(function($stateProvider) {
         }
       }
     })
-    .state("myCustomer.edit", {
-      url: "/list/:boId",
+    .state(boState.Edit, {
+      url: "/eidt/:boId",
       templateUrl: "framework/edtionview.html",
       controller: 'BoEdtionViewController',
       data: {
@@ -90,16 +98,45 @@ huoyun.config(function($stateProvider) {
           state: "home"
         }, {
           label: "我的客户",
-          state: "myCustomer.list"
+          state: boState.List
         }, {
           label: "客户详情"
         }],
+        propTemplates: {
+          "statusList": "customer/templates/edit/property.statusList.html"
+        },
         onSaveCallback: function($injector) {
           $injector.get("Tip").show("创建成功！");
-          $injector.get("$state").go("myCustomer.list");
+          $injector.get("$state").go(boState.List);
         },
         onCancelCallback: function($injector) {
-          $injector.get("$state").go("myCustomer.list");
+          $injector.get("$state").go(boState.List);
+        }
+      }
+    })
+    .state(boState.Create, {
+      url: "/create",
+      templateUrl: "framework/ceationview.html",
+      controller: 'BoCreationViewController',
+      data: {
+        navs: [{
+          label: "主页",
+          state: "home"
+        }, {
+          label: "我的客户",
+          state: boState.List
+        }, {
+          label: "新建客户"
+        }],
+        propTemplates: {
+          "statusList": "customer/templates/edit/property.statusList.html"
+        },
+        onSaveCallback: function($injector) {
+          $injector.get("Tip").show("创建成功！");
+          $injector.get("$state").go(boState.List);
+        },
+        onCancelCallback: function($injector) {
+          $injector.get("$state").go(boState.List);
         }
       }
     });

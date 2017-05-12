@@ -23,6 +23,10 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       if (Array.isArray(navs)) {
         $scope.setNavInfos(navs);
       }
+
+      if ($state.current.data.propTemplates) {
+        $scope.propTemplates = $state.current.data.propTemplates;
+      }
     }
 
     var defaultButtonMap = {

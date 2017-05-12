@@ -11,25 +11,27 @@
         <span ng-bind="section.label"></span>
       </h4>
 
-      <div ng-repeat="prop in section.properties" ng-switch="prop.type">
-        <div widget-form-group-image ng-switch-when="Image" prop="prop" bo-metadata="boMetadata" ng-model="boData['id']">
+      <div ng-repeat="prop in section.properties">
+        <div class="custom-property-template" ng-if="propTemplates[prop.name]">
+          <div ng-include="propTemplates[prop.name]"></div>
         </div>
-        <div widget-form-group-image-list ng-switch-when="ImageList" prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]" on-image-removed-handler="onImageRemovedHandler(image,boMeta,prop)" on-file-upload-successed="onFileUploadSuccessed(file,event)">
-        </div>
-
-        <div ng-if="prop.type !== 'Image' && prop.type !== 'ImageList'" class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
-          <label class="col-sm-4 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
-          <div class="col-sm-8">
-
-            <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'" ng-switch-when="Date"></label>
-            <label ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></label>
-
-            <label ng-bind="boData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></label>
-            <label ng-bind="boData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></label>
-
-            <label ng-bind="boData[prop.name]" ng-switch-default></label>
+        <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
+          <div widget-form-group-image ng-switch-when="Image" prop="prop" bo-metadata="boMetadata" ng-model="boData['id']">
           </div>
-
+          <div widget-form-group-image-list ng-switch-when="ImageList" prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]" on-image-removed-handler="onImageRemovedHandler(image,boMeta,prop)" on-file-upload-successed="onFileUploadSuccessed(file,event)">
+          </div>
+          <div ng-switch-default>
+            <div ng-switch="prop.type" class="form-group col-md-6 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
+              <label class="col-sm-4 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
+              <div class="col-sm-8">
+                <label ng-switch-when="Date" ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'"></label>
+                <label ng-switch-when="DateTime" ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'"></label>
+                <label ng-switch-when="ValidValues" ng-bind="boData[prop.name] | ValidValueLabel : prop"></label>
+                <label ng-switch-when="BoLabel" ng-bind="boData[prop.name] | BoLabel : prop"></label>
+                <label ng-bind="boData[prop.name]" ng-switch-default></label>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

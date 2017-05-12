@@ -46,6 +46,10 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
       if (typeof $state.current.data.loadBoMetadataCallback === "function") {
         loadBoMetadataCallback = $state.current.data.loadBoMetadataCallback;
       }
+
+      if ($state.current.data.propTemplates) {
+        $scope.propTemplates = $state.current.data.propTemplates;
+      }
     }
 
     if (!loadBoDataService) {
@@ -54,6 +58,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
 
     loadBoDataService.then(function(boData) {
       $scope.boData = boData;
+      $scope.$broadcast("BoDataLoaded", boData);
     }).catch(function(err) {
       $scope.loadDataFailed = true;
     });

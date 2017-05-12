@@ -7,7 +7,8 @@ huoyunWidget.directive('widgetBoHome', function() {
       boMetadata: "=",
       boData: "=",
       refresh: "&",
-      onImageRemoved: "&"
+      onImageRemoved: "&",
+      propTemplates: "="
     },
     templateUrl: 'framework/bo.home.html',
     link: function($scope, ele, attrs) {

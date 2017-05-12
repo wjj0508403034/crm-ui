@@ -4,5 +4,5 @@
       <button type="submit" class="btn btn-default pull-right" ng-repeat="button in buttons" ng-if="button.visibility !== false" ng-click="onButtonClicked(button.name,button)" ng-bind="button.text"></button>
     </div>
   </div>
-  <div widget-bo-home bo-metadata="boMetadata" bo-data="boData" refresh="refresh()" on-image-removed="onImageRemoved(image,boMeta,prop)"></div>
+  <div widget-bo-home bo-metadata="boMetadata" prop-templates="propTemplates" bo-data="boData" refresh="refresh()" on-image-removed="onImageRemoved(image,boMeta,prop)"></div>
 </div>

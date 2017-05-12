@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoEdition', function () {
+huoyunWidget.directive('widgetBoEdition', function() {
   return {
     restrict: 'A',
     scope: {
@@ -8,15 +8,16 @@ huoyunWidget.directive('widgetBoEdition', function () {
       boData: "=",
       onSave: "&",
       onValid: "&",
-      onCancel: "&"
+      onCancel: "&",
+      propTemplates: "="
     },
     templateUrl: 'framework/bo.edit.html',
-    link: function ($scope, ele, attrs) {
-      $scope.onCancelButtonClicked = function () {
+    link: function($scope, ele, attrs) {
+      $scope.onCancelButtonClicked = function() {
         $scope.onCancel();
       };
 
-      $scope.onSaveButtonClicked = function () {
+      $scope.onSaveButtonClicked = function() {
         $scope.errors = {};
         var param = {
           data: $scope.boData,
@@ -25,9 +26,9 @@ huoyunWidget.directive('widgetBoEdition', function () {
 
         $scope.onValid(param)
           .then($scope.onSave.bind(this, param))
-          .then(function () {
+          .then(function() {
             console.log("Save Successfully.");
-          }).catch(function (err) {
+          }).catch(function(err) {
             console.warn("Save Failed.");
             console.warn(err);
             if (err.propMetadata) {
