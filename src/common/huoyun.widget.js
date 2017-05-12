@@ -47,6 +47,16 @@ huoyunWidget.filter("UploadURL", function() {
   };
 });
 
+huoyunWidget.filter("UserIcon", function() {
+  return function(input) {
+    if (typeof input === "number") {
+      return `/upload/com.huoyun.sbo/Employee/${input}/avatar`;
+    }
+
+    return input;
+  };
+});
+
 huoyunWidget.filter("ImageList", function() {
   return function(input, boMetadata, propMeta) {
     if (typeof input === "number" && propMeta.additionInfo) {
@@ -69,7 +79,7 @@ huoyunWidget.filter("ImageList", function() {
 huoyunWidget.filter("TableDataFooter", function() {
   return function(input) {
     if (input) {
-      return `第${input.number}页／共${input.totalPages}页 共${input.totalElements}条数据`;
+      return `第${input.number + 1}页／共${input.totalPages}页 共${input.totalElements}条数据`;
     }
     return input;
   };

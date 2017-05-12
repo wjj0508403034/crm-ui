@@ -1,0 +1,37 @@
+<div class="box direct-chat direct-chat-primary customer-trace-record-box" ng-controller="CustomerTraceRecordController">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      <i class="fa fa-comments"></i>
+      <span>跟踪记录</span>
+    </h3>
+  </div>
+
+  <div class="box-body">
+
+    <div class="direct-chat-messages">
+      <div class="direct-chat-msg" ng-repeat="record in records" ng-class="{true: 'right', false: ''}[!record.$$self]">
+        <div class="direct-chat-info clearfix">
+          <span class="direct-chat-name" ng-bind="record.owner.userName" ng-class="{true: 'pull-right', false: 'pull-left'}[!record.$$self]"></span>
+          <span class="direct-chat-timestamp" ng-class="{true: 'pull-left', false: 'pull-right'}[!record.$$self]" ng-bind="record.createTime | joda | date:'yyyy-MM-dd HH:mm'"></span>
+        </div>
+
+        <img class="direct-chat-img" ng-src="{{record.owner.id | UserIcon }}" alt="{{record.owner.userName}}">
+        <div class="direct-chat-text" ng-bind="record.comment">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box-footer">
+
+    <div class="input-group">
+      <input type="text" name="message" ng-model="comment" placeholder="跟踪记录 ..." class="form-control">
+      <span class="input-group-btn">
+         <button type="submit" class="btn btn-primary btn-flat" ng-click="postComment()">发送</button>
+      </span>
+    </div>
+
+  </div>
+
+</div>

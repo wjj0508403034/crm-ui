@@ -37,9 +37,9 @@ huoyun.config(function($stateProvider) {
         }
       }
     })
-    .state("myCustomer.detail", {
+    .state(boState.Detail, {
       url: "/list/:boId",
-      templateUrl: "framework/homeview.html",
+      templateUrl: "customer/customer.detail.html",
       controller: 'BoHomeViewController',
       data: {
         title: "客户详情",

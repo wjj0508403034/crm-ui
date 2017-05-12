@@ -1,0 +1,11 @@
+.direct-chat .direct-chat-msg>.direct-chat-text {
+  min-height: 30px;
+}
+
+.customer-trace-record-box .direct-chat-messages {
+  height: initial;
+}
+
+.customer-trace-record-box .direct-chat-msg {
+  margin-bottom: 20px;
+}
