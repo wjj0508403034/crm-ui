@@ -36,11 +36,15 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
         }
 
         var menuMap = {
-          "home": {
+          "leads": {
             icon: "fa-home",
-            label: "基本信息",
-            stateLink: "home",
-            active: true
+            label: "线索",
+            active: true,
+            items: [{
+              icon: "fa-file-o",
+              label: "所有线索",
+              stateLink: "leads.list"
+            }]
           },
           "customerManagement": {
             icon: "fa-briefcase",
@@ -104,6 +108,10 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
               icon: "fa-file-o",
               label: "作品列表",
               stateLink: "finishwork.list"
+            }, {
+              icon: "fa-file-o",
+              label: "线索状态",
+              stateLink: "leadsStatus.list"
             }]
           }
         };

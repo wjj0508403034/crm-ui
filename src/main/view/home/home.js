@@ -11,28 +11,19 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
         icon: "on-person-add",
         text: "公司本月到店客户",
         stateLink: "customerReport.visit",
-        number: "--",
-        service: function() {
-          countCustomerInCurrentMonth.bind(this)("visitDate");
-        }
+        number: "--"
       },
       {
         icon: "on-person-add",
         text: "公司本月定金",
         stateLink: "customerReport.payDeposit",
-        number: "--",
-        service: function() {
-          countCustomerInCurrentMonth.bind(this)("payDepositDate");
-        }
+        number: "--"
       },
       {
         icon: "on-person-add",
         text: "公司本月合同",
         stateLink: "customerReport.contract",
-        number: "--",
-        service: function() {
-          countCustomerInCurrentMonth.bind(this)("contractDate");
-        }
+        number: "--"
       },
       {
         icon: "on-person-add",

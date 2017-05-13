@@ -13,6 +13,7 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
     var onSaveCallback = null;
     var onCancelCallback = null;
     var loadBoMetadataCallback = null;
+    var initBoDataService = null;
 
     if ($state.current.data) {
       boName = $state.current.data.boName;
@@ -46,6 +47,10 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
 
       if (typeof $state.current.data.loadBoMetadataCallback === "function") {
         loadBoMetadataCallback = $state.current.data.loadBoMetadataCallback;
+      }
+
+      if (typeof $state.current.data.initBoDataService === "function") {
+        initBoDataService = $state.current.data.initBoDataService.apply($scope, [$injector]);
       }
 
       if ($state.current.data.propTemplates) {
@@ -82,8 +87,11 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
         return Promise.resolve(boMeta);
       });
 
+    if (!initBoDataService) {
+      initBoDataService = BoService.initBo(boNamespace, boName);
+    }
 
-    BoService.initBo(boNamespace, boName)
+    initBoDataService
       .then(function(boData) {
         $scope.boData = boData;
       });

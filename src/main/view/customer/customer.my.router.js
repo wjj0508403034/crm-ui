@@ -103,7 +103,7 @@ huoyun.config(function($stateProvider) {
           label: "客户详情"
         }],
         propTemplates: {
-          "statusList": "customer/templates/edit/property.statusList.html"
+          "statusList": "customer/templates/edit/property.statusList.html",
         },
         onSaveCallback: function($injector) {
           $injector.get("Tip").show("创建成功！");

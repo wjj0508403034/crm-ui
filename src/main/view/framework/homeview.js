@@ -9,6 +9,10 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
 
+    $scope.getBoId = function() {
+      return boId;
+    };
+
     if ($state.current.data) {
       boName = $state.current.data.boName;
       boNamespace = $state.current.data.boNamespace;
@@ -84,6 +88,22 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
 
     $scope.refresh = function() {
       loadBoData();
+    };
+
+    $scope.isButtonVisibility = function(button) {
+      if (!button.hasOwnProperty("visibility")) {
+        return true;
+      }
+
+      if (typeof button.visibility === "boolean") {
+        return button.visibility;
+      }
+
+      if (typeof button.visibility === "function") {
+        return button.visibility.apply($scope, [button, $injector])
+      }
+
+      return false;
     };
 
     $scope.onImageRemoved = function(image, boMeta, prop) {
