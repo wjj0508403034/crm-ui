@@ -1,4 +1,5 @@
-.huoyun .content-wrapper, .right-side {
+.huoyun .content-wrapper,
+.right-side {
   background: white;
 }
 
@@ -16,4 +17,19 @@
 .huoyun .static-shell .flash-container .widget-flash {
   width: 600px;
   margin: 0 auto;
+}
+
+
+/**覆盖AdminLTE.min.css中样式**/
+
+@media (min-width: 768px) {
+  .huoyun.sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>a>span {
+    margin-left: -3px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .huoyun.sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+    top: -19px !important;
+  }
 }

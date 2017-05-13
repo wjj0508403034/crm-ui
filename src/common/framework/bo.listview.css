@@ -10,9 +10,14 @@
   color: #676767;
 }
 
+.box .box-body {
+  overflow-x: auto;
+}
+
 .box .box-body>table tr>th {
   font-size: 14px;
   font-weight: normal;
+  white-space: nowrap;
 }
 
 .box .box-body>table tr>td {
@@ -20,6 +25,7 @@
   color: #676767;
   font-weight: normal;
   height: 34px;
+  white-space: nowrap;
 }
 
 .box .box-footer .table-footer-total {
