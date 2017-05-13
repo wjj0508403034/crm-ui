@@ -6,6 +6,8 @@
 
 .huoyun-dialog.box>.box-body {
   min-height: 100px;
+  max-height: 450px;
+  overflow: auto;
 }
 
 .huoyun-dialog.box>.box-footer .btn {
