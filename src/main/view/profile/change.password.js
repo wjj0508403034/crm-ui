@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.controller('ChangePasswordController', ['$scope', "EmployeeService",
-  function($scope, EmployeeService) {
+huoyunWidget.controller('ChangePasswordController', ['$scope', "EmployeeService", "Tip",
+  function($scope, EmployeeService, Tip) {
     $scope.oldPassword = {
       hasError: false,
       value: null,
@@ -42,6 +42,7 @@ huoyunWidget.controller('ChangePasswordController', ['$scope', "EmployeeService"
 
       EmployeeService.changePassword($scope.oldPassword.value, $scope.newPassword.value, $scope.repeatNewPassword.value)
         .then(function() {
+          Tip.show("密码修改成功！");
           $scope.closeThisDialog(['OK']);
         });
 
