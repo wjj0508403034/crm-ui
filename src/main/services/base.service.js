@@ -17,8 +17,8 @@ huoyun.factory("BaseService", ["$q", "DebugMode", "$http",
   }
 ]);
 
-huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService",
-  function($http, ServiceContext, BaseService) {
+huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", "MetadataService",
+  function($http, ServiceContext, BaseService, MetadataService) {
 
     return {
       initBo: function(boNamespace, boName) {
@@ -82,6 +82,10 @@ huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService",
         }
 
         return BaseService.getResponse($http.get(url));
+      },
+
+      getMetadata: function(boNamespace, boName) {
+        return MetadataService.getMetadata(boNamespace, boName);
       }
     };
   }

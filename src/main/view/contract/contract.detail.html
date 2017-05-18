@@ -1,0 +1,24 @@
+<div class="contract-detail-view">
+  <div ng-include="'framework/homeview.html'"></div>
+  <div class="box bo-listview-table" ng-controller="ContractDetailController">
+    <div class="box-header">
+      <h3 class="box-title">收款记录</h3>
+
+      <div class="box-tools">
+        <div class="input-group input-group-sm">
+          <button class="btn btn-default pull-right" ng-click="onCreatePaymentButtonClicked()">新建收款记录</button>
+        </div>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+      <div widget-bo-list-view-table bo-metadata="paymentMeta" page-data="paymentPageData"></div>
+    </div>
+    <!-- /.box-body -->
+
+    <div class="box-footer clearfix">
+      <div class="pull-left table-footer-total" ng-bind="pageData | TableDataFooter"></div>
+      <div widget-pagination ng-show="pageData.totalPages" page-data="pageData" on-paging-changed="onPagingChangedHandler(pageIndex)"></div>
+    </div>
+  </div>
+</div>

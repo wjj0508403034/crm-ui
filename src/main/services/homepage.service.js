@@ -55,6 +55,19 @@ huoyun.factory("HomepageService", ["$q", "$http", "BaseService", "StateHelper", 
               stateLink: "myCustomer.list"
             }]
           },
+          "contract": {
+            icon: "fa-briefcase",
+            label: "合同",
+            items: [{
+              icon: "fa-file-o",
+              label: "合同",
+              stateLink: "contract.list"
+            }, {
+              icon: "fa-file-o",
+              label: "支付方式",
+              stateLink: "paymentTerm.list"
+            }]
+          },
           "projectManagement": {
             icon: "fa-briefcase",
             label: "客户管理",
