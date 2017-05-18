@@ -11,6 +11,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
     var onSaveCallback = null;
     var onCancelCallback = null;
     var loadBoMetadataCallback = null;
+    var setPageTitle = null;
 
     var loadBoDataService = null;
     if ($state.current.data) {
@@ -24,12 +25,26 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
       navs = $state.current.data.navs;
       if (Array.isArray(navs)) {
         $scope.setNavInfos(navs);
+      } else if (typeof navs === "function") {
+        var navsFuncResult = navs.apply(this, [$injector]);
+        if (navsFuncResult instanceof Promise) {
+          navsFuncResult.then(function(res) {
+            $scope.setNavInfos(res);
+          });
+        } else {
+          $scope.setNavInfos(navsFuncResult);
+        }
       }
 
-      title = $state.current.data.title;
-      subTitle = $state.current.data.subTitle;
-      if (title) {
-        $scope.setPageTitle(title, subTitle);
+      if (typeof $state.current.data.setPageTitle === "function") {
+        setPageTitle = $state.current.data.setPageTitle;
+        setPageTitle.apply($scope, [$injector]);
+      } else {
+        title = $state.current.data.title;
+        subTitle = $state.current.data.subTitle;
+        if (title) {
+          $scope.setPageTitle(title, subTitle);
+        }
       }
 
       if (typeof $state.current.data.onSave === "function") {
@@ -72,7 +87,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
       })
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
-        if (!title) {
+        if (!setPageTitle && !title) {
           $scope.setPageTitle(`修改${boMeta.label}`, `${boMeta.label}列表`);
         }
 

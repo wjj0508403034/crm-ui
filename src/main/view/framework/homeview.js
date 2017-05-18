@@ -8,6 +8,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
+    var setPageTitle = null;
 
     $scope.getBoId = function() {
       return boId;
@@ -17,15 +18,29 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       boName = $state.current.data.boName;
       boNamespace = $state.current.data.boNamespace;
 
-      title = $state.current.data.title;
-      subTitle = $state.current.data.subTitle;
-      if (title) {
-        $scope.setPageTitle(title, subTitle);
+      if (typeof $state.current.data.setPageTitle === "function") {
+        setPageTitle = $state.current.data.setPageTitle;
+        setPageTitle.apply($scope, [$injector]);
+      } else {
+        title = $state.current.data.title;
+        subTitle = $state.current.data.subTitle;
+        if (title) {
+          $scope.setPageTitle(title, subTitle);
+        }
       }
 
       navs = $state.current.data.navs;
       if (Array.isArray(navs)) {
         $scope.setNavInfos(navs);
+      } else if (typeof navs === "function") {
+        var navsFuncResult = navs.apply(this, [$injector]);
+        if (navsFuncResult instanceof Promise) {
+          navsFuncResult.then(function(res) {
+            $scope.setNavInfos(res);
+          });
+        } else {
+          $scope.setNavInfos(navsFuncResult);
+        }
       }
 
       if ($state.current.data.propTemplates) {
@@ -67,7 +82,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         $scope.boMetadata = boMeta;
         return Promise.resolve(boMeta);
       }).then(function(boMeta) {
-        if (!title) {
+        if (!setPageTitle && !title) {
           $scope.setPageTitle(`${boMeta.label}详情`, `${boMeta.label}列表`);
         }
 

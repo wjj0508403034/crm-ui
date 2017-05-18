@@ -1,0 +1,5 @@
+<div class="form-group col-md-12 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}" has-error="{{!!errors[prop.name]}}">
+  <label for="{{prop.name}}" ng-bind="prop.label"></label>
+  <textarea class="form-control" rows="4" ng-model="value" id="{{prop.name}}"></textarea>
+  <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>
+</div>

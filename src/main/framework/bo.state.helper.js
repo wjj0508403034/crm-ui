@@ -81,7 +81,9 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
       if (detailOptions.buttons) {
         Object.keys(detailOptions.buttons).forEach(function(buttonKey) {
           if (["edit", "delete"].indexOf(buttonKey) != -1) {
-
+            Object.keys(detailOptions.buttons[buttonKey]).forEach(function(objKey) {
+              detailPageButtons[buttonKey][objKey] = detailOptions.buttons[buttonKey][objKey];
+            });
           } else {
             detailPageButtons[buttonKey] = detailOptions.buttons[buttonKey];
           }
@@ -93,6 +95,7 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
         templateUrl: detailOptions.templateUrl || "framework/homeview.html",
         controller: detailOptions.controller || 'BoHomeViewController',
         data: {
+          setPageTitle: detailOptions.setPageTitle,
           navs: detailOptions.navs || DetailPageNavigation,
           buttons: detailPageButtons
         }
@@ -117,6 +120,7 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
         controller: editOptions.controller || 'BoEdtionViewController',
         data: {
           navs: editOptions.navs || EditionPageNavigation,
+          setPageTitle: editOptions.setPageTitle,
           onSaveCallback: editOptions.onSaveCallback || function($injector) {
             $injector.get("Tip").show("保存成功！");
             gotoBoListPage($injector);
@@ -146,6 +150,9 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
         controller: creationOptions.controller || 'BoCreationViewController',
         data: {
           navs: creationOptions.navs || CreationPageNavigation,
+          initBoDataService: creationOptions.initBoDataService,
+          beforeSave: creationOptions.beforeSave,
+          setPageTitle: creationOptions.setPageTitle,
           onSaveCallback: creationOptions.onSaveCallback || function($injector) {
             $injector.get("Tip").show("创建成功！");
             gotoBoListPage($injector);

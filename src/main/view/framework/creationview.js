@@ -14,6 +14,7 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
     var onCancelCallback = null;
     var loadBoMetadataCallback = null;
     var initBoDataService = null;
+    var setPageTitle = null;
 
     if ($state.current.data) {
       boName = $state.current.data.boName;
@@ -22,12 +23,26 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       navs = $state.current.data.navs;
       if (Array.isArray(navs)) {
         $scope.setNavInfos(navs);
+      } else if (typeof navs === "function") {
+        var navsFuncResult = navs.apply($scope, [$injector]);
+        if (navsFuncResult instanceof Promise) {
+          navsFuncResult.then(function(res) {
+            $scope.setNavInfos(res);
+          });
+        } else {
+          $scope.setNavInfos(navsFuncResult);
+        }
       }
 
-      title = $state.current.data.title;
-      subTitle = $state.current.data.subTitle;
-      if (title) {
-        $scope.setPageTitle(title, subTitle);
+      if (typeof $state.current.data.setPageTitle === "function") {
+        setPageTitle = $state.current.data.setPageTitle;
+        setPageTitle.apply($scope, [$injector]);
+      } else {
+        title = $state.current.data.title;
+        subTitle = $state.current.data.subTitle;
+        if (title) {
+          $scope.setPageTitle(title, subTitle);
+        }
       }
 
       if (typeof $state.current.data.onSave === "function") {
@@ -68,7 +83,7 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
       })
       .then(function(boMeta) {
         $scope.boMetadata = boMeta;
-        if (!title) {
+        if (!setPageTitle && !title) {
           $scope.setPageTitle(`修改${boMeta.label}`, `${boMeta.label}列表`);
         }
 
@@ -99,7 +114,12 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
     $scope.onSave = function(dataParam, boMetadata) {
       var data = angular.copy(dataParam);
       if (beforeSave != null) {
-        beforeSave.apply($scope, [$injector, data, boMetadata]);
+        var beforeSaveFuncResult = beforeSave.apply($scope, [$injector, data, boMetadata]);
+        if (beforeSaveFuncResult instanceof Promise) {
+          beforeSaveFuncResult.then(function(res) {
+            data = res;
+          });
+        }
       }
 
       var boSaveService = null;

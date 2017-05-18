@@ -10,23 +10,5 @@ huoyun.config(["$stateProvider", "BoStateProvider",
         templateUrl: "contract/contract.detail.html"
       }
     });
-
-    $stateProvider.state("contract.detail.createPayment", {
-      url: "/createPayment",
-      templateUrl: "framework/ceationview.html",
-      controller: 'BoCreationViewController',
-      data: {
-        boName: "Payment",
-        boNamespace: "com.huoyun.sbo",
-        navs: [],
-        onSaveCallback: function($injector) {
-          $injector.get("Tip").show("创建成功！");
-          gotoBoListPage($injector);
-        },
-        onCancelCallback: function($injector) {
-          gotoBoListPage($injector);
-        }
-      }
-    });
   }
 ]);
