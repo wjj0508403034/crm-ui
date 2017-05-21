@@ -33,3 +33,6 @@
     top: -19px !important;
   }
 }
+.sidebar-menu > li{
+  cursor: pointer;
+}

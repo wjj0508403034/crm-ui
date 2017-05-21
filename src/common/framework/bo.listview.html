@@ -13,10 +13,11 @@
   <div class="box-body table-responsive no-padding">
     <table class="table table-hover">
       <tbody>
-        <tr>
+        <tr class="no-hover">
           <th ng-repeat="prop in boMetadata.listview.properties" property-name="{{prop.name}}" ng-bind="prop.label"></th>
         </tr>
-        <tr ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)">
+        <tr ng-if="pageData.content.length===0"><td colspan="{{boMetadata.listview.properties.length}}" class="no-data">暂无数据</td></tr>
+        <tr ng-if="pageData.content.length>0" ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)">
           <td ng-repeat="prop in boMetadata.listview.properties" ng-switch="prop.type">
             <span ng-bind="lineData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></span>
             <span ng-bind="lineData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></span>

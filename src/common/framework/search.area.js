@@ -11,7 +11,7 @@ huoyunWidget.directive('widgetSearchArea', ["SearchHelper",
       templateUrl: 'framework/search.area.html',
       link: function($scope, ele, attrs) {
         $scope.simpleSearchText = "";
-        $scope.advanceSearch = false;
+        $scope.advanceSearch = true;
         $scope.searchData = {};
         var businessKeyProp = null;
 
