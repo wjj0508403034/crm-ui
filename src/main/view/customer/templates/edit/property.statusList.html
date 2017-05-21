@@ -1,6 +1,0 @@
-<div class="form-group col-md-12 bo-property-form-group customer-property-status-list" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}" ng-controller="CustomerPropertyStatusListController" ng-init="prop=prop">
-  <label for="{{prop.name}}" ng-bind="prop.label"></label>
-  <div class="check-box-list-container">
-    <div widget-check-box class="col-sm-2 check-box-list-item" ng-repeat="item in items" content="{{item.name}}" on-checkbox-value-changed="onCheckBoxValueChanged(checked,item)" ng-model="item.$$selected"></div>
-  </div>
-</div>

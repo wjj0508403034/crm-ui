@@ -84,6 +84,23 @@ huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", "Metadata
         return BaseService.getResponse($http.get(url));
       },
 
+      queryAll: function(boNamespace, boName, queryExpr, orderBy) {
+        var url = `${ServiceContext}/bo(${boNamespace},${boName})/queryAll`;
+        var params = [];
+        if (queryExpr) {
+          params.push(`query=${queryExpr}`);
+        }
+
+        if (orderBy) {
+          params.push(`orderby=${orderBy}`);
+        }
+        if (params.length > 0) {
+          url = `${url}?${params.join("&")}`;
+        }
+
+        return BaseService.getResponse($http.get(url));
+      },
+
       getMetadata: function(boNamespace, boName) {
         return MetadataService.getMetadata(boNamespace, boName);
       }

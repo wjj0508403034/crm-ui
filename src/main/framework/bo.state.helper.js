@@ -39,6 +39,13 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
       });
 
     if (!options.list || options.list.visibility !== false) {
+      const ListPageNavigation = [{
+        label: "主页",
+        state: "home"
+      }, {
+        label: `${options.label || boName}列表`
+      }];
+
       var listOptions = options.list || {};
       $stateProvider
         .state(boState.List, {
@@ -46,6 +53,11 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
           templateUrl: listOptions.templateUrl || "framework/listview.html",
           controller: listOptions.controller || "BoListViewController",
           data: {
+            title: `${options.label}`,
+            subTitle: "主页",
+            queryExpr: listOptions.queryExpr,
+            navs: listOptions.navs || ListPageNavigation,
+            disableCreate: listOptions.disableCreate,
             onCreate: listOptions.onCreate || gotoBoCreationPage,
             onRowClicked: listOptions.onCreate || gotoBoDetailPage
           }
@@ -97,7 +109,8 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
         data: {
           setPageTitle: detailOptions.setPageTitle,
           navs: detailOptions.navs || DetailPageNavigation,
-          buttons: detailPageButtons
+          buttons: detailPageButtons,
+          propTemplates: detailOptions.propTemplates
         }
       });
     }

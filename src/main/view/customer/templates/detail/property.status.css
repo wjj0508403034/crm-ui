@@ -1,0 +1,55 @@
+.progressStyle {
+  font-size: 12px;
+}
+
+.progressStyle ul .disable {
+  background-color: #aaa;
+}
+
+.progressStyle ul .disable:before {
+  border-bottom: 2px solid #aaa !important;
+}
+
+.progressStyle ul li {
+  list-style: none;
+  display: inline-block;
+  border-radius: 20px;
+  background-color: #0ba95d;
+  color: #fff;
+  padding: 4px 12px;
+  margin: 0 14px 0 0;
+  position: relative;
+}
+
+.progressStyle ul li:before {
+  content: "";
+  position: absolute;
+  width: 17px;
+  left: -17px;
+  height: 9px;
+  border-bottom: 2px solid #0ba95d;
+}
+
+.progressStyle ul li:first-child:before {
+  display: none;
+}
+
+.progressStyle ul .fa {
+  margin-left: 3px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.dieProgress ul li {
+  text-decoration: line-through;
+  background-color: #aaa;
+}
+
+.dieProgress ul li:before {
+  border-bottom: 2px solid #aaa;
+}
+
+.dieProgress ul li:first-child {
+  background-color: #ee582a;
+  text-decoration: none;
+}

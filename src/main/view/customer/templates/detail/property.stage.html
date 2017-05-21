@@ -1,6 +1,6 @@
 <div class="form-group col-md-6 bo-property-form-group">
   <label class="col-sm-4 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
   <div class="col-sm-8">
-    <label ng-bind="boData[prop.name] | CustomerStatusListLabel"></label>
+    <label class="label bg-green" ng-bind="boData[prop.name] | ValidValueLabel : prop"></label>
   </div>
 </div>

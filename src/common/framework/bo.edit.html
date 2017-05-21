@@ -14,37 +14,45 @@
         <div ng-if="propTemplates[prop.name]">
           <div ng-include="propTemplates[prop.name]"></div>
         </div>
-        <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type" class="form-group col-md-6 bo-property-form-group" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
-          <label for="{{prop.name}}" ng-bind="prop.label"></label>
-          <div ng-if="!prop.readonly">
+        <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
 
-            <div widget-date-picker ng-model="boData[prop.name]" ng-switch-when="Date"></div>
-            <div widget-date-time-picker ng-model="boData[prop.name]" ng-switch-when="DateTime"></div>
+          <div ng-switch-when="Text" widget-form-group-text prop="prop" ng-model="boData[prop.name]"></div>
+          <div ng-switch-when="Date" widget-form-group-date prop="prop" ng-model="boData[prop.name]"></div>
 
-            <div ng-switch-when="Email" class="input-group">
-              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-              <input type="email" ng-model="boData[prop.name]" class="form-control">
+          <div ng-switch-default>
+            <div class="form-group col-md-6 bo-property-form-group" ng-switch="prop.type" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
+              <label for="{{prop.name}}" ng-bind="prop.label"></label>
+              <div ng-if="!prop.readonly">
+
+                <div widget-date-picker ng-model="boData[prop.name]" ng-switch-when="Date"></div>
+                <div widget-date-time-picker ng-model="boData[prop.name]" ng-switch-when="DateTime"></div>
+
+                <div ng-switch-when="Email" class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                  <input type="email" ng-model="boData[prop.name]" class="form-control">
+                </div>
+                <div ng-switch-when="Phone" class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                  <input type="text" ng-model="boData[prop.name]" class="form-control">
+                </div>
+                <div ng-switch-when="BoLabel" widget-bo-label prop="prop" ng-model="boData[prop.name]" id="{{prop.name}}"></div>
+
+                <select ng-switch-when="ValidValues" class="form-control" ng-model="boData[prop.name]" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues"></select>
+
+                <textarea ng-switch-when="Text" class="form-control" rows="4" ng-model="boData[prop.name]" id="{{prop.name}}"></textarea>
+
+                <input ng-switch-default ng-model="boData[prop.name]" type="text" class="form-control" id="{{prop.name}}">
+
+                <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>
+              </div>
+              <div ng-if="prop.readonly">
+                <input ng-switch-when="Date" type="text" class="form-control" readonly ng-value="boData[prop.name] | joda | date:'yyyy-MM-dd'">
+                <input ng-switch-when="DateTime" type="text" class="form-control" readonly ng-value="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'">
+                <input ng-switch-when="ValidValues" type="text" class="form-control" readonly ng-value="boData[prop.name] | ValidValueLabel : prop">
+                <input ng-switch-when="BoLabel" type="text" class="form-control" readonly ng-value="boData[prop.name] | BoLabel : prop">
+                <input ng-switch-default type="text" class="form-control" readonly ng-value="boData[prop.name]">
+              </div>
             </div>
-            <div ng-switch-when="Phone" class="input-group">
-              <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-              <input type="text" ng-model="boData[prop.name]" class="form-control">
-            </div>
-            <div ng-switch-when="BoLabel" widget-bo-label prop="prop" ng-model="boData[prop.name]" id="{{prop.name}}"></div>
-
-            <select ng-switch-when="ValidValues" class="form-control" ng-model="boData[prop.name]" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues"></select>
-
-            <textarea ng-switch-when="Text" class="form-control" rows="4" ng-model="boData[prop.name]" id="{{prop.name}}"></textarea>
-
-            <input ng-switch-default ng-model="boData[prop.name]" type="text" class="form-control" id="{{prop.name}}">
-
-            <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>
-          </div>
-          <div ng-if="prop.readonly">
-            <input ng-switch-when="Date" type="text" class="form-control" readonly ng-value="boData[prop.name] | joda | date:'yyyy-MM-dd'">
-            <input ng-switch-when="DateTime" type="text" class="form-control" readonly ng-value="boData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'">
-            <input ng-switch-when="ValidValues" type="text" class="form-control" readonly ng-value="boData[prop.name] | ValidValueLabel : prop">
-            <input ng-switch-when="BoLabel" type="text" class="form-control" readonly ng-value="boData[prop.name] | BoLabel : prop">
-            <input ng-switch-default type="text" class="form-control" readonly ng-value="boData[prop.name]">
           </div>
         </div>
       </div>
