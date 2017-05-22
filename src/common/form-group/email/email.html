@@ -1,0 +1,11 @@
+<div class="form-group col-md-6 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}"
+  has-error="{{!!errors[prop.name]}}">
+  <label for="{{prop.name}}" ng-bind="prop.label"></label>
+  <div ng-if="!prop.readonly">
+    <input type="text" class="form-control" ng-model="$parent.value" id="{{prop.name}}"></textarea>
+    <span class="help-block" ng-if="errors[prop.name]" ng-bind="errors[prop.name]['errorMessage']"></span>
+  </div>
+  <div ng-if="prop.readonly">
+    <input type="text" class="form-control" readonly ng-value="value"></a>
+  </div>
+</div>

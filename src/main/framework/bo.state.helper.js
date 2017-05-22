@@ -58,6 +58,7 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
             queryExpr: listOptions.queryExpr,
             navs: listOptions.navs || ListPageNavigation,
             disableCreate: listOptions.disableCreate,
+            disableSearch: listOptions.disableSearch,
             onCreate: listOptions.onCreate || gotoBoCreationPage,
             onRowClicked: listOptions.onCreate || gotoBoDetailPage
           }
@@ -134,6 +135,7 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
         data: {
           navs: editOptions.navs || EditionPageNavigation,
           setPageTitle: editOptions.setPageTitle,
+          dynamicMeta: editOptions.dynamicMeta,
           onSaveCallback: editOptions.onSaveCallback || function($injector) {
             $injector.get("Tip").show("保存成功！");
             gotoBoListPage($injector);

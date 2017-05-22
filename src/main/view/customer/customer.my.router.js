@@ -49,7 +49,8 @@ huoyun.factory("CustomerStatusStateService", ["BoService", "BoState",
         url: `/${customerStatus.name}`,
         label: customerStatus.name,
         list: {
-          queryExpr: `status eq ${customerStatus.id} and deleted eq false`
+          queryExpr: `status eq ${customerStatus.id} and deleted eq false`,
+          disableCreate: true
         },
         detail: {
           propTemplates: {

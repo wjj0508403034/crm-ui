@@ -16,7 +16,12 @@
         <tr class="no-hover">
           <th ng-repeat="prop in boMetadata.listview.properties" property-name="{{prop.name}}" ng-bind="prop.label"></th>
         </tr>
-        <tr ng-if="pageData.content.length===0"><td colspan="{{boMetadata.listview.properties.length}}" class="no-data">暂无数据</td></tr>
+        <tr ng-if="pageData.content.length===0">
+          <td colspan="{{boMetadata.listview.properties.length}}" class="empty-table">
+            <i class="fa fa-database"></i>
+            <span>暂无数据</span>
+          </td>
+        </tr>
         <tr ng-if="pageData.content.length>0" ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)">
           <td ng-repeat="prop in boMetadata.listview.properties" ng-switch="prop.type">
             <span ng-bind="lineData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></span>

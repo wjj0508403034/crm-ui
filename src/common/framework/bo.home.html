@@ -18,10 +18,13 @@
         <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
           <div widget-form-group-image ng-switch-when="Image" prop="prop" bo-metadata="boMetadata" ng-model="boData['id']">
           </div>
-          <div widget-form-group-image-list ng-switch-when="ImageList" prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]" on-image-removed-handler="onImageRemovedHandler(image,boMeta,prop)" on-file-upload-successed="onFileUploadSuccessed(file,event)">
+          <div widget-form-group-image-list ng-switch-when="ImageList" prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]"
+            on-image-removed-handler="onImageRemovedHandler(image,boMeta,prop)" on-file-upload-successed="onFileUploadSuccessed(file,event)">
           </div>
+          <div ng-switch-when="Email" widget-form-group-label-email prop="prop" ng-model="boData[prop.name]"></div>
           <div ng-switch-default>
-            <div ng-switch="prop.type" class="form-group col-md-6 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
+            <div ng-switch="prop.type" class="form-group col-md-6 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}"
+              property-type="{{prop.type}}">
               <label class="col-sm-4 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
               <div class="col-sm-8">
                 <label ng-switch-when="Date" ng-bind="boData[prop.name] | joda | date:'yyyy-MM-dd'"></label>

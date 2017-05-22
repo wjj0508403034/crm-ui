@@ -1,8 +1,8 @@
 'use strict';
 
 
-huoyun.factory("MenuService", ["CustomerStatusStateService", "StateHelper",
-  function(CustomerStatusStateService, StateHelper) {
+huoyun.factory("MenuService", ["CustomerStatusStateService",
+  function(CustomerStatusStateService) {
 
     var defaultMenusMap = {
       "leads": {
@@ -13,6 +13,10 @@ huoyun.factory("MenuService", ["CustomerStatusStateService", "StateHelper",
           icon: "fa-file-o",
           label: "所有线索",
           stateLink: "leads.list"
+        }, {
+          icon: "fa-file-o",
+          label: "线索状态",
+          stateLink: "leadsStatus.list"
         }]
       },
       "customer-management": {
@@ -56,11 +60,11 @@ huoyun.factory("MenuService", ["CustomerStatusStateService", "StateHelper",
         }, {
           icon: "fa-file-o",
           label: "部门列表",
-          stateLink: StateHelper.getBoListState('com.huoyun.sbo', 'Department')
+          stateLink: "department.list"
         }, {
           icon: "fa-file-o",
           label: "员工列表",
-          stateLink: StateHelper.getBoListState('com.huoyun.sbo', 'Employee')
+          stateLink: "employee.list"
         }]
       },
       "settings": {
@@ -69,11 +73,11 @@ huoyun.factory("MenuService", ["CustomerStatusStateService", "StateHelper",
         items: [{
           icon: "fa-file-o",
           label: "客户状态",
-          stateLink: StateHelper.getBoListState('com.huoyun.sbo', 'CustomerStatus')
+          stateLink: "customerStatus.list"
         }, {
           icon: "fa-file-o",
           label: "客户来源",
-          stateLink: StateHelper.getBoListState('com.huoyun.sbo', 'SalesSource')
+          stateLink: "salesSource.list"
         }, {
           icon: "fa-file-o",
           label: "装修方式",
@@ -89,11 +93,8 @@ huoyun.factory("MenuService", ["CustomerStatusStateService", "StateHelper",
         }, {
           icon: "fa-file-o",
           label: "作品列表",
-          stateLink: "finishwork.list"
-        }, {
-          icon: "fa-file-o",
-          label: "线索状态",
-          stateLink: "leadsStatus.list"
+          stateLink: "finishwork.list",
+          visibility: false
         }]
       }
     };

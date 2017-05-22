@@ -1,7 +1,8 @@
 'use strict';
 huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
-  "StateHelper", "$injector", "Tip", "UploadService",
-  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip, UploadService) {
+  "StateHelper", "$injector", "Tip", "UploadService", "MetadataHelper",
+  function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip,
+    UploadService, MetadataHelper) {
     var title = null;
     var subTitle = null;
     var navs = null;
@@ -9,6 +10,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
     var setPageTitle = null;
+    var dynamicMeta = null;
 
     $scope.getBoId = function() {
       return boId;
@@ -46,6 +48,10 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       if ($state.current.data.propTemplates) {
         $scope.propTemplates = $state.current.data.propTemplates;
       }
+
+      if ($state.current.data.dynamicMeta) {
+        dynamicMeta = $state.current.data.dynamicMeta;
+      }
     }
 
     var defaultButtonMap = {
@@ -79,6 +85,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
+        MetadataHelper.merge(boMeta, dynamicMeta);
         $scope.boMetadata = boMeta;
         return Promise.resolve(boMeta);
       }).then(function(boMeta) {
@@ -122,7 +129,8 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     };
 
     $scope.onImageRemoved = function(image, boMeta, prop) {
-      UploadService.deleteImageForImageList(prop.additionInfo.boNamespace, prop.additionInfo.boName, image.id, prop.name)
+      UploadService.deleteImageForImageList(prop.additionInfo.boNamespace, prop.additionInfo.boName, image.id,
+          prop.name)
         .then(function() {
           Tip.show("删除成功！");
           $scope.refresh();

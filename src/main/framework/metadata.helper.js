@@ -3,6 +3,16 @@
 huoyun.factory("MetadataHelper", [function() {
 
   return {
+    merge: function(boMeta, dynamicMeta) {
+      if (dynamicMeta != null) {
+        Object.keys(dynamicMeta).forEach(function(propName) {
+          if (boMeta.propMap[propName]) {
+            angular.extend(boMeta.propMap[propName], dynamicMeta[propName])
+          }
+        });
+      }
+    },
+
     convertTo: function(boMeta) {
       var result = {};
       result.boName = boMeta.boName;
@@ -29,7 +39,9 @@ huoyun.factory("MetadataHelper", [function() {
           if (result.propMap[propName]) {
             item.properties.push(result.propMap[propName]);
           } else {
-            console.warn(`Can't find property ${propName}. BoNamespace: ${result.boNamespace}, BoName: ${result.boName}`);
+            console.warn(
+              `Can't find property ${propName}. BoNamespace: ${result.boNamespace}, BoName: ${result.boName}`
+            );
           }
         });
 
@@ -47,7 +59,9 @@ huoyun.factory("MetadataHelper", [function() {
         if (result.propMap[propName]) {
           result.listview.properties.push(result.propMap[propName]);
         } else {
-          console.warn(`Can't find property ${propName}. BoNamespace: ${result.boNamespace}, BoName: ${result.boName}`);
+          console.warn(
+            `Can't find property ${propName}. BoNamespace: ${result.boNamespace}, BoName: ${result.boName}`
+          );
         }
       });
 

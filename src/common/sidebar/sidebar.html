@@ -13,7 +13,7 @@
           <div class="tri-angle"></div>
         </a>
         <ul class="treeview-menu" ng-if="menu.items && menu.items.length > 0">
-          <li ng-repeat="menuitem in menu.items">
+          <li ng-repeat="menuitem in menu.items" ng-if="menuitem.visibility !== false">
             <a ui-sref="{{menuitem.stateLink}}">
               <i class="fa" ng-class="menuitem.icon"></i>
               <span ng-bind="menuitem.label"></span>

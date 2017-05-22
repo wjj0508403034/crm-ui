@@ -1,6 +1,8 @@
 'use strict';
-huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "Dialog", "$injector", "StateHelper",
-  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, $injector, StateHelper) {
+huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService",
+  "BoDataHelper", "Dialog", "$injector", "StateHelper", "MetadataHelper",
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, $injector, StateHelper,
+    MetadataHelper) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
@@ -12,6 +14,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
     var onCancelCallback = null;
     var loadBoMetadataCallback = null;
     var setPageTitle = null;
+    var dynamicMeta = null;
 
     var loadBoDataService = null;
     if ($state.current.data) {
@@ -65,6 +68,10 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
       if ($state.current.data.propTemplates) {
         $scope.propTemplates = $state.current.data.propTemplates;
       }
+
+      if ($state.current.data.dynamicMeta) {
+        dynamicMeta = $state.current.data.dynamicMeta;
+      }
     }
 
     if (!loadBoDataService) {
@@ -80,6 +87,7 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
+        MetadataHelper.merge(boMeta, dynamicMeta);
         if (loadBoMetadataCallback) {
           return loadBoMetadataCallback.apply($scope, [$injector, boMeta]);
         }

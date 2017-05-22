@@ -1,5 +1,5 @@
 <div class="box bo-search-area">
-  <div class="box-header">
+  <div class="box-header with-border">
     <h3 class="box-title">搜索</h3>
     <div class="box-tools">
       <div class="input-group input-group-sm" ng-if="!disableAdvanceSearch">
@@ -40,7 +40,7 @@
           <div widget-search-number-label ng-model="searchData[prop.name]" prop="prop" ng-switch-when="Price"></div>
 
           <input ng-model="searchData[prop.name]" ng-switch-default type="text" class="form-control" id="{{prop.name}}">
-      </div>
+        </div>
       </div>
 
 

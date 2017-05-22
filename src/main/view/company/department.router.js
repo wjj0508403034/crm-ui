@@ -1,10 +1,10 @@
 'use strict';
 
 huoyun.config(["BoStateProvider", function(BoStateProvider) {
-  BoStateProvider.register("com.huoyun.sbo", "HouseType", {
-    state: "houseType",
-    url: "/houseType",
-    label: "户型",
+  BoStateProvider.register("com.huoyun.sbo", "Department", {
+    state: "department",
+    url: "/department",
+    label: "部门",
     list: {
       disableSearch: true
     }
