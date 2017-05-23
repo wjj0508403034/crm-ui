@@ -1,0 +1,24 @@
+.adjust-table-columns-dialog .ngdialog-content {
+  width: 720px !important;
+}
+
+.adjust-table-columns-dialog .adjust-table-columns-dialog-content .box {
+  border: 1px solid #d2d6de;
+}
+
+.adjust-table-columns-dialog .adjust-table-columns-dialog-content .box .box-body {
+  max-height: 400px;
+  min-height: 400px;
+}
+
+.adjust-table-columns-dialog .adjust-table-columns-dialog-content table tr.selected {
+  background: #3c8dbc;
+}
+
+.adjust-table-columns-dialog .adjust-table-columns-dialog-content table tr.selected td {
+  color: white;
+}
+
+.adjust-table-columns-dialog .adjust-table-columns-dialog-content .btn {
+  margin-bottom: 15px;
+}

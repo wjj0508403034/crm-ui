@@ -127,7 +127,22 @@ huoyun.factory("MetadataService", ["$http", "ServiceContext", "BaseService", "Me
             boMetaCache[metaKey] = boMetadata;
             return Promise.resolve(boMetadata);
           });
+      },
+
+      updateTableColumns: function(boNamespace, boName, columns) {
+        var url = `${ServiceContext}/ui-metadata/updateTableColumns`;
+        return BaseService.getResponse($http.post(url, {
+          "boNamespace": boNamespace,
+          "boName": boName,
+          "columns": columns
+        }));
+      },
+
+      invalidMetaCache: function(boNamespace, boName) {
+        var metaKey = `${boNamespace}_${boName}`;
+        delete boMetaCache[metaKey];
       }
+
     };
   }
 ]);

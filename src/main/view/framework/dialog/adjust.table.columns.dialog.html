@@ -1,0 +1,46 @@
+<div class="adjust-table-columns-dialog-content" ng-controller="AdjustTableColumnsDialogController">
+  <div class="box-body table-responsive no-padding">
+    <div class="col-md-5">
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+              <tr ng-repeat="prop in unSelectedProps" ng-click="onLeftRowClicked(prop,unSelectedProps,$index)" ng-class="{true: 'selected', false: ''}[prop.$$selected]">
+                <td ng-bind="prop.label"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="row">
+        <button class="col-md-12 btn btn-default" ng-disabled="!rightSelected" ng-click="onMoveLeftButtonClicked()"><i class="fa fa-arrow-left"></i></button>
+      </div>
+      <div class="row">
+        <button class="col-md-12 btn btn-default" ng-disabled="!leftSelected" ng-click="onMoveRightButtonClicked()"><i class="fa fa-arrow-right"></i></button>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+              <tr ng-repeat="prop in selectedProps" ng-click="onRightRowClicked(prop,selectedProps,$index)" ng-class="{true: 'selected', false: ''}[prop.$$selected]">
+                <td ng-bind="prop.label"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="row">
+        <button class="col-md-12 btn btn-default" ng-disabled="isMoveUpDisabled()" ng-click="onMoveUpButtonClicked()"><i class="fa fa-arrow-up"></i></button>
+      </div>
+      <div class="row">
+        <button class="col-md-12 btn btn-default" ng-disabled="isMoveDownDisabled()" ng-click="onMoveDownButtonClicked()"><i class="fa fa-arrow-down"></i></button>
+      </div>
+    </div>
+  </div>
+</div>

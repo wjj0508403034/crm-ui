@@ -39,6 +39,7 @@ gulp.task('deploy-copy-resource', ['build'], function() {
 
 gulp.task('deploy', ['clean-deploy', 'deploy-copy-resource'], function() {
   var injectCss = gulp.src([
+    `${DestFolder}/libs/bootstrap/**/*.css`,
     `${DestFolder}/**/*.css`
   ], {
     read: false
