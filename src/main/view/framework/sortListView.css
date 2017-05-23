@@ -4,17 +4,21 @@
 .sort-list-view-dialog .ngdialog-content{
   width: 750px;
 }
-.sort-list-view-dialog .ngdialog-content .sort-title{
-  text-align: center;
+.sort-list-view-dialog .box .box-body {
+    max-height: none !important;
+    min-height: 400px !important;
 }
-.sort-list-view-dialog .ngdialog-content .sort-icons{
-  text-align: center;
+.sort-list-view-dialog .box {
+  border: 1px solid #d2d6de;
 }
-.sort-list-view-dialog .ngdialog-content .sort-icons > i{
-  padding-left: 5px;
-  padding-right: 5px;
+.sort-list-view-dialog table tr.selected {
+  background: #3c8dbc;
 }
-.sort-list-view-dialog .ngdialog-content .sort-icons > i:hover{
-  cursor: pointer;
-  color: #1caace;
+
+.sort-list-view-dialog table tr.selected td {
+  color: white;
+}
+
+.sort-list-view-dialog .btn {
+  margin-bottom: 15px;
 }

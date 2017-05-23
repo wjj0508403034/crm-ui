@@ -1,4 +1,4 @@
-<div ng-controller="SortListViewController">
+<!--<div ng-controller="SortListViewController">
   <div class="box-body table-responsive no-padding">
     <table class="table table-hover">
       <tbody>
@@ -20,5 +20,42 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>-->
+
+
+<div class="adjust-table-columns-dialog-content" ng-controller="SortListViewController">
+  <div class="box-body table-responsive no-padding">
+    <div class="col-md-10">
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th ng-repeat="prop in ngDialogData.params.boMetadata.listview.properties" property-name="{{prop.name}}" ng-bind="prop.label"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="lineData in pageData" ng-click="clickRow($index)" ng-class="{'selected':sIndex===$index}">
+                <td ng-repeat="prop in ngDialogData.params.boMetadata.listview.properties" ng-switch="prop.type">
+                  <span ng-bind="lineData[prop.name] | ValidValueLabel : prop" ng-switch-when="ValidValues"></span>
+                  <span ng-bind="lineData[prop.name] | BoLabel : prop" ng-switch-when="BoLabel"></span>
+                  <span ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'" ng-switch-when="DateTime"></span>
+                  <span ng-bind="lineData[prop.name]" ng-switch-default></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="row">
+        <button class="col-md-12 btn btn-default" ng-disabled="isMoveUpDisabled" ng-click="onMoveButtonClicked('up')"><i class="fa fa-arrow-up"></i></button>
+      </div>
+      <div class="row">
+        <button class="col-md-12 btn btn-default" ng-disabled="isMoveDownDisabled" ng-click="onMoveButtonClicked('down')"><i class="fa fa-arrow-down"></i></button>
+      </div>
+    </div>
   </div>
 </div>
