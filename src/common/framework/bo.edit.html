@@ -20,10 +20,10 @@
           <div ng-switch-when="Date" widget-form-group-date prop="prop" ng-model="boData[prop.name]"></div>
           <div ng-switch-when="Email" widget-form-group-email prop="prop" ng-model="boData[prop.name]"></div>
           <div ng-switch-when="Image"></div>
+          <div ng-switch-when="BoLabel" widget-form-group-bo-label prop="prop" ng-model="boData[prop.name]"></div>
 
           <div ng-switch-default>
-            <div class="form-group col-md-6 bo-property-form-group" ng-switch="prop.type" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}"
-              property-name="{{prop.name}}" property-type="{{prop.type}}">
+            <div class="form-group col-md-6 bo-property-form-group" ng-switch="prop.type" has-error="{{!!errors[prop.name]}}" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
               <label for="{{prop.name}}" ng-bind="prop.label"></label>
               <div ng-if="!prop.readonly">
 
@@ -38,7 +38,7 @@
                   <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                   <input type="text" ng-model="boData[prop.name]" class="form-control">
                 </div>
-                <div ng-switch-when="BoLabel" widget-bo-label prop="prop" ng-model="boData[prop.name]" id="{{prop.name}}"></div>
+
 
                 <select ng-switch-when="ValidValues" class="form-control" ng-model="boData[prop.name]" ng-options="validvalue.name as validvalue.label for validvalue in prop.validvalues"></select>
 

@@ -6,7 +6,8 @@ huoyunWidget.directive('widgetFormGroupText', [
       restrict: 'A',
       scope: {
         prop: "=",
-        value: "=ngModel"
+        value: "=ngModel",
+        errorMessage: "="
       },
       replace: true,
       templateUrl: 'form-group/text/text.html',

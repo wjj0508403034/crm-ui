@@ -168,6 +168,7 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
           initBoDataService: creationOptions.initBoDataService,
           beforeSave: creationOptions.beforeSave,
           setPageTitle: creationOptions.setPageTitle,
+          dynamicMeta: creationOptions.dynamicMeta,
           onSaveCallback: creationOptions.onSaveCallback || function($injector) {
             $injector.get("Tip").show("创建成功！");
             gotoBoListPage($injector);

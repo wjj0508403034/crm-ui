@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.directive('widgetFormGroupEmail', [
+huoyunWidget.directive('widgetFormGroupPrice', [
   function() {
     return {
       restrict: 'A',
@@ -10,7 +10,7 @@ huoyunWidget.directive('widgetFormGroupEmail', [
         errorMessage: "="
       },
       replace: true,
-      templateUrl: 'form-group/email/email.html',
+      templateUrl: 'form-group/price/price.html',
       link: function($scope, ele, attrs) {}
     }
   }

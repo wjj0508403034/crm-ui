@@ -1,13 +1,15 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoLabel', ["Dialog", function(Dialog) {
+huoyunWidget.directive('widgetFormGroupBoLabel', ["Dialog", function(Dialog) {
   return {
     restrict: 'A',
     scope: {
       value: "=ngModel",
-      prop: "="
+      prop: "=",
+      errorMessage: "="
     },
-    templateUrl: 'bolabel/bolabel.html',
+    replace: true,
+    templateUrl: 'form-group/bolabel/bolabel.html',
     link: function($scope, ele, attrs) {
 
       $scope.onButtonClicked = function() {

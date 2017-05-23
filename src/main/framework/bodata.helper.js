@@ -1,10 +1,10 @@
 'use strict';
 
-huoyun.factory("BoDataHelper", [function () {
+huoyun.factory("BoDataHelper", [function() {
 
   function validatorSection(boData, section) {
     var promiseArray = [];
-    section.properties.forEach(function (propMetadata, index) {
+    section.properties.forEach(function(propMetadata, index) {
       var propMetadata = section.properties[index];
       var propData = boData[propMetadata.name];
       promiseArray.push(validatorProp(propData, propMetadata));
@@ -14,9 +14,9 @@ huoyun.factory("BoDataHelper", [function () {
   }
 
   function validatorProp(propData, propMetadata) {
-    return new Promise(function (reslove, reject) {
+    return new Promise(function(reslove, reject) {
       console.log(`Start validaror property ${propMetadata.name}`);
-      if (propMetadata.mandatory) {
+      if (propMetadata.mandatory && propMetadata.visibility !== false) {
         var res = {
           propData: propData,
           propMetadata: propMetadata,
@@ -42,9 +42,9 @@ huoyun.factory("BoDataHelper", [function () {
   }
 
   return {
-    validator: function (boData, boMetadata) {
+    validator: function(boData, boMetadata) {
       var promiseArray = [];
-      boMetadata.sections.forEach(function (section, index) {
+      boMetadata.sections.forEach(function(section, index) {
         promiseArray.push(validatorSection(boData, section));
       });
 

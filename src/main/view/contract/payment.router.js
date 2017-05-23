@@ -31,6 +31,14 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
       visibility: false
     },
     create: {
+      dynamicMeta: {
+        "contract": {
+          visibility: false
+        },
+        "paymentNo": {
+          visibility: false
+        }
+      },
       navs: function($injector) {
         return getNavsInfo($injector, "新建收款记录");
       },

@@ -6,7 +6,8 @@ huoyunWidget.directive('widgetFormGroupDate', [
       restrict: 'A',
       scope: {
         prop: "=",
-        value: "=ngModel"
+        value: "=ngModel",
+        errorMessage: "="
       },
       replace: true,
       templateUrl: 'form-group/date/date.html',
