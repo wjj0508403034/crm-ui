@@ -8,8 +8,9 @@ huoyunWidget.directive('widgetBoListView', ['Dialog', function(Dialog) {
       pageData: "=",
       onRowClicked: "&",
       onPagingChanged: "&",
-      onCreate: "&",
-      disableCreate: "="
+      propTemplates: "=",
+      buttons: "=",
+      tableTitle: "@"
     },
     templateUrl: 'framework/bo.listview.html',
     link: function($scope, ele, attrs) {
@@ -22,53 +23,18 @@ huoyunWidget.directive('widgetBoListView', ['Dialog', function(Dialog) {
         });
       };
 
+      $scope.onButtonClicked = function(button) {
+        if (typeof button.onClickedHandler === "function") {
+          button.onClickedHandler.apply($scope, []);
+        }
+      };
+
       $scope.onPagingChangedHandler = function(pageIndex) {
         console.log(`Paging button [${pageIndex}] clicked.`);
         $scope.onPagingChanged({
           pageIndex: pageIndex
         });
       };
-
-      $scope.onCreateButtonClicked = function() {
-        $scope.onCreate();
-      };
-
-      $scope.onSortHandler = function() {
-        var options = {
-          title: `${$scope.boMetadata.label}排序`,
-          templateUrl: "framework/sortListView.html",
-          appendClassName: "sort-list-view-dialog",
-          params: {
-            pageData: angular.copy($scope.pageData.content),
-            boMetadata: $scope.boMetadata
-          },
-          closeCallback: function(key, data) {
-            if (key === "OK") {
-              $scope.pageData.content = data;
-            }
-
-          }
-        };
-        var dialog = Dialog.showConfirm(options);
-      };
-
-      $scope.onAdjustTableColumnsButtonClicked = function() {
-        var options = {
-          title: `调整表格字段`,
-          templateUrl: "framework/dialog/adjust.table.columns.dialog.html",
-          appendClassName: "adjust-table-columns-dialog",
-          params: {
-            boMetadata: $scope.boMetadata
-          },
-          closeCallback: function(key, data) {
-            if (key === "OK") {
-              $scope.boMetadata.listview.properties = data;
-            }
-          }
-        };
-        var dialog = Dialog.showConfirm(options);
-      };
-
     }
   }
 }]);

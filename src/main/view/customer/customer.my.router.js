@@ -50,7 +50,11 @@ huoyun.factory("CustomerStatusStateService", ["BoService", "BoState",
         label: customerStatus.name,
         list: {
           queryExpr: `status eq ${customerStatus.id} and deleted eq false`,
-          disableCreate: true
+          buttons: {
+            "create": {
+              visibility: false
+            }
+          }
         },
         detail: {
           propTemplates: {

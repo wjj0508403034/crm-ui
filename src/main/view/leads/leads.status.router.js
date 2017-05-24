@@ -6,7 +6,12 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
     url: "/leads.status",
     label: "线索状态",
     list: {
-      disableSearch: true
+      disableSearch: true,
+      buttons: {
+        "adjustTableColumn": {
+          visibility: false
+        }
+      }
     }
   });
 }]);

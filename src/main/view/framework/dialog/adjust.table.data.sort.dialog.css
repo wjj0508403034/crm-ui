@@ -1,0 +1,20 @@
+.adjust-table-data-sort-dialog .box .box-body {
+  max-height: none !important;
+  min-height: 400px !important;
+}
+
+.adjust-table-data-sort-dialog .box {
+  border: 1px solid #d2d6de;
+}
+
+.adjust-table-data-sort-dialog table tr.selected {
+  background: #3c8dbc;
+}
+
+.adjust-table-data-sort-dialog table tr.selected td {
+  color: white;
+}
+
+.adjust-table-data-sort-dialog .btn {
+  margin-bottom: 15px;
+}

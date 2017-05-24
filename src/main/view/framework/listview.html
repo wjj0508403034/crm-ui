@@ -1,5 +1,5 @@
 <div widget-search-area bo-metadata="boMetadata" on-search="onSearch(query)" ng-if="!disableSearch" disable-advance-search="disableAdvanceSearch"></div>
 
-<div widget-bo-list-view bo-metadata="boMetadata" disable-create="disableCreate" page-data="pageData" on-create="onCreate()"
-  on-row-clicked="onRowClicked(lineData,index)" on-paging-changed="onPagingChanged(pageIndex)">
+<div widget-bo-list-view bo-metadata="boMetadata" table-title="{{boMetadata.label + '列表'}}" page-data="pageData" on-row-clicked="onRowClicked(lineData,index)"
+  on-paging-changed="onPagingChanged(pageIndex)" buttons="buttons">
 </div>

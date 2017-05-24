@@ -1,6 +1,8 @@
 'use strict';
-huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "BoDataHelper", "StateHelper", "$injector", "$timeout",
-  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper, $injector, $timeout) {
+huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService",
+  "BoDataHelper", "StateHelper", "$injector", "$timeout", "Dialog", "BoViewHelper",
+  function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper, $injector, $timeout,
+    Dialog, BoViewHelper) {
     var navs = null;
     var title = null;
     var subTitle = null;
@@ -10,7 +12,6 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     var onCreate = null;
     var onRowClicked = null;
 
-    $scope.disableCreate = false;
     $scope.disableAdvanceSearch = false;
 
     if ($state.current.data) {
@@ -27,10 +28,6 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       navs = $state.current.data.navs;
       if (Array.isArray(navs)) {
         $scope.setNavInfos(navs);
-      }
-
-      if ($state.current.data.disableCreate === true) {
-        $scope.disableCreate = true;
       }
 
       if ($state.current.data.disableSearch === true) {
@@ -53,6 +50,66 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       StateHelper.getHome();
       return;
     }
+
+    var defaultButtonMap = {
+      "adjustTableColumn": {
+        text: "调整表格字段",
+        appendClass: "pull-right",
+        onClickedHandler: function() {
+          var options = {
+            title: `调整表格字段`,
+            templateUrl: "framework/dialog/adjust.table.columns.dialog.html",
+            appendClassName: "adjust-table-columns-dialog",
+            params: {
+              boMetadata: $scope.boMetadata
+            },
+            closeCallback: function(key, data) {
+              if (key === "OK") {
+                $scope.boMetadata.listview.properties = data;
+              }
+            }
+          };
+          var dialog = Dialog.showConfirm(options);
+        }
+      },
+      "adjustTableDataSort": {
+        visibility: false,
+        text: "排序",
+        appendClass: "pull-right",
+        onClickedHandler: function() {
+          var options = {
+            title: `${$scope.boMetadata.label}排序`,
+            templateUrl: "framework/dialog/adjust.table.data.sort.dialog.html",
+            appendClassName: "adjust-table-data-sort-dialog",
+            params: {
+              pageData: angular.copy($scope.pageData.content),
+              boMetadata: $scope.boMetadata
+            },
+            closeCallback: function(key, data) {
+              if (key === "OK") {
+                $scope.pageData.content = data;
+              }
+
+            }
+          };
+          var dialog = Dialog.showConfirm(options);
+        }
+      },
+      "create": {
+        text: "新建",
+        appendClass: "pull-right",
+        onClickedHandler: function() {
+          if (onCreate) {
+            onCreate.apply($scope, [$injector]);
+          } else {
+            StateHelper.gotoBoCreate(boNamespace, boName);
+          }
+        }
+      }
+    };
+
+    $scope.buttons = BoViewHelper.mergeButtonsFromState(defaultButtonMap, $state);
+
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
@@ -101,14 +158,6 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         .then(function(pageData) {
           $scope.pageData = pageData;
         });
-    };
-
-    $scope.onCreate = function() {
-      if (onCreate) {
-        onCreate.apply($scope, [$injector]);
-      } else {
-        StateHelper.gotoBoCreate(boNamespace, boName);
-      }
     };
 
   }

@@ -6,7 +6,12 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
     url: "/customer.source",
     label: "客户来源",
     list: {
-      disableSearch: true
+      disableSearch: true,
+      buttons: {
+        "adjustTableColumn": {
+          visibility: false
+        }
+      }
     }
   });
 }]);

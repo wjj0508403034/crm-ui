@@ -6,7 +6,12 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
     url: "/paymentTerms",
     label: "支付方式",
     list: {
-      disableSearch: true
+      disableSearch: true,
+      buttons: {
+        "adjustTableColumn": {
+          visibility: false
+        }
+      }
     }
   });
 }]);

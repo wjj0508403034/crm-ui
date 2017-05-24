@@ -6,7 +6,12 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
     url: "/houseType",
     label: "户型",
     list: {
-      disableSearch: true
+      disableSearch: true,
+      buttons: {
+        "adjustTableColumn": {
+          visibility: false
+        }
+      }
     }
   });
 }]);

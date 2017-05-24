@@ -57,10 +57,10 @@ huoyun.provider("BoState", ["$stateProvider", function($stateProvider) {
             subTitle: "主页",
             queryExpr: listOptions.queryExpr,
             navs: listOptions.navs || ListPageNavigation,
-            disableCreate: listOptions.disableCreate,
             disableSearch: listOptions.disableSearch,
             onCreate: listOptions.onCreate || gotoBoCreationPage,
-            onRowClicked: listOptions.onCreate || gotoBoDetailPage
+            onRowClicked: listOptions.onCreate || gotoBoDetailPage,
+            buttons: listOptions.buttons
           }
         });
     }

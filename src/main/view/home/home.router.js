@@ -9,8 +9,6 @@ huoyun.config(function($stateProvider) {
       data: {
         boName: "Customer",
         boNamespace: "com.huoyun.sbo",
-        disableSearch: true,
-        disableCreate: true,
         subTitle: "主页",
         onRowClicked: function($injector, lineData, index) {}
       }

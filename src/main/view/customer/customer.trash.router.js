@@ -7,7 +7,11 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
     label: "回收站",
     list: {
       queryExpr: "deleted eq true",
-      disableCreate: true
+      buttons: {
+        "create": {
+          visibility: false
+        }
+      }
     },
     detail: {
       propTemplates: {
