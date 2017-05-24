@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetDateTimePicker', ["$filter",
-  function($filter) {
+huoyunWidget.directive('widgetDateTimePicker', ["$filter", "DateTimeFormat",
+  function($filter, DateTimeFormat) {
     return {
       restrict: 'A',
       scope: {
@@ -11,9 +11,9 @@ huoyunWidget.directive('widgetDateTimePicker', ["$filter",
       link: function($scope, ele, attrs) {
         /**用于控件里显示的日期格式 */
         var cancleWatch = $scope.$watch('value', function(newV, oldV) {
-          if (newV && newV !== oldV) {
+          if (newV) {
             var date = $filter("joda")(newV);
-            $scope.date = $filter("date")(date, "yyyy-MM-dd HH:mm");
+            $scope.date = $filter("date")(date, DateTimeFormat);
             cancleWatch();
           }
         });

@@ -2,6 +2,9 @@
 
 var huoyunWidget = angular.module('huoyun.widget', ['ngDialog', 'ngFileUpload']);
 
+huoyunWidget.value("DateFormat", "yyyy-MM-dd");
+huoyunWidget.value("DateTimeFormat", "yyyy-MM-dd HH:mm");
+
 huoyunWidget.filter("ValidValueLabel", function() {
 
   return function(input, propMeta) {

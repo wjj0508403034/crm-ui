@@ -1,11 +1,13 @@
 <div class="box bo-listview-table">
   <div class="box-header">
-    <h3 class="box-title" ng-bind="tableTitle"></h3>
+    <h3 class="box-title">
+      <i class="fa fa-server" aria-hidden="true"></i>
+      <span ng-bind="tableTitle"></span>
+    </h3>
 
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button class="btn btn-default" ng-repeat="button in buttons" ng-hide="button.visibility === false" ng-click="onButtonClicked(button)"
-          ng-class="button.class" ng-bind="button.text"></button>
+        <button class="btn btn-default" ng-repeat="button in buttons" ng-hide="button.visibility === false" ng-click="onButtonClicked(button)" ng-class="button.class" ng-bind="button.text"></button>
       </div>
     </div>
   </div>
@@ -14,8 +16,7 @@
     <table class="table table-hover table-bordered">
       <tbody>
         <tr class="no-hover">
-          <th ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false" property-name="{{prop.name}}"
-            ng-bind="prop.label"></th>
+          <th ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false" property-name="{{prop.name}}" ng-bind="prop.label"></th>
         </tr>
         <tr ng-show="pageData.content.length === 0">
           <td class="empty-table" colspan="{{boMetadata.listview.properties.length}}">

@@ -15,8 +15,10 @@ huoyunWidget.directive('widgetFormGroupBoLabel', ["Dialog", function(Dialog) {
       $scope.onButtonClicked = function() {
         var options = {
           title: `选择${$scope.prop.label}`,
-          templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/choosefromlistview.html",
-          appendClassName: "bo-choose-from-list-dialog",
+          //templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/choosefromlistview.html",
+          //appendClassName: "bo-choose-from-list-dialog",
+          templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/dialog/choose.bo.item.dialog.html",
+          appendClassName: "choose-bo-item-dialog",
           params: {
             boName: $scope.prop.additionInfo.boName,
             boNamespace: $scope.prop.additionInfo.boNamespace

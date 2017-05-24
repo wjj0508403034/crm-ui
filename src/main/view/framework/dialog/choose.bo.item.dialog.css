@@ -1,0 +1,26 @@
+.choose-bo-item-dialog-content {
+  max-height: 430px;
+  min-height: 430px;
+}
+
+.choose-bo-item-dialog-content .search-box {
+  border: 1px solid #d2d6de;
+}
+
+.choose-bo-item-dialog-content .search-box .form-control {
+  border: none;
+}
+
+.choose-bo-item-dialog-content .search-box .input-group-addon {
+  border: none;
+}
+
+.choose-bo-item-dialog-content .row {
+  height: 40px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.choose-bo-item-dialog-content .row .item-content {
+  line-height: 39px;
+  font-size: 12px;
+}
