@@ -11,6 +11,8 @@ huoyun.config(["$stateProvider", "BoStateProvider", "BoTemplateProvider",
       }
     });
 
+    BoTemplateProvider.registerBoPropertyDefaultImageUrl("com.huoyun.sbo", "Employee", "avatar", "/res/avatar.png");
+
     BoStateProvider.register("com.huoyun.sbo", "Employee", {
       state: "employee",
       url: "/employee",

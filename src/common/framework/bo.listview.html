@@ -34,6 +34,7 @@
               <span ng-switch-when="BoLabel" ng-bind="lineData[prop.name] | BoLabel : prop"></span>
               <span ng-switch-when="DateTime" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'"></span>
               <span ng-switch-when="Date" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd'"></span>
+              <span ng-switch-when="Image" widget-table-column-label-image bo-metadata="boMetadata" prop="prop" line-data="lineData"></span>
               <span ng-switch-default ng-bind="lineData[prop.name]"></span>
             </div>
           </td>

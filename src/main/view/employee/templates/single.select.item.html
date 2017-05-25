@@ -1,11 +1,6 @@
 <div class="employee-single-select-item-content">
   <div class="col-md-2 user-header">
-    <div ng-if="boItem['avatar']">
-      <img ng-src="{{ boItem['id'] | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" class="img-circle" alt="{{prop['userName']}}">
-    </div>
-    <div ng-if="!boItem['avatar']">
-      <img src="/res/avatar.png" class="img-circle" alt="{{prop['userName']}}">
-    </div>
+    <img ng-src="{{ boItem | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" class="img-circle" alt="{{prop['userName']}}">
   </div>
   <div class="col-md-10">
     <div ng-bind="boItem['userName']"></div>

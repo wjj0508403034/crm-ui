@@ -112,6 +112,10 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       loadBoData();
     };
 
+    $scope.$on("reloadBoData", function() {
+      loadBoData();
+    });
+
     $scope.isButtonVisibility = function(button) {
       if (!button.hasOwnProperty("visibility")) {
         return true;

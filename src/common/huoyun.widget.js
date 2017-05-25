@@ -50,15 +50,17 @@ huoyunWidget.filter("UploadURL", function() {
   };
 });
 
-huoyunWidget.filter("BoImageUrl", function() {
-  return function(input, boNamespace, boName, propName) {
-    if (typeof input === "number") {
-      return `/upload/${boNamespace}/${boName}/${input}/${propName}`;
-    }
+huoyunWidget.filter("BoImageUrl", ["BoTemplate",
+  function(BoTemplateProvider) {
 
-    return input;
-  };
-});
+    return function(bo, boNamespace, boName, propName) {
+      if (bo && typeof bo.id === "number" && bo[propName]) {
+        return `/upload/${boNamespace}/${boName}/${bo.id}/${propName}`;
+      }
+      return BoTemplateProvider.getBoPropertyDefaultImageUrl(boNamespace, boName, propName);
+    };
+  }
+]);
 
 huoyunWidget.filter("UserIcon", function() {
   return function(input) {

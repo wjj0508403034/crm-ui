@@ -2,6 +2,7 @@
 
 huoyunWidget.provider("BoTemplate", function() {
   const templates = {};
+  const defaultPropertiesImageUrls = {};
 
   /*
    * options structure
@@ -15,6 +16,17 @@ huoyunWidget.provider("BoTemplate", function() {
     if (!templates[key]) {
       templates[key] = options;
     }
+  };
+
+  this.registerBoPropertyDefaultImageUrl = function(boNamespace, boName, propertyName, url) {
+    var key = `${boNamespace}_${boName}_${propertyName}`;
+    if (!defaultPropertiesImageUrls[key]) {
+      defaultPropertiesImageUrls[key] = url;
+    }
+  };
+
+  this.getBoPropertyDefaultImageUrl = function(boNamespace, boName, propertyName) {
+    return defaultPropertiesImageUrls[`${boNamespace}_${boName}_${propertyName}`];
   };
 
   this.getSingleSelectItemTemplateUrl = function(boNamespace, boName) {

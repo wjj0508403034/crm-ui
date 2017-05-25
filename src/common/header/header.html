@@ -24,8 +24,7 @@
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img ng-src="{{user.id|UploadURL : boMeta :boMeta.propMap['avatar']}}" class="img-circle" alt="User Image">
-
+              <img ng-src="{{ user | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" class="img-circle" alt="{{user['userName']}}">
               <p>
                 <span ng-bind="user.userName"></span>-<span ng-bind="user.title | ValidValueLabel:boMeta.propMap['title'] "></span>
               </p>

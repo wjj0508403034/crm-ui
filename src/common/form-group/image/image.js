@@ -7,6 +7,7 @@ huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip",
       scope: {
         prop: "=",
         boMetadata: "=",
+        boData: "=",
         value: "=ngModel"
       },
       replace: true,
@@ -14,15 +15,12 @@ huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip",
       link: function($scope, ele, attrs) {
 
         $scope.$watch("value", function(newValue, oldValue, scope) {
-          if (newValue) {
-            $scope.imageUrl = getImageUrl();
-          } else {
-            $scope.imageUrl = null;
-          }
+          $scope.imageUrl = getImageUrl();
         });
 
         $scope.onFileUploadSuccessed = function(file, event) {
           Tip.show("上传成功！");
+          //$scope.$emit("reloadBoData");
           $scope.imageUrl = null;
           $timeout(function() {
             $scope.imageUrl = getImageUrl();
@@ -30,7 +28,7 @@ huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip",
         };
 
         function getImageUrl() {
-          return $filter('UploadURL')($scope.value, $scope.boMetadata, $scope.prop);
+          return $filter('BoImageUrl')($scope.boData, $scope.boMetadata.boNamespace, $scope.boMetadata.boName, $scope.prop.name);
         }
       }
     }

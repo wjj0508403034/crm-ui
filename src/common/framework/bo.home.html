@@ -16,10 +16,9 @@
           <div ng-include="propTemplates[prop.name]"></div>
         </div>
         <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
-          <div ng-switch-when="Image" widget-form-group-image prop="prop" bo-metadata="boMetadata" ng-model="boData['id']">
+          <div ng-switch-when="Image" widget-form-group-image prop="prop" bo-metadata="boMetadata" bo-data="boData" ng-model="boData[prop.name]">
           </div>
-          <div ng-switch-when="ImageList" widget-form-group-image-list prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]"
-            on-image-removed-handler="onImageRemovedHandler(image,boMeta,prop)" on-file-upload-successed="onFileUploadSuccessed(file,event)">
+          <div ng-switch-when="ImageList" widget-form-group-image-list prop="prop" bo-id="boData['id']" bo-metadata="boMetadata" ng-model="boData[prop.name]" on-image-removed-handler="onImageRemovedHandler(image,boMeta,prop)" on-file-upload-successed="onFileUploadSuccessed(file,event)">
           </div>
           <div ng-switch-when="Email" widget-form-group-label-email prop="prop" ng-model="boData[prop.name]"></div>
           <div ng-switch-when="Date" widget-form-group-label-date prop="prop" ng-model="boData[prop.name]"></div>
