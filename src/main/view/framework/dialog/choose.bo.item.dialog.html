@@ -13,7 +13,10 @@
     </div>
   </div>
   <div class="row" ng-repeat="boItem in pageData.content" ng-click="onRowClicked(boItem)">
-    <div class="col-md-12 item-content" ng-bind="boItem[prop.name]">
+    <div class="row-content">
+      <div ng-if="templateUrl" ng-include="templateUrl"></div>
+      <div ng-if="!templateUrl" class="col-md-12 item-content" ng-bind="boItem[prop.name]">
+      </div>
     </div>
   </div>
   <div class="row loading-more-row" ng-show="pageIndex < pageData.totalPages - 1">

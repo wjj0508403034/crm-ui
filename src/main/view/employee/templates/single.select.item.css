@@ -1,0 +1,15 @@
+.employee-single-select-item-content {
+  height: 60px;
+  padding: 6px 0px;
+}
+
+.employee-single-select-item-content .user-header img {
+  height: 48px;
+  width: 48px;
+  border: 1px solid #f4f4f4;
+  padding: 1px;
+}
+
+.employee-single-select-item-content .user-title {
+  font-size: 10px;
+}

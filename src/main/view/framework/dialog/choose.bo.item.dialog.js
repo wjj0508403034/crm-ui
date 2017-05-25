@@ -1,8 +1,10 @@
 'use strict';
-huoyun.controller('ChooseBoItemDialogController', ["$scope", "$q", "MetadataService", "BoService", "SearchHelper",
-  function($scope, $q, MetadataService, BoService, SearchHelper) {
+huoyun.controller('ChooseBoItemDialogController', ["$scope", "$q", "BoTemplate", "MetadataService", "BoService",
+  "SearchHelper",
+  function($scope, $q, BoTemplateProvider, MetadataService, BoService, SearchHelper) {
     var boName = $scope.ngDialogData.params.boName;
     var boNamespace = $scope.ngDialogData.params.boNamespace;
+    $scope.templateUrl = BoTemplateProvider.getSingleSelectItemTemplateUrl(boNamespace, boName);
     $scope.pageIndex = 0;
     $scope.searchText = null;
 

@@ -16,7 +16,7 @@
 }
 
 .choose-bo-item-dialog-content .row {
-  height: 40px;
+  min-height: 40px;
   border-bottom: 1px solid #f4f4f4;
   margin-left: -10px;
   margin-right: -10px;

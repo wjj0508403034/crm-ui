@@ -50,6 +50,16 @@ huoyunWidget.filter("UploadURL", function() {
   };
 });
 
+huoyunWidget.filter("BoImageUrl", function() {
+  return function(input, boNamespace, boName, propName) {
+    if (typeof input === "number") {
+      return `/upload/${boNamespace}/${boName}/${input}/${propName}`;
+    }
+
+    return input;
+  };
+});
+
 huoyunWidget.filter("UserIcon", function() {
   return function(input) {
     if (typeof input === "number") {

@@ -1,0 +1,14 @@
+<div class="employee-single-select-item-content">
+  <div class="col-md-2 user-header">
+    <div ng-if="boItem['avatar']">
+      <img ng-src="{{ boItem['id'] | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" class="img-circle" alt="{{prop['userName']}}">
+    </div>
+    <div ng-if="!boItem['avatar']">
+      <img src="/res/avatar.png" class="img-circle" alt="{{prop['userName']}}">
+    </div>
+  </div>
+  <div class="col-md-10">
+    <div ng-bind="boItem['userName']"></div>
+    <div class="user-title" ng-bind="boItem['title'] | ValidValueLabel: boMetadata.propMap['title'] "></div>
+  </div>
+</div>
