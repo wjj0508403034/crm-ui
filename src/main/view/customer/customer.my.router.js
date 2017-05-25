@@ -16,6 +16,7 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
       buttons: {
         "delete": {
           text: "移到回收站",
+          icon: "fa-trash-o",
           onButtonClicked: function(button, $injector) {
             var $scope = this;
             var options = {

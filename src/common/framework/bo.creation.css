@@ -15,6 +15,7 @@ form .form-group[has-error="true"] .help-block {
   margin-top: 2px;
 }
 
+.bo-edition-form .section-title,
 .bo-creation-form .section-title,
 .bo-home-form .section-title {
   border-bottom: 1px dashed #cecbcb;

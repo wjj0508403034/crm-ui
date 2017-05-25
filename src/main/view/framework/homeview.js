@@ -1,8 +1,8 @@
 'use strict';
 huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
-  "StateHelper", "$injector", "Tip", "UploadService", "MetadataHelper",
+  "StateHelper", "$injector", "Tip", "UploadService", "MetadataHelper", "BoViewHelper",
   function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip,
-    UploadService, MetadataHelper) {
+    UploadService, MetadataHelper, BoViewHelper) {
     var title = null;
     var subTitle = null;
     var navs = null;
@@ -57,30 +57,17 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
     var defaultButtonMap = {
       "delete": {
         text: "删除",
+        icon: "fa-remove",
         onButtonClicked: onDeleteButtonClicked
       },
       "edit": {
         text: "编辑",
+        icon: "fa-pencil",
         onButtonClicked: onEditButtonClicked
       }
     };
 
-    if ($state.current.data && $state.current.data.buttons) {
-      Object.keys($state.current.data.buttons).forEach(function(buttonKey, index) {
-        if (defaultButtonMap[buttonKey]) {
-          angular.extend(defaultButtonMap[buttonKey], $state.current.data.buttons[buttonKey]);
-        } else {
-          defaultButtonMap[buttonKey] = $state.current.data.buttons[buttonKey];
-        }
-      });
-    }
-
-    $scope.buttons = [];
-
-    Object.keys(defaultButtonMap).forEach(function(key, index) {
-      defaultButtonMap[key].name = key;
-      $scope.buttons.push(defaultButtonMap[key]);
-    });
+    $scope.buttons = BoViewHelper.mergeButtonsFromState(defaultButtonMap, $state);
 
 
     MetadataService.getMetadata(boNamespace, boName)

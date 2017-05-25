@@ -7,7 +7,10 @@
 
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button class="btn btn-default" ng-repeat="button in buttons" ng-hide="button.visibility === false" ng-click="onButtonClicked(button)" ng-class="button.class" ng-bind="button.text"></button>
+        <button class="btn btn-default" ng-repeat="button in buttons" ng-hide="button.visibility === false" ng-click="onButtonClicked(button)" ng-class="button.class">
+          <i ng-show="button.icon" class="fa" aria-hidden="true" ng-class="button.icon"></i>
+          <span ng-bind="button.text"></span>
+        </button>
       </div>
     </div>
   </div>

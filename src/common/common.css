@@ -30,3 +30,7 @@
 select.form-control {
   font-size: 12px;
 }
+
+.bo-property-form-group input {
+  font-size: 12px;
+}

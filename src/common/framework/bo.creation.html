@@ -11,7 +11,7 @@
         <span ng-bind="section.label"></span>
       </h4>
 
-      <div ng-repeat="prop in section.properties" ng-hide="prop.visibility === false">
+      <div ng-repeat="prop in section.properties" ng-hide="prop.visibility === false || prop.readonly">
         <div ng-if="propTemplates[prop.name]">
           <div ng-include="propTemplates[prop.name]"></div>
         </div>

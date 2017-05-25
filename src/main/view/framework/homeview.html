@@ -1,7 +1,10 @@
 <div class="bo-home-view" ng-if="!loadDataFailed">
   <div class="box">
     <div class="box-header with-border">
-      <button type="submit" class="btn btn-default pull-right" ng-repeat="button in buttons" ng-if="isButtonVisibility(button)" ng-click="onButtonClicked(button.name,button)" ng-bind="button.text"></button>
+      <button type="submit" class="btn btn-default pull-right" ng-repeat="button in buttons" ng-if="isButtonVisibility(button)" ng-click="onButtonClicked(button.name,button)">
+        <i ng-show="button.icon" class="fa" aria-hidden="true" ng-class="button.icon"></i>
+        <span ng-bind="button.text"></span>
+      </button>
     </div>
   </div>
   <div widget-bo-home bo-metadata="boMetadata" prop-templates="propTemplates" bo-data="boData" refresh="refresh()" on-image-removed="onImageRemoved(image,boMeta,prop)"></div>
