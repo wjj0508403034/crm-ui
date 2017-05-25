@@ -1,6 +1,6 @@
 .choose-bo-item-dialog-content {
-  max-height: 430px;
-  min-height: 430px;
+  max-height: 410px;
+  min-height: 410px;
 }
 
 .choose-bo-item-dialog-content .search-box {
@@ -18,9 +18,20 @@
 .choose-bo-item-dialog-content .row {
   height: 40px;
   border-bottom: 1px solid #f4f4f4;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 .choose-bo-item-dialog-content .row .item-content {
   line-height: 39px;
   font-size: 12px;
+  cursor: pointer;
+}
+
+.choose-bo-item-dialog-content .row.loading-more-row {
+  text-align: center;
+}
+
+.choose-bo-item-dialog-content .row.loading-more-row .loading-more-row-text {
+  margin-left: 5px;
 }

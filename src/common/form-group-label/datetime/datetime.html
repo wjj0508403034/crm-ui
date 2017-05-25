@@ -1,6 +1,6 @@
 <div class="form-group col-md-6 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
   <label class="col-sm-4 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
   <div class="col-sm-8">
-    <a ng-href="mailto:{{value}}" ng-bind="value"></a>
+    <label ng-bind="value | joda | date:'yyyy-MM-dd HH:mm'"></label>
   </div>
 </div>

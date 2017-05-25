@@ -16,5 +16,10 @@
     <div class="col-md-12 item-content" ng-bind="boItem[prop.name]">
     </div>
   </div>
+  <div class="row loading-more-row" ng-show="pageIndex < pageData.totalPages - 1">
+    <div class="col-md-12 item-content" ng-click="onLoadMoreRowClicked()">
+      <i class="fa fa-angle-double-down" aria-hidden="true"></i><span class="loading-more-row-text">更多...</span>
+    </div>
+  </div>
   <div widget-loading ng-show="showLoading"></div>
 </div>
