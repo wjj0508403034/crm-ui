@@ -1,5 +1,11 @@
 'use strict';
 
+huoyun.config(["BoStateProvider", "BoTemplateProvider",
+  function(BoStateProvider, BoTemplateProvider) {
+    BoTemplateProvider.registerBoPropertyDefaultImageUrl("com.huoyun.sbo", "Company", "logo", "/res/company.png");
+  }
+]);
+
 huoyun.config(function($stateProvider) {
   $stateProvider
     .state("company", {

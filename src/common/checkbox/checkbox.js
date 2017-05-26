@@ -1,5 +1,5 @@
 'use strict';
-huoyunWidget.directive('widgetCheckBox', function() {
+huoyunWidget.directive('widgetCheckBox', ["$timeout", function($timeout) {
   return {
     restrict: 'A',
     templateUrl: 'checkbox/checkbox.html',
@@ -26,15 +26,18 @@ huoyunWidget.directive('widgetCheckBox', function() {
 
       $scope.onCheckBoxClicked = function(event) {
         onCheckboxValueChanged(event);
+
       };
 
       function onCheckboxValueChanged(event) {
         event.stopPropagation();
-        $scope.value = !$scope.value;
-        $scope.onCheckboxValueChanged({
-          checked: $scope.value
+        $timeout(function() {
+          $scope.value = !$scope.value;
+          $scope.onCheckboxValueChanged({
+            checked: $scope.value
+          });
         });
       }
     }
   }
-});
+}]);

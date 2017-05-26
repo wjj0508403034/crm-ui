@@ -1,0 +1,13 @@
+<div class="employee-select-item-common employee-multi-select-item-content" ng-controller="EmployeeMultiSelectItemController"
+  ng-click="onItemClicked(boItem)">
+  <div class="col-md-2 check-box-container">
+    <div widget-check-box ng-model="boItem.$$selected" on-checkbox-value-changed="onCheckboxValueChanged(checked,boItem)"></div>
+  </div>
+  <div class="col-md-2 user-header">
+    <img ng-src="{{ boItem | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" class="img-circle" alt="{{prop['userName']}}">
+  </div>
+  <div class="col-md-8">
+    <div ng-bind="boItem['userName']"></div>
+    <div class="user-title" ng-bind="boItem['title'] | ValidValueLabel: boMetadata.propMap['title'] "></div>
+  </div>
+</div>

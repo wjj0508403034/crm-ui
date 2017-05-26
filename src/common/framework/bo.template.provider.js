@@ -10,6 +10,7 @@ huoyunWidget.provider("BoTemplate", function() {
    *     - single
    *        - templateUrl
    *     - multi
+   *        - templateUrl
    */
   this.configure = function(boNamespace, boName, options) {
     var key = `${boNamespace}_${boName}`;
@@ -33,6 +34,15 @@ huoyunWidget.provider("BoTemplate", function() {
     var template = templates[`${boNamespace}_${boName}`];
     if (template && template.select && template.select.single && template.select.single.templateUrl) {
       return template.select.single.templateUrl;
+    }
+
+    return null;
+  };
+
+  this.getMultiSelectItemTemplateUrl = function(boNamespace, boName) {
+    var template = templates[`${boNamespace}_${boName}`];
+    if (template && template.select && template.select.multi && template.select.multi.templateUrl) {
+      return template.select.multi.templateUrl;
     }
 
     return null;

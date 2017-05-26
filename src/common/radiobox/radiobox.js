@@ -1,5 +1,5 @@
 'use strict';
-huoyunWidget.directive('widgetRadioBox', function() {
+huoyunWidget.directive('widgetRadioBox', ["$timeout", function($timeout) {
   return {
     restrict: 'A',
     templateUrl: 'radiobox/radiobox.html',
@@ -31,11 +31,13 @@ huoyunWidget.directive('widgetRadioBox', function() {
 
       function onRadioButtonValueChanged(event) {
         event.stopPropagation();
-        $scope.value = !$scope.value;
-        $scope.onRadioboxValueChanged({
-          checked: $scope.value
+        $timeout(function() {
+          $scope.value = !$scope.value;
+          $scope.onRadioboxValueChanged({
+            checked: $scope.value
+          });
         });
       }
     }
   }
-});
+}]);

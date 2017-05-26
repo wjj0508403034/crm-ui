@@ -1,12 +1,15 @@
 'use strict';
 
-huoyun.config(["$stateProvider", "BoStateProvider", "BoTemplateProvider",
-  function($stateProvider, BoStateProvider, BoTemplateProvider) {
+huoyun.config(["BoStateProvider", "BoTemplateProvider",
+  function(BoStateProvider, BoTemplateProvider) {
 
     BoTemplateProvider.configure("com.huoyun.sbo", "Employee", {
       select: {
         single: {
           templateUrl: "employee/templates/single.select.item.html"
+        },
+        multi: {
+          templateUrl: "employee/templates/multi.select.item.html"
         }
       }
     });

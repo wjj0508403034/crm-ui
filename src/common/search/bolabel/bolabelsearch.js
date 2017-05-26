@@ -15,12 +15,14 @@ huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper",
         $scope.onButtonClicked = function() {
           var options = {
             title: `设置搜索条件`,
-            templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/choosefromlistview.html",
-            appendClassName: "bo-choose-from-list-dialog",
+            //templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/choosefromlistview.html",
+            //appendClassName: "bo-choose-from-list-dialog",
+            templateUrl: $scope.prop.chooseFromTemplateUrl ||
+              "framework/dialog/choose.multi.bo.items.dialog.html",
+            appendClassName: "choose-multi-bo-items-dialog",
             params: {
               boName: $scope.prop.additionInfo.boName,
               boNamespace: $scope.prop.additionInfo.boNamespace,
-              multiSelected: true,
               selectedBos: $scope.selectedBos
             },
             closeCallback: function(key, data) {

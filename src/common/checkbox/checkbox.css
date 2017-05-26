@@ -5,4 +5,7 @@
 .widget-check-box label {
   font-weight: normal;
   font-size: 14px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  vertical-align: middle;
 }
