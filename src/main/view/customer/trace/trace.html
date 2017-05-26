@@ -15,7 +15,7 @@
           <span class="direct-chat-timestamp" ng-class="{true: 'pull-left', false: 'pull-right'}[!record.$$self]" ng-bind="record.createTime | joda | date:'yyyy-MM-dd HH:mm'"></span>
         </div>
 
-        <img class="direct-chat-img" ng-src="{{record.owner.id | UserIcon }}" alt="{{record.owner.userName}}">
+        <img class="direct-chat-img" ng-src="{{record.owner | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" alt="{{record.owner.userName}}">
         <div class="direct-chat-text" ng-bind="record.comment">
         </div>
       </div>

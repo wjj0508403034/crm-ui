@@ -18,7 +18,7 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a class="dropdown-toggle" data-toggle="dropdown">
-            <img ng-src="{{user.id|UploadURL : boMeta :boMeta.propMap['avatar']}}" class="user-image" alt="User Image">
+            <img ng-src="{{ user | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" class="user-image" alt="User Image">
             <span class="hidden-xs" ng-bind="user.userName"></span>
           </a>
           <ul class="dropdown-menu">
