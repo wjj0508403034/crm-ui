@@ -5,7 +5,8 @@ huoyunWidget.directive('widgetDateTimePicker', ["$filter", "DateTimeFormat",
     return {
       restrict: 'A',
       scope: {
-        value: "=ngModel" //时间戳，13位
+        value: "=ngModel", //时间戳，13位
+        placeholder: "@"
       },
       templateUrl: 'datetimepicker/datetimepicker.html',
       link: function($scope, ele, attrs) {

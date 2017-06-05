@@ -1,26 +1,27 @@
 'use strict';
 
 
-huoyun.factory("MenuService", ["CustomerStatusStateService",
-  function(CustomerStatusStateService) {
+huoyun.factory("MenuService", ["$q", "CustomerStatusStateService",
+  function($q, CustomerStatusStateService) {
 
     var defaultMenusMap = {
-      "leads": {
+      "homepage": {
         icon: "fa-home",
-        label: "线索",
+        label: "主页",
+        active: true
+      },
+      "leads": {
+        icon: "fa-binoculars",
+        label: "线索管理",
         active: true,
         items: [{
           icon: "fa-file-o",
           label: "所有线索",
           stateLink: "leads.list"
-        }, {
-          icon: "fa-file-o",
-          label: "线索状态",
-          stateLink: "leadsStatus.list"
         }]
       },
       "customer-management": {
-        icon: "fa-briefcase",
+        icon: "fa-users",
         label: "客户管理",
         items: [{
           icon: "fa-file-o",
@@ -33,25 +34,49 @@ huoyun.factory("MenuService", ["CustomerStatusStateService",
         }],
         setItems: function(items) {
           items.forEach(function(item) {
-            this.items.splice(1, 0, item);
+            this.items.splice(this.items.length - 1, 0, item);
+          }.bind(this));
+        }
+      },
+      "design-management": {
+        icon: "fa-desktop",
+        label: "设计管理",
+        items: [{
+          icon: "fa-file-o",
+          label: "设计阶段客户",
+          stateLink: "designStageCustomer.list"
+        }],
+        setItems: function(items) {
+          items.forEach(function(item) {
+            this.items.splice(this.items.length, 0, item);
+          }.bind(this));
+        }
+      },
+      "project-management": {
+        icon: "fa-bank",
+        label: "工程管理",
+        items: [{
+          icon: "fa-file-o",
+          label: "工程阶段客户",
+          stateLink: "constructionStageCustomer.list"
+        }],
+        setItems: function(items) {
+          items.forEach(function(item) {
+            this.items.splice(this.items.length, 0, item);
           }.bind(this));
         }
       },
       "contract-management": {
-        icon: "fa-briefcase",
+        icon: "fa-file-text-o",
         label: "合同",
         items: [{
           icon: "fa-file-o",
           label: "合同",
           stateLink: "contract.list"
-        }, {
-          icon: "fa-file-o",
-          label: "支付方式",
-          stateLink: "paymentTerm.list"
         }]
       },
       "user-management": {
-        icon: "fa-home",
+        icon: "fa-user",
         label: "用户中心",
         items: [{
           icon: "fa-file-o",
@@ -68,33 +93,49 @@ huoyun.factory("MenuService", ["CustomerStatusStateService",
         }]
       },
       "settings": {
-        icon: "fa-home",
+        icon: "fa-gear",
         label: "系统设置",
         items: [{
           icon: "fa-file-o",
-          label: "客户状态",
+          label: "线索状态配置",
+          stateLink: "leadsStatus.list"
+        }, {
+          icon: "fa-file-o",
+          label: "支付方式配置",
+          stateLink: "paymentTerm.list"
+        }, {
+          icon: "fa-file-o",
+          label: "跟踪状态配置",
           stateLink: "customerStatus.list"
         }, {
           icon: "fa-file-o",
-          label: "客户来源",
+          label: "工程状态配置",
+          stateLink: "constructionStatus.list"
+        }, {
+          icon: "fa-file-o",
+          label: "客户来源配置",
           stateLink: "salesSource.list"
         }, {
           icon: "fa-file-o",
-          label: "装修方式",
+          label: "装修方式配置",
           stateLink: "finishtype.list"
         }, {
           icon: "fa-file-o",
-          label: "户型",
+          label: "户型配置",
           stateLink: "houseType.list"
         }, {
           icon: "fa-file-o",
-          label: "楼盘",
+          label: "楼盘配置",
           stateLink: "houses.list"
         }, {
           icon: "fa-file-o",
-          label: "作品列表",
+          label: "作品列表配置",
           stateLink: "finishwork.list",
           visibility: false
+        }, {
+          icon: "fa-file-o",
+          label: "职务配置",
+          stateLink: "employeeTitle.list"
         }]
       }
     };
@@ -112,14 +153,17 @@ huoyun.factory("MenuService", ["CustomerStatusStateService",
 
     return {
       getMenus: function() {
-        return CustomerStatusStateService.getCustomerStatusMenus()
-          .then(function(customerStatusStateList) {
-            var clonedMap = angular.copy(defaultMenusMap);
-            clonedMap["customer-management"].setItems(customerStatusStateList);
-            return Promise.resolve(getMenuItems(clonedMap));
-          }).catch(function() {
-            return Promise.resolve(getMenuItems(defaultMenusMap));
-          });
+
+        return $q.all([CustomerStatusStateService.getCustomerStatusMenus(),
+          CustomerStatusStateService.getConstractionMenus()
+        ]).then(function(res) {
+          var clonedMap = angular.copy(defaultMenusMap);
+          clonedMap["design-management"].setItems(res[0]);
+          clonedMap["project-management"].setItems(res[1]);
+          return Promise.resolve(getMenuItems(clonedMap));
+        }).catch(function() {
+          return Promise.resolve(getMenuItems(defaultMenusMap));
+        });
       }
     };
   }

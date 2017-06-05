@@ -14,11 +14,6 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
       }
     },
     detail: {
-      templateUrl: "customer/customer.detail.html",
-      propTemplates: {
-        "stage": "customer/templates/detail/property.stage.html",
-        "status": "customer/templates/detail/property.status.html"
-      },
       buttons: {
         "restore": {
           text: "恢复",

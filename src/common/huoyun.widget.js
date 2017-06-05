@@ -5,6 +5,36 @@ var huoyunWidget = angular.module('huoyun.widget', ['ngDialog', 'ngFileUpload'])
 huoyunWidget.value("DateFormat", "yyyy-MM-dd");
 huoyunWidget.value("DateTimeFormat", "yyyy-MM-dd HH:mm");
 
+huoyunWidget.filter("EmptyDataPlaceHolder", function() {
+  return function(input) {
+    if (typeof input === "string") {
+      if (!input.trim()) {
+        return "-暂无-"
+      }
+    }
+
+    if (input === undefined || input === null) {
+      return "-暂无-"
+    }
+    return input;
+  };
+});
+
+huoyunWidget.filter("EmptyColumnPlaceHolder", function() {
+  return function(input) {
+    if (typeof input === "string") {
+      if (!input.trim()) {
+        return "--"
+      }
+    }
+
+    if (input === undefined || input === null) {
+      return "--"
+    }
+    return input;
+  };
+});
+
 huoyunWidget.filter("ValidValueLabel", function() {
 
   return function(input, propMeta) {

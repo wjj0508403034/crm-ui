@@ -5,7 +5,8 @@ huoyunWidget.directive('widgetDatePicker', ['$filter', 'DateFormat',
     return {
       restrict: 'A',
       scope: {
-        value: "=ngModel"
+        value: "=ngModel",
+        placeholder: "@"
       },
       templateUrl: 'datepicker/datepicker.html',
       link: function($scope, ele, attrs) {
@@ -23,7 +24,7 @@ huoyunWidget.directive('widgetDatePicker', ['$filter', 'DateFormat',
           $input.datepicker({
             autoclose: true,
             language: "zh-CN",
-            format: DateFormat
+            format: "yyyy-mm-dd"
           }).on('changeDate', function(event) {
             $scope.value = event.date.getTime();
             $scope.$apply();

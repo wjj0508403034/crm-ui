@@ -16,7 +16,7 @@ huoyun.factory("BoDataHelper", [function() {
   function validatorProp(propData, propMetadata) {
     return new Promise(function(reslove, reject) {
       console.log(`Start validaror property ${propMetadata.name}`);
-      if (propMetadata.mandatory && propMetadata.visibility !== false) {
+      if (propMetadata.mandatory && propMetadata.visibility !== false && !propMetadata.readonly) {
         var res = {
           propData: propData,
           propMetadata: propMetadata,

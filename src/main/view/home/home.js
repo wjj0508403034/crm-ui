@@ -8,28 +8,32 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
     }]);
 
     $scope.tiles = [{
-        icon: "on-person-add",
-        text: "公司本月到店客户",
+        icon: "fa-binoculars",
+        text: "本月新增线索",
         stateLink: "customerReport.visit",
-        number: "--"
+        number: "12",
+        background: "bg-aqua"
       },
       {
-        icon: "on-person-add",
-        text: "公司本月定金",
+        icon: "fa-users",
+        text: "本月新增客户",
         stateLink: "customerReport.payDeposit",
-        number: "--"
+        number: "12222",
+        background: "bg-green"
       },
       {
-        icon: "on-person-add",
-        text: "公司本月合同",
+        icon: "fa-rmb",
+        text: "本月新增合同总金额",
         stateLink: "customerReport.contract",
-        number: "--"
+        number: "12",
+        background: "bg-yellow"
       },
       {
-        icon: "on-person-add",
-        text: "公司本月签单率",
+        icon: "fa-rmb",
+        text: "本月收款总金额",
         stateLink: "boList({boName:'Customer',boNamespace:'com.huoyun.sbo'})",
-        number: "--"
+        number: "122000",
+        background: "bg-red"
       }
     ];
 

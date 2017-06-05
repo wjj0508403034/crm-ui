@@ -18,6 +18,7 @@
         <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
           <div ng-switch-when="Text" widget-form-group-text prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="Date" widget-form-group-date prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
+          <div ng-switch-when="Color" widget-form-group-color-picker prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="DateTime" widget-form-group-date-time prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="Email" widget-form-group-email prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="Phone" widget-form-group-phone prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>

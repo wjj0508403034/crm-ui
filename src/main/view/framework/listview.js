@@ -50,7 +50,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     var defaultButtonMap = {
       "adjustTableColumn": {
         text: "调整表格字段",
-        appendClass: "pull-right",
+        icon: "fa-table",
+        appendClass: "pull-right btn-default",
         onClickedHandler: function() {
           var options = {
             title: `调整表格字段`,
@@ -71,7 +72,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       "adjustTableDataSort": {
         visibility: false,
         text: "排序",
-        appendClass: "pull-right",
+        appendClass: "pull-right btn-default",
         onClickedHandler: function() {
           var options = {
             title: `${$scope.boMetadata.label}排序`,
@@ -93,7 +94,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       },
       "create": {
         text: "新建",
-        appendClass: "pull-right",
+        icon: "fa-plus",
+        appendClass: "btn-primary",
         onClickedHandler: function() {
           if (onCreate) {
             onCreate.apply($scope, [$injector]);

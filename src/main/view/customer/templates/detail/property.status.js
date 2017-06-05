@@ -3,7 +3,7 @@
 huoyun.controller('CustomerPropertyStatusDetailController', ["$scope", "BoService",
   function($scope, BoService) {
 
-    BoService.queryAll("com.huoyun.sbo", "CustomerStatus", null, "orderNo")
+    BoService.queryAll($scope.prop.additionInfo.boNamespace, $scope.prop.additionInfo.boName, null, "orderNo")
       .then(function(listData) {
         $scope.statusItems = [];
         listData.forEach(function(statusItem) {
@@ -18,7 +18,7 @@ huoyun.controller('CustomerPropertyStatusDetailController', ["$scope", "BoServic
     });
 
     function initStatus() {
-      if (!$scope.boData["status"]) {
+      if (!$scope.boData || !$scope.boData[$scope.prop.name]) {
         return;
       }
 
@@ -26,7 +26,7 @@ huoyun.controller('CustomerPropertyStatusDetailController', ["$scope", "BoServic
       if ($scope.boData && $scope.statusItems) {
 
         $scope.statusItems.forEach(function(statusItem, statusIndex) {
-          if ($scope.boData["status"].id === statusItem.id) {
+          if ($scope.boData[$scope.prop.name].id === statusItem.id) {
             index = statusIndex;
           }
         });

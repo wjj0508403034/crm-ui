@@ -3,7 +3,7 @@
   <div ng-if="!prop.readonly">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-      <input type="email" class="form-control" ng-model="$parent.value" id="{{prop.name}}">
+      <input type="email" class="form-control" ng-model="$parent.value" id="{{prop.name}}" placeholder="{{'请输入' + prop.label}}">
     </div>
     <span class="help-block" ng-show="errorMessage" ng-bind="errorMessage"></span>
   </div>

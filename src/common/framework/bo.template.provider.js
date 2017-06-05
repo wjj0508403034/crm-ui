@@ -6,6 +6,11 @@ huoyunWidget.provider("BoTemplate", function() {
 
   /*
    * options structure
+   *   - detail
+   *      - templateUrl
+   *      - propTemplates
+   *        - propName
+   *            - templateUrl
    *   - select
    *     - single
    *        - templateUrl
@@ -43,6 +48,24 @@ huoyunWidget.provider("BoTemplate", function() {
     var template = templates[`${boNamespace}_${boName}`];
     if (template && template.select && template.select.multi && template.select.multi.templateUrl) {
       return template.select.multi.templateUrl;
+    }
+
+    return null;
+  };
+
+  this.getDetailPagePropTemplateUrl = function(boNamespace, boName, propName) {
+    var template = templates[`${boNamespace}_${boName}`];
+    if (template && template.detail && template.detail.propTemplates && template.detail.propTemplates[propName]) {
+      return template.detail.propTemplates[propName].templateUrl;
+    }
+
+    return null;
+  };
+
+  this.getDetailTemplateUrl = function(boNamespace, boName) {
+    var template = templates[`${boNamespace}_${boName}`];
+    if (template && template.detail) {
+      return template.detail.templateUrl;
     }
 
     return null;

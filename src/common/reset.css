@@ -16,3 +16,12 @@ dir {
   -webkit-margin-end: 0px;
   -webkit-padding-start: 0px;
 }
+
+.h4,
+.h5,
+.h6,
+h4,
+h5,
+h6 {
+  margin: 0px;
+}

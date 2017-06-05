@@ -15,3 +15,12 @@ huoyunWidget.directive('widgetFormGroupPrice', [
     }
   }
 ]);
+
+huoyunWidget.filter("PriceUnit", function() {
+
+  return function(input) {
+    if (input !== null && input !== undefined) {
+      return `${input} RMB`;
+    }
+  };
+});

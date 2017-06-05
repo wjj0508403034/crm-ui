@@ -1,6 +1,9 @@
 <div class="form-group col-md-6 bo-property-form-group" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
   <label class="col-sm-4 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
   <div class="col-sm-8">
-    <label ng-bind="value | EmptyDataPlaceHolder"></label>
+    <label>
+      <i class="fa fa-database color-yellow" aria-hidden="true"></i>
+      <span ng-bind="value | PriceUnit | EmptyDataPlaceHolder"></span>
+    </label>
   </div>
 </div>

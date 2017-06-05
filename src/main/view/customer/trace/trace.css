@@ -1,5 +1,13 @@
 .direct-chat .direct-chat-msg>.direct-chat-text {
   min-height: 30px;
+  background: #eee;
+  border: 1px solid #eee;
+  font-size: 12px;
+}
+
+.direct-chat .direct-chat-msg>.direct-chat-text:after,
+.direct-chat .direct-chat-msg>.direct-chat-text:before {
+  border-right-color: #eee;
 }
 
 .customer-trace-record-box .direct-chat-messages {

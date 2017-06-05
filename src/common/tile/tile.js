@@ -7,7 +7,8 @@ huoyunWidget.directive('widgetTile', function() {
       number: "@",
       text: "@",
       stateLink: "@",
-      icon: "@"
+      icon: "@",
+      background: "@"
     },
     replace: true,
     templateUrl: 'tile/tile.html',

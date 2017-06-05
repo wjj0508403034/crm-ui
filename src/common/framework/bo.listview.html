@@ -7,7 +7,7 @@
 
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button class="btn btn-default" ng-repeat="button in buttons" ng-hide="button.visibility === false" ng-click="onButtonClicked(button)" ng-class="button.class">
+        <button class="btn" ng-repeat="button in buttons" ng-hide="button.visibility === false" ng-click="onButtonClicked(button)" ng-class="button.appendClass || 'btn-default'">
           <i ng-show="button.icon" class="fa" aria-hidden="true" ng-class="button.icon"></i>
           <span ng-bind="button.text"></span>
         </button>
@@ -19,7 +19,7 @@
     <table class="table table-hover table-bordered">
       <tbody>
         <tr class="no-hover">
-          <th ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false" property-name="{{prop.name}}" ng-bind="prop.label"></th>
+          <th prop-type="{{prop.type}}" ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false" property-name="{{prop.name}}" ng-bind="prop.label"></th>
         </tr>
         <tr ng-show="pageData.content.length === 0">
           <td class="empty-table" colspan="{{boMetadata.listview.properties.length}}">
@@ -28,17 +28,18 @@
           </td>
         </tr>
         <tr ng-show="pageData.content.length > 0" ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)">
-          <td ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false">
+          <td prop-type="{{prop.type}}" ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false">
             <div ng-if="propTemplates[prop.name]">
               <div ng-include="propTemplates[prop.name]"></div>
             </div>
             <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
-              <span ng-switch-when="ValidValues" ng-bind="lineData[prop.name] | ValidValueLabel : prop"></span>
-              <span ng-switch-when="BoLabel" ng-bind="lineData[prop.name] | BoLabel : prop"></span>
-              <span ng-switch-when="DateTime" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm'"></span>
-              <span ng-switch-when="Date" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd'"></span>
+              <span ng-switch-when="ValidValues" ng-bind="lineData[prop.name] | ValidValueLabel : prop | EmptyColumnPlaceHolder"></span>
+              <span ng-switch-when="BoLabel" ng-bind="lineData[prop.name] | BoLabel : prop | EmptyColumnPlaceHolder"></span>
+              <span ng-switch-when="Price" ng-bind="lineData[prop.name] | PriceUnit | EmptyColumnPlaceHolder"></span>
+              <span ng-switch-when="DateTime" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm' |EmptyColumnPlaceHolder"></span>
+              <span ng-switch-when="Date" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd' | EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="Image" widget-table-column-label-image bo-metadata="boMetadata" prop="prop" line-data="lineData"></span>
-              <span ng-switch-default ng-bind="lineData[prop.name]"></span>
+              <span ng-switch-default ng-bind="lineData[prop.name] | EmptyColumnPlaceHolder"></span>
             </div>
           </td>
         </tr>

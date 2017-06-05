@@ -18,12 +18,16 @@ form .form-group[has-error="true"] .help-block {
 .bo-edition-form .section-title,
 .bo-creation-form .section-title,
 .bo-home-form .section-title {
-  border-bottom: 1px dashed #cecbcb;
+  border-bottom: 1px dotted #ddd;
   line-height: 30px;
   margin-bottom: 30px;
   color: #676767;
   font-weight: normal;
   font-size: 14px;
+}
+
+.bo-home-form.box .box-body {
+  padding-top: 0px;
 }
 
 .form-group label {

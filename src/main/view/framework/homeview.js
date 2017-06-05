@@ -45,10 +45,6 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         }
       }
 
-      if ($state.current.data.propTemplates) {
-        $scope.propTemplates = $state.current.data.propTemplates;
-      }
-
       if ($state.current.data.dynamicMeta) {
         dynamicMeta = $state.current.data.dynamicMeta;
       }
@@ -103,22 +99,6 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       loadBoData();
     });
 
-    $scope.isButtonVisibility = function(button) {
-      if (!button.hasOwnProperty("visibility")) {
-        return true;
-      }
-
-      if (typeof button.visibility === "boolean") {
-        return button.visibility;
-      }
-
-      if (typeof button.visibility === "function") {
-        return button.visibility.apply($scope, [button, $injector])
-      }
-
-      return false;
-    };
-
     $scope.onImageRemoved = function(image, boMeta, prop) {
       UploadService.deleteImageForImageList(prop.additionInfo.boNamespace, prop.additionInfo.boName, image.id,
           prop.name)
@@ -128,10 +108,8 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         });
     };
 
-    $scope.onButtonClicked = function(buttonName, button) {
-      if (typeof button.onButtonClicked === "function") {
-        button.onButtonClicked.apply($scope, [button, $injector]);
-      }
+    $scope.updateBo = function(boData) {
+      return BoService.updateBo(boNamespace, boName, boId, boData);
     };
 
     function onDeleteButtonClicked(button) {

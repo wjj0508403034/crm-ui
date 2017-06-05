@@ -17,3 +17,12 @@
 .bo-listview-table .table .no-hover:hover {
   background: inherit !important;
 }
+
+.bo-listview-table .box-footer {
+  border-top: none;
+}
+
+.bo-listview-table .table th[prop-type="Price"],
+.bo-listview-table .table td[prop-type="Price"] {
+  text-align: right;
+}

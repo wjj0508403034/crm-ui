@@ -2,6 +2,10 @@
   background: transparent !important;
 }
 
+.box {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
 .box .box-header .box-title {
   height: 18px;
   font-weight: normal;
@@ -17,8 +21,8 @@
 }
 
 .box .box-header .box-tools .input-group .btn {
-  padding: 4px 25px;
-  margin-left: 20px;
+  padding: 4px 15px;
+  margin-left: 10px;
   font-size: 12px;
 }
 
@@ -33,4 +37,48 @@ select.form-control {
 
 .bo-property-form-group input {
   font-size: 12px;
+}
+
+.bo-property-form-group .control-label {
+  text-align: right;
+  padding-right: 0px;
+  color: #8d8d8d;
+}
+
+.table-bordered>thead>tr>th:first-child,
+.table-bordered>tbody>tr>th:first-child,
+.table-bordered>tfoot>tr>th:first-child,
+.table-bordered>thead>tr>td:first-child,
+.table-bordered>tbody>tr>td:first-child,
+.table-bordered>tfoot>tr>td:first-child {
+  border-left: none;
+}
+
+.table-bordered>thead>tr>th:last-child,
+.table-bordered>tbody>tr>th:last-child,
+.table-bordered>tfoot>tr>th:last-child,
+.table-bordered>thead>tr>td:last-child,
+.table-bordered>tbody>tr>td:last-child,
+.table-bordered>tfoot>tr>td:last-child {
+  border-right: none;
+}
+
+.box-body .table-bordered {
+  border: none;
+}
+
+.color-yellow {
+  color: #e6aa18;
+}
+
+table th,
+table td {
+  font-size: 12px;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+table td {
+  color: #676767;
+  min-height: 34px;
 }

@@ -26,7 +26,7 @@
             <li class="user-header">
               <img ng-src="{{ user | BoImageUrl : 'com.huoyun.sbo' : 'Employee' : 'avatar' }}" class="img-circle" alt="{{user['userName']}}">
               <p>
-                <span ng-bind="user.userName"></span>-<span ng-bind="user.title | ValidValueLabel:boMeta.propMap['title'] "></span>
+                <span ng-bind="user.userName"></span>-<span ng-bind="user.title.name"></span>
               </p>
             </li>
 
