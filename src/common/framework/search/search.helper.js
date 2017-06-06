@@ -1,5 +1,10 @@
 'use strict';
 
+huoyunWidget.constant("SearchEvent", {
+  Changed: "HuoYun.SearchEvent.Changed",
+  Reset: "HuoYun.SearchEvent.Reset"
+});
+
 huoyunWidget.factory("GeneralCondition", [function() {
 
   return {

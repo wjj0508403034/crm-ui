@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetSearchStringLabel', ["SearchHelper",
-  function(SearchHelper) {
+huoyunWidget.directive('widgetSearchStringLabel', ["SearchHelper", "SearchEvent", "$timeout",
+  function(SearchHelper, SearchEvent, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -10,9 +10,18 @@ huoyunWidget.directive('widgetSearchStringLabel', ["SearchHelper",
       },
       templateUrl: 'search/string/string.label.html',
       link: function($scope, ele, attrs) {
-        $scope.$watch("text", function(newValue, oldValue, scope) {
-          $scope.value = SearchHelper.getStringSearchExpr($scope.prop, newValue);
+
+        $scope.$on(SearchEvent.Reset, function(event) {
+          $scope.text = null;
+          $scope.value = null;
         });
+
+        $scope.onTextInputChanged = function(text) {
+          $scope.value = SearchHelper.getStringSearchExpr($scope.prop, text);
+          $timeout(function() {
+            $scope.$emit(SearchEvent.Changed);
+          });
+        };
       }
     }
   }

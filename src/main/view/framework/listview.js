@@ -136,8 +136,17 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       });
 
     $scope.onSearch = function(queryExpr) {
-      queryExprText = queryExpr;
-      BoService.query(boNamespace, boName, null, queryExpr, $scope.boMetadata.listview.orderBy)
+      if ($state.current.data && $state.current.data.queryExpr) {
+        if (queryExpr) {
+          queryExprText = `${$state.current.data.queryExpr} and ${queryExpr}`;
+        } else {
+          queryExprText = $state.current.data.queryExpr;
+        }
+      } else {
+        queryExprText = queryExpr;
+      }
+
+      BoService.query(boNamespace, boName, null, queryExprText, $scope.boMetadata.listview.orderBy)
         .then(function(pageData) {
           $scope.pageData = pageData;
         });

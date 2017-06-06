@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", "$filter", "SearchHelper",
-  function(Dialog, $filter, SearchHelper) {
+huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", "$filter", "SearchHelper", "SearchEvent", "$timeout",
+  function(Dialog, $filter, SearchHelper, SearchEvent, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -10,6 +10,11 @@ huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", "$filter", "Searc
       },
       templateUrl: 'search/datetime/datetime.label.html',
       link: function($scope, ele, attrs) {
+
+        $scope.$on(SearchEvent.Reset, function(event) {
+          $scope.text = null;
+          $scope.value = null;
+        });
 
         $scope.onButtonClicked = function() {
           var options = {
@@ -25,13 +30,14 @@ huoyunWidget.directive('widgetSearchDateTimeLabel', ["Dialog", "$filter", "Searc
                   var startDate = formatDate(data.startDate);
                   var endDate = formatDate(data.endDate);
                   $scope.text = `${startDate} ~ ${endDate}`;
-                  //$scope.value = `${$scope.prop.name} between (${data.startDate},${data.endDate})`;
                 } else {
                   $scope.text = data.label;
-                  //$scope.value = `${$scope.prop.name} eq ${data.name}()`
                 }
 
                 $scope.value = SearchHelper.getDataSearchExpr($scope.prop, data);
+                $timeout(function() {
+                  $scope.$emit(SearchEvent.Changed);
+                });
               }
             }
           };

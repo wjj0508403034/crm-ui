@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper",
-  function(Dialog, SearchHelper) {
+huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper", "SearchEvent", "$timeout",
+  function(Dialog, SearchHelper, SearchEvent, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -11,6 +11,12 @@ huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper",
       templateUrl: 'search/bolabel/bolabelsearch.html',
       link: function($scope, ele, attrs) {
         $scope.selectedBos = [];
+
+        $scope.$on(SearchEvent.Reset, function(event) {
+          $scope.text = null;
+          $scope.value = null;
+          $scope.selectedBos = [];
+        });
 
         $scope.onButtonClicked = function() {
           var options = {
@@ -34,6 +40,9 @@ huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper",
                 });
                 $scope.text = labels.join(" , ");
                 $scope.value = SearchHelper.getBoLabelSearchExpr($scope.prop, data);
+                $timeout(function() {
+                  $scope.$emit(SearchEvent.Changed);
+                });
               }
 
             }

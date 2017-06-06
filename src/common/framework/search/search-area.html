@@ -6,7 +6,10 @@
     </h3>
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button type="submit" class="btn btn-default pull-right" ng-click="onSearchButtonClicked()">搜索</button>
+        <button type="submit" class="btn btn-default pull-right" ng-click="onResetButtonClicked()">
+          <i class="fa fa-sun-o" aria-hidden="true"></i>
+          <span>重置搜索条件</span>
+        </button>
       </div>
     </div>
   </div>
@@ -20,9 +23,8 @@
             <div ng-switch-when="DateTime" widget-search-date-time-label prop="prop" ng-model="searchData[prop.name]"></div>
             <div ng-switch-when="Date" widget-search-date-time-label prop="prop" ng-model="searchData[prop.name]"></div>
             <div ng-switch-when="ValidValues" widget-search-valid-values-label prop="prop" ng-model="searchData[prop.name]"></div>
-            <div ng-switch-when="String" widget-search-string-label ng-model="searchData[prop.name]" prop="prop"></div>
             <div ng-switch-when="Price" widget-search-number-label ng-model="searchData[prop.name]" prop="prop"></div>
-            <input ng-switch-default ng-model="searchData[prop.name]" type="text" class="form-control" id="{{prop.name}}">
+            <div ng-switch-default widget-search-string-label ng-model="searchData[prop.name]" prop="prop"></div>
           </div>
         </div>
       </div>

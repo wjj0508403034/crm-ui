@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetSearchNumberLabel', ["Dialog", "SearchHelper",
-  function(Dialog, SearchHelper) {
+huoyunWidget.directive('widgetSearchNumberLabel', ["Dialog", "SearchHelper", "SearchEvent", "$timeout",
+  function(Dialog, SearchHelper, SearchEvent, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -10,6 +10,11 @@ huoyunWidget.directive('widgetSearchNumberLabel', ["Dialog", "SearchHelper",
       },
       templateUrl: 'search/number/search.label.html',
       link: function($scope, ele, attrs) {
+        $scope.$on(SearchEvent.Reset, function(event) {
+          $scope.data = null;
+          $scope.value = null;
+        });
+
         $scope.onButtonClicked = function() {
           var options = {
             title: `设置搜索条件`,
@@ -23,6 +28,9 @@ huoyunWidget.directive('widgetSearchNumberLabel', ["Dialog", "SearchHelper",
               if (key === "OK") {
                 $scope.data = data;
                 $scope.value = SearchHelper.getNumberSearchExpr($scope.prop, data);
+                $timeout(function() {
+                  $scope.$emit(SearchEvent.Changed);
+                });
               }
             }
           };

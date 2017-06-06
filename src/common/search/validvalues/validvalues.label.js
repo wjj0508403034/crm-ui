@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper",
-  function(Dialog, SearchHelper) {
+huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper", "SearchEvent", "$timeout",
+  function(Dialog, SearchHelper, SearchEvent, $timeout) {
     return {
       restrict: 'A',
       scope: {
@@ -10,6 +10,12 @@ huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper"
       },
       templateUrl: 'search/validvalues/validvalues.label.html',
       link: function($scope, ele, attrs) {
+
+        $scope.$on(SearchEvent.Reset, function(event) {
+          $scope.text = null;
+          $scope.value = null;
+        });
+
         $scope.onButtonClicked = function() {
           var options = {
             title: `设置搜索条件`,
@@ -26,12 +32,14 @@ huoyunWidget.directive('widgetSearchValidValuesLabel', ["Dialog", "SearchHelper"
                 });
                 $scope.text = labels.join(" , ");
                 $scope.value = SearchHelper.getValidValueSearchExpr($scope.prop, data);
+                $timeout(function() {
+                  $scope.$emit(SearchEvent.Changed);
+                });
               }
             }
           };
           var dialog = Dialog.showConfirm(options);
         };
-
       }
     }
   }
