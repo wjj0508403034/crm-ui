@@ -1,8 +1,8 @@
 'use strict';
 huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService",
-  "BoDataHelper", "StateHelper", "$injector", "$timeout", "Dialog", "BoViewHelper",
+  "BoDataHelper", "StateHelper", "$injector", "$timeout", "Dialog", "BoViewHelper", "TableSelectEvent", "TableSelectionMode",
   function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper, $injector, $timeout,
-    Dialog, BoViewHelper) {
+    Dialog, BoViewHelper, TableSelectEvent, TableSelectionMode) {
     var navs = null;
     var title = null;
     var subTitle = null;
@@ -11,6 +11,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     var queryExprText = null;
     var onCreate = null;
     var onRowClicked = null;
+
+    $scope.selectionMode = TableSelectionMode.None;
 
     if ($state.current.data) {
       boName = $state.current.data.boName;
@@ -39,6 +41,10 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       if (typeof $state.current.data.onRowClicked === "function") {
         onRowClicked = $state.current.data.onRowClicked;
       }
+
+      if ($state.current.data.selectionMode) {
+        $scope.selectionMode = $state.current.data.selectionMode;
+      }
     }
 
     if (!boName || !boNamespace) {
@@ -52,7 +58,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         text: "调整表格字段",
         icon: "fa-table",
         appendClass: "pull-right btn-default",
-        onClickedHandler: function() {
+        onButtonClicked: function() {
           var options = {
             title: `调整表格字段`,
             templateUrl: "framework/dialog/adjust.table.columns.dialog.html",
@@ -73,7 +79,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         visibility: false,
         text: "排序",
         appendClass: "pull-right btn-default",
-        onClickedHandler: function() {
+        onButtonClicked: function() {
           var options = {
             title: `${$scope.boMetadata.label}排序`,
             templateUrl: "framework/dialog/adjust.table.data.sort.dialog.html",
@@ -96,7 +102,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         text: "新建",
         icon: "fa-plus",
         appendClass: "btn-primary",
-        onClickedHandler: function() {
+        onButtonClicked: function() {
           if (onCreate) {
             onCreate.apply($scope, [$injector]);
           } else {
@@ -106,7 +112,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       }
     };
 
-    $scope.buttons = BoViewHelper.mergeButtonsFromState(defaultButtonMap, $state);
+    $scope.buttons = BoViewHelper.mergeButtonsFromState(defaultButtonMap, $state, $scope);
 
 
     MetadataService.getMetadata(boNamespace, boName)
@@ -165,6 +171,22 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         .then(function(pageData) {
           $scope.pageData = pageData;
         });
+    };
+
+    $scope.$on(TableSelectEvent.Changed, function(event, selectItems) {
+
+    });
+
+    $scope.getSelectionItem = function() {
+      if ($scope.selectionMode !== TableSelectionMode.Single) {
+        throw new Error(`Can't call this function, because current selection mode is ${$scope.selectionMode}`);
+      }
+
+      for (var index = 0; index < $scope.pageData.content.length; index++) {
+        if ($scope.pageData.content[index].$$selected) {
+          return $scope.pageData.content[index];
+        }
+      }
     };
 
   }

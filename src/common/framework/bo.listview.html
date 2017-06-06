@@ -27,12 +27,12 @@
             <span>暂无数据</span>
           </td>
         </tr>
-        <tr ng-show="pageData.content.length > 0" ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)">
+        <tr ng-show="pageData.content.length > 0" ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)" ng-class="{true: 'selected', false: ''}[lineData.$$selected]">
           <td prop-type="{{prop.type}}" ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false">
-            <div ng-if="propTemplates[prop.name]">
-              <div ng-include="propTemplates[prop.name]"></div>
+            <div ng-if="getPropTemplateUrl(boMetadata,prop)">
+              <div ng-include="getPropTemplateUrl(boMetadata,prop)"></div>
             </div>
-            <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
+            <div ng-if="!getPropTemplateUrl(boMetadata,prop)" ng-switch="prop.type">
               <span ng-switch-when="ValidValues" ng-bind="lineData[prop.name] | ValidValueLabel : prop | EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="BoLabel" ng-bind="lineData[prop.name] | BoLabel : prop | EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="Price" ng-bind="lineData[prop.name] | PriceUnit | EmptyColumnPlaceHolder"></span>

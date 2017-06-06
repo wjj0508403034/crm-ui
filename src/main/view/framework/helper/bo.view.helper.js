@@ -3,7 +3,7 @@
 huoyun.factory("BoViewHelper", [function() {
 
   return {
-    mergeButtonsFromState: function(defaultMap, $state) {
+    mergeButtonsFromState: function(defaultMap, $state, $scope) {
       if ($state.current.data && $state.current.data.buttons) {
         Object.keys($state.current.data.buttons).forEach(function(buttonKey, index) {
           if (defaultMap[buttonKey]) {
@@ -18,6 +18,7 @@ huoyun.factory("BoViewHelper", [function() {
       var buttons = [];
       Object.keys(defaultMap).forEach(function(key, index) {
         defaultMap[key].name = key;
+        defaultMap[key].$scope = $scope;
         buttons.push(defaultMap[key]);
       });
 

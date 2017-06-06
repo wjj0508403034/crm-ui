@@ -61,7 +61,8 @@ huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
               disableSearch: listOptions.disableSearch,
               onCreate: listOptions.onCreate || gotoBoCreationPage,
               onRowClicked: listOptions.onCreate || gotoBoDetailPage,
-              buttons: listOptions.buttons
+              buttons: listOptions.buttons,
+              selectionMode: listOptions.selectionMode
             }
           });
       }

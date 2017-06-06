@@ -35,7 +35,7 @@ huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate",
           }
 
           if (typeof button.visibility === "function") {
-            return button.visibility.apply($scope.$parent || $scope, [button, $injector])
+            return button.visibility.apply(button.$scope || $scope, [button, $injector])
           }
 
           return false;
@@ -50,7 +50,7 @@ huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate",
 
         $scope.onButtonClicked = function(button) {
           if (typeof button.onButtonClicked === "function") {
-            button.onButtonClicked.apply($scope.$parent || $scope, [button, $injector]);
+            button.onButtonClicked.apply(button.$scope || $scope, [button, $injector]);
           } else {
             $log.warn("No button click handler for this button.", button);
           }

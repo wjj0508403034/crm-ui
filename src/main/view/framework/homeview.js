@@ -63,7 +63,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       }
     };
 
-    $scope.buttons = BoViewHelper.mergeButtonsFromState(defaultButtonMap, $state);
+    $scope.buttons = BoViewHelper.mergeButtonsFromState(defaultButtonMap, $state, $scope);
 
 
     MetadataService.getMetadata(boNamespace, boName)

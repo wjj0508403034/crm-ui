@@ -7,14 +7,6 @@
   border: 1px solid #d2d6de;
 }
 
-.adjust-table-data-sort-dialog table tr.selected {
-  background: #3c8dbc;
-}
-
-.adjust-table-data-sort-dialog table tr.selected td {
-  color: white;
-}
-
 .adjust-table-data-sort-dialog .btn {
   margin-bottom: 15px;
 }

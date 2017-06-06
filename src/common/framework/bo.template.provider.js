@@ -62,6 +62,15 @@ huoyunWidget.provider("BoTemplate", function() {
     return null;
   };
 
+  this.getListPagePropTemplateUrl = function(boNamespace, boName, propName) {
+    var template = templates[`${boNamespace}_${boName}`];
+    if (template && template.list && template.list.propTemplates && template.list.propTemplates[propName]) {
+      return template.list.propTemplates[propName].templateUrl;
+    }
+
+    return null;
+  };
+
   this.getDetailTemplateUrl = function(boNamespace, boName) {
     var template = templates[`${boNamespace}_${boName}`];
     if (template && template.detail) {

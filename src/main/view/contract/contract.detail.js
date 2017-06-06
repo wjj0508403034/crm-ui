@@ -32,7 +32,7 @@ huoyun.controller('ContractDetailController', ["$scope", "$stateParams", "BoServ
       text: "新建",
       icon: "fa-plus",
       appendClass: "btn-primary",
-      onClickedHandler: function() {
+      onButtonClicked: function() {
         $state.go("payment.create", {
           contractId: $stateParams.boId
         });

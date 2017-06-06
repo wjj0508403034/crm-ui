@@ -11,14 +11,6 @@
   min-height: 400px;
 }
 
-.adjust-table-columns-dialog .adjust-table-columns-dialog-content table tr.selected {
-  background: #3c8dbc;
-}
-
-.adjust-table-columns-dialog .adjust-table-columns-dialog-content table tr.selected td {
-  color: white;
-}
-
 .adjust-table-columns-dialog .adjust-table-columns-dialog-content .btn {
   margin-bottom: 15px;
 }
