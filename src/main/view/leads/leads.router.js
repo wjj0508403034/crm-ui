@@ -7,15 +7,9 @@ huoyun.config(["BoStateProvider", "TableSelectionMode", "BoTemplateProvider",
       $injector.get("LeadsService").generateToCustomer(leadsId)
         .then(function(customer) {
           $injector.get("Tip").show("转换成客户成功！");
-          $injector.get("$state").go("myCustomer.create");
-          $injector.get("$rootScope").$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-              if (fromState.name === "leads.detail" && toState.name === "myCustomer.create") {
-                toState.data.initBoDataService = function() {
-                  return Promise.resolve(customer);
-                };
-              }
-            });
+          $injector.get("$state").go("myCustomer.edit", {
+            boId: customer.id
+          });
         });
     }
 
@@ -23,7 +17,20 @@ huoyun.config(["BoStateProvider", "TableSelectionMode", "BoTemplateProvider",
       list: {
         propTemplates: {
           "status": {
-            templateUrl: "leads/templates/list/property.status.html"
+            templateUrl: "leads/templates/list/leads.property.status.html"
+          },
+          "transform": {
+            templateUrl: "leads/templates/list/leads.property.transform.html"
+          }
+        }
+      },
+      detail: {
+        propTemplates: {
+          "status": {
+            templateUrl: "leads/templates/detail/leads.property.status.html"
+          },
+          "transform": {
+            templateUrl: "leads/templates/detail/leads.property.transform.html"
           }
         }
       }
@@ -38,10 +45,71 @@ huoyun.config(["BoStateProvider", "TableSelectionMode", "BoTemplateProvider",
         buttons: {
           "generateToCustomer": {
             text: "转换成客户",
+            icon: "fa-users",
+            visibility: function(button, $injector) {
+              var selectedItem = this.getSelectionItem();
+              return !!selectedItem;
+            },
+            disabled: function(button, $injector) {
+              var selectedItem = this.getSelectionItem();
+              if (selectedItem && !selectedItem.transform) {
+                return false;
+              }
+              return true;
+            },
             onButtonClicked: function(button, $injector) {
               var selectedLeads = this.getSelectionItem();
               if (selectedLeads) {
                 generateToCustomer(selectedLeads.id, $injector);
+              }
+            }
+          },
+          "detail": {
+            text: "详情",
+            icon: "fa-file-text",
+            visibility: function(button, $injector) {
+              var selectedItem = this.getSelectionItem();
+              return !!selectedItem;
+            },
+            onButtonClicked: function(button, $injector) {
+              var selectedLeads = this.getSelectionItem();
+              if (selectedLeads) {
+                $injector.get("$state").go("leads.detail", {
+                  boId: selectedLeads.id
+                });
+              }
+            }
+          },
+          "edit": {
+            text: "编辑",
+            icon: "fa-pencil",
+            visibility: function(button, $injector) {
+              var selectedItem = this.getSelectionItem();
+              return !!selectedItem;
+            },
+            onButtonClicked: function(button, $injector) {
+              var selectedLeads = this.getSelectionItem();
+              if (selectedLeads) {
+                $injector.get("$state").go("leads.edit", {
+                  boId: selectedLeads.id
+                });
+              }
+            }
+          },
+          "delete": {
+            text: "删除",
+            icon: "fa-remove",
+            visibility: function(button, $injector) {
+              var selectedItem = this.getSelectionItem();
+              return !!selectedItem;
+            },
+            onButtonClicked: function(button, $injector) {
+              var selectedLeads = this.getSelectionItem();
+              if (selectedLeads) {
+                this.deleteBo(selectedLeads.id)
+                  .then(function() {
+                    this.reload();
+                  }.bind(this));
               }
             }
           }

@@ -71,6 +71,10 @@ select.form-control {
   color: #e6aa18;
 }
 
+.color-blue {
+  color: #00a65a;
+}
+
 table th,
 table td {
   font-size: 12px;

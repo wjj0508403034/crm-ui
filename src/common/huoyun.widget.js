@@ -50,6 +50,16 @@ huoyunWidget.filter("ValidValueLabel", function() {
   };
 });
 
+huoyunWidget.filter("BooleanText", function() {
+
+  return function(input) {
+    if (typeof input === "boolean") {
+      return input ? "是" : "否";
+    }
+    return input;
+  };
+});
+
 huoyunWidget.filter("BoLabel", function() {
 
   return function(input, propMeta) {

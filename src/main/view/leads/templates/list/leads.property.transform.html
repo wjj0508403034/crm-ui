@@ -1,0 +1,5 @@
+<div>
+  <i class="fa fa-check-circle color-blue" aria-hidden="true" ng-if="propValue"></i>
+  <i class="fa fa-circle-o" aria-hidden="true" ng-if="!propValue"></i>
+  <span ng-bind="propValue | BooleanText | EmptyColumnPlaceHolder"></span>
+</div>

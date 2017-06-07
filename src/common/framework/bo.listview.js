@@ -71,6 +71,41 @@ huoyunWidget.directive('widgetBoListView', ["$log", 'Dialog', "TableSelectionMod
             pageIndex: pageIndex
           });
         };
+
+        $scope.isButtonDisabled = function(button) {
+          if (!button.hasOwnProperty("disabled")) {
+            return false;
+          }
+
+          if (typeof button.disabled === "boolean") {
+            return button.disabled;
+          }
+
+          if (typeof button.disabled === "function") {
+            return button.disabled.apply(button.$scope || $scope, [button, $injector]);
+          }
+
+          $log.warn("Button disable set invalid", button);
+          return true;
+        };
+
+        $scope.isButtonVisibility = function(button) {
+          if (!button.hasOwnProperty("visibility")) {
+            return true;
+          }
+
+          if (typeof button.visibility === "boolean") {
+            return button.visibility;
+          }
+
+          if (typeof button.visibility === "function") {
+            return button.visibility.apply(button.$scope || $scope, [button, $injector])
+          }
+
+          return false;
+        };
+
+
       }
     }
   }

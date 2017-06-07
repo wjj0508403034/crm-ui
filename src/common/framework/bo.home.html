@@ -20,7 +20,7 @@
         <span ng-bind="section.label"></span>
       </h4>
 
-      <div ng-repeat="prop in section.properties">
+      <div ng-repeat="prop in section.properties" ng-init="propValue = boData[prop.name]">
         <div class="custom-property-template" ng-if="getPropTemplateUrl(boMetadata,prop)">
           <div ng-include="getPropTemplateUrl(boMetadata,prop)"></div>
         </div>

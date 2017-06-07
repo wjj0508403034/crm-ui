@@ -1,8 +1,8 @@
 'use strict';
 huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService",
-  "BoDataHelper", "StateHelper", "$injector", "$timeout", "Dialog", "BoViewHelper", "TableSelectEvent", "TableSelectionMode",
+  "BoDataHelper", "StateHelper", "$injector", "$timeout", "Dialog", "BoViewHelper", "TableSelectEvent", "TableSelectionMode", "Tip", "$log",
   function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper, $injector, $timeout,
-    Dialog, BoViewHelper, TableSelectEvent, TableSelectionMode) {
+    Dialog, BoViewHelper, TableSelectEvent, TableSelectionMode, Tip, $log) {
     var navs = null;
     var title = null;
     var subTitle = null;
@@ -12,6 +12,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     var onCreate = null;
     var onRowClicked = null;
 
+    $scope.currentPageIndex = 0;
     $scope.selectionMode = TableSelectionMode.None;
 
     if ($state.current.data) {
@@ -134,14 +135,11 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
           }]);
         }
 
-        return BoService.query(boNamespace, boName, null, queryExprText, boMeta.listview.orderBy)
-      }).then(function(pageData) {
-        $timeout(function() {
-          $scope.pageData = pageData;
-        });
+        $scope.reload();
       });
 
     $scope.onSearch = function(queryExpr) {
+      $scope.currentPageIndex = 0;
       if ($state.current.data && $state.current.data.queryExpr) {
         if (queryExpr) {
           queryExprText = `${$state.current.data.queryExpr} and ${queryExpr}`;
@@ -152,10 +150,41 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
         queryExprText = queryExpr;
       }
 
-      BoService.query(boNamespace, boName, null, queryExprText, $scope.boMetadata.listview.orderBy)
+      $scope.reload();
+    };
+
+    $scope.reload = function() {
+      return BoService.query(boNamespace, boName, $scope.currentPageIndex, queryExprText, $scope.boMetadata.listview.orderBy)
         .then(function(pageData) {
           $scope.pageData = pageData;
         });
+    };
+
+    $scope.deleteBo = function(boId) {
+      return new Promise(function(resolve, reject) {
+        var options = {
+          title: "提示",
+          content: "确定要删除本条信息吗? 一旦删除，数据将不可恢复？",
+          confirm: {
+            callback: function() {
+              BoService.deleteBo(boNamespace, boName, boId)
+                .then(function() {
+                  Tip.show("删除成功！");
+                  resolve();
+                }).catch(function(err) {
+                  $log.warn("删除失败！", err);
+                  reject(err);
+                });
+            }
+          },
+          cancel: {
+            callback: function() {
+              reject();
+            }
+          }
+        };
+        var dialog = Dialog.showConfirm(options);
+      });
     };
 
     $scope.onRowClicked = function(lineData, index) {
@@ -167,27 +196,22 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     };
 
     $scope.onPagingChanged = function(pageIndex) {
-      BoService.query(boNamespace, boName, pageIndex, queryExprText)
-        .then(function(pageData) {
-          $scope.pageData = pageData;
-        });
+      $scope.currentPageIndex = pageIndex;
+      $scope.reload();
     };
-
-    $scope.$on(TableSelectEvent.Changed, function(event, selectItems) {
-
-    });
 
     $scope.getSelectionItem = function() {
       if ($scope.selectionMode !== TableSelectionMode.Single) {
         throw new Error(`Can't call this function, because current selection mode is ${$scope.selectionMode}`);
       }
 
-      for (var index = 0; index < $scope.pageData.content.length; index++) {
-        if ($scope.pageData.content[index].$$selected) {
-          return $scope.pageData.content[index];
+      if ($scope.pageData && Array.isArray($scope.pageData.content)) {
+        for (var index = 0; index < $scope.pageData.content.length; index++) {
+          if ($scope.pageData.content[index].$$selected) {
+            return $scope.pageData.content[index];
+          }
         }
       }
     };
-
   }
 ]);

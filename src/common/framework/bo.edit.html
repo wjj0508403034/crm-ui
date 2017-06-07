@@ -21,7 +21,9 @@
           <div ng-switch-when="Email" widget-form-group-email prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="Phone" widget-form-group-phone prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="Price" widget-form-group-price prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
+          <div ng-switch-when="Color" widget-form-group-color-picker prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="Image"></div>
+          <div ng-switch-when="Boolean"></div>
           <div ng-switch-when="BoLabel" widget-form-group-bo-label prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="ValidValues" widget-form-group-valid-values prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-default widget-form-group-string prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>

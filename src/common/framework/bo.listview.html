@@ -7,7 +7,7 @@
 
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button class="btn" ng-repeat="button in buttons" ng-hide="button.visibility === false" ng-click="onButtonClicked(button)" ng-class="button.appendClass || 'btn-default'">
+        <button class="btn" ng-repeat="button in buttons" ng-show="isButtonVisibility(button)" ng-click="onButtonClicked(button)" ng-class="button.appendClass || 'btn-default'" ng-disabled="isButtonDisabled(button)">
           <i ng-show="button.icon" class="fa" aria-hidden="true" ng-class="button.icon"></i>
           <span ng-bind="button.text"></span>
         </button>
@@ -28,7 +28,7 @@
           </td>
         </tr>
         <tr ng-show="pageData.content.length > 0" ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)" ng-class="{true: 'selected', false: ''}[lineData.$$selected]">
-          <td prop-type="{{prop.type}}" ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false">
+          <td prop-type="{{prop.type}}" ng-repeat="prop in boMetadata.listview.properties" ng-init="propValue = lineData[prop.name]" ng-hide="prop.visibility === false">
             <div ng-if="getPropTemplateUrl(boMetadata,prop)">
               <div ng-include="getPropTemplateUrl(boMetadata,prop)"></div>
             </div>
@@ -36,6 +36,7 @@
               <span ng-switch-when="ValidValues" ng-bind="lineData[prop.name] | ValidValueLabel : prop | EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="BoLabel" ng-bind="lineData[prop.name] | BoLabel : prop | EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="Price" ng-bind="lineData[prop.name] | PriceUnit | EmptyColumnPlaceHolder"></span>
+              <span ng-switch-when="Boolean" ng-bind="propValue | BooleanText | EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="DateTime" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd HH:mm' |EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="Date" ng-bind="lineData[prop.name] | joda | date:'yyyy-MM-dd' | EmptyColumnPlaceHolder"></span>
               <span ng-switch-when="Image" widget-table-column-label-image bo-metadata="boMetadata" prop="prop" line-data="lineData"></span>
