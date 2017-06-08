@@ -5,6 +5,23 @@ var huoyunWidget = angular.module('huoyun.widget', ['ngDialog', 'ngFileUpload'])
 huoyunWidget.value("DateFormat", "yyyy-MM-dd");
 huoyunWidget.value("DateTimeFormat", "yyyy-MM-dd HH:mm");
 
+huoyunWidget.constant("HuoyunWidgetConstant", {
+  Colors: {
+    Red: "rgb(255, 99, 132)",
+    Orange: "rgb(255, 159, 64)",
+    Yellow: "rgb(255, 205, 86)",
+    Green: "rgb(75, 192, 192)",
+    Blue: "rgb(54, 162, 235)",
+    Purple: "rgb(153, 102, 255)",
+    Grey: "rgb(201, 203, 207)"
+  },
+  Months: {
+    FullYear: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+    FirstHalfYear: ["一月", "二月", "三月", "四月", "五月", "六月"],
+    NextHalfYear: ["七月", "八月", "九月", "十月", "十一月", "十二月"]
+  }
+});
+
 huoyunWidget.filter("EmptyDataPlaceHolder", function() {
   return function(input) {
     if (typeof input === "string") {

@@ -1,8 +1,8 @@
 'use strict';
 
 
-huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "BoService", "HuoyunWidgetConstant",
-  function($scope, $state, $stateParams, BoService, HuoyunWidgetConstant) {
+huoyun.controller('HomeViewController', ["$scope", "BoService", "HuoyunWidgetConstant", "ReportService",
+  function($scope, BoService, HuoyunWidgetConstant, ReportService) {
     $scope.setPageTitle("主页", "仪表盘");
 
     $scope.setNavInfos([{
@@ -10,37 +10,98 @@ huoyun.controller('HomeViewController', ["$scope", "$state", "$stateParams", "Bo
     }]);
 
     $scope.charts = [{
-      title: "金额实时统计",
+      title: "年度收入实时统计",
       appendClass: "box-success",
       labels: HuoyunWidgetConstant.Months.FullYear,
-      dataSource: function() {
-        return [{
-          label: 'Dataset 1',
-          data: [65, 59, 90, 81, 56, 55, 40, 65, 59, 90, 81, 56, 55, 40]
-        }, {
-          label: 'Dataset 2',
-          data: [78, 48, 40, 19, 96, 27, 100, 78, 48, 40, 19, 96, 27, 100]
-        }];
+      query: function() {
+        return ReportService.perMonthContractTotalAmountOfThisYear();
+      },
+      finally: function(result) {
+        var totalAmountItem = {
+          label: "合同金额",
+          data: []
+        };
+
+        var payedAmountItem = {
+          label: "已收款金额",
+          data: []
+        };
+
+        var yearMap = {};
+        result.forEach(function(item) {
+          yearMap[item[0]] = item;
+        });
+
+        for (var index = 1; index <= 12; index++) {
+          var totalAmount = 0;
+          var payAmount = 0;
+          if (yearMap[index]) {
+            totalAmount = yearMap[index][1];
+            payAmount = yearMap[index][2];
+          }
+          totalAmountItem.data.push(totalAmount);
+          payedAmountItem.data.push(payAmount);
+        }
+        return [totalAmountItem, payedAmountItem];
       }
     }, {
-      title: "合同实时统计",
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      dataSource: function() {
+      title: "年度合同数量统计",
+      appendClass: "box-success",
+      labels: HuoyunWidgetConstant.Months.FullYear,
+      query: function() {
+        return ReportService.contractsOfThisYear();
+      },
+      finally: function(result) {
+        var dataItem = {
+          label: "合同数量",
+          data: []
+        };
 
+        var countOfYear = {};
+        result.forEach(function(item) {
+          countOfYear[item[0]] = item[1];
+        });
+
+        for (var index = 1; index <= 12; index++) {
+          dataItem.data.push(countOfYear[index] || 0);
+        }
+
+        return [dataItem];
       }
     }, {
       title: "Top5业务员统计-当月",
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      dataSource: function() {
-
+      appendClass: "box-primary",
+      labels: [],
+      query: function() {
+        return ReportService.top5Sales();
+      },
+      finally: function(dataSource) {
+        return formatDataToChartData(this, dataSource);
       }
     }, {
       title: "Top5设计师统计-当月",
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      dataSource: function() {
-
+      appendClass: "box-danger",
+      labels: [],
+      query: function() {
+        return ReportService.top5Designers();
+      },
+      finally: function(dataSource) {
+        return formatDataToChartData(this, dataSource);
       }
     }];
+
+    function formatDataToChartData(chartOptions, dataSource) {
+      var dataItem = {
+        label: "客户数",
+        data: []
+      };
+      dataSource.forEach(function(item) {
+        chartOptions.labels.push(item[1]);
+        dataItem.data.push(item[0]);
+      }.bind(this));
+
+      return [dataItem];
+    }
 
     $scope.tiles = [{
         icon: "fa-binoculars",
