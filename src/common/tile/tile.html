@@ -1,10 +1,9 @@
-<div class="small-box" ng-class="background">
+<div class="small-box" ng-class="tileData.background">
   <div class="inner">
-    <h3 ng-bind="number"></h3>
-
-    <p ng-bind="text"></p>
+    <h3 ng-bind="$$number"></h3>
+    <p ng-bind="tileData.text"></p>
   </div>
   <div class="icon">
-    <i class="fa" ng-class="icon"></i>
+    <i class="fa" ng-class="tileData.icon"></i>
   </div>
 </div>

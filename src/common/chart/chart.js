@@ -1,70 +1,140 @@
 'use strict';
 
-huoyunWidget.directive('widgetChart', [function() {
+huoyunWidget.constant("HuoyunWidgetConstant", {
+  Colors: {
+    Red: "rgb(255, 99, 132)",
+    Orange: "rgb(255, 159, 64)",
+    Yellow: "rgb(255, 205, 86)",
+    Green: "rgb(75, 192, 192)",
+    Blue: "rgb(54, 162, 235)",
+    Purple: "rgb(153, 102, 255)",
+    Grey: "rgb(201, 203, 207)"
+  },
+  Months: {
+    FullYear: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+    FirstHalfYear: ["一月", "二月", "三月", "四月", "五月", "六月"],
+    NextHalfYear: ["七月", "八月", "九月", "十月", "十一月", "十二月"]
+  }
+});
+
+huoyunWidget.factory("ColorFactory", ["HuoyunWidgetConstant", function(HuoyunWidgetConstant) {
+  return {
+    transparentize: function(color, opacity) {
+      var alpha = opacity === undefined ? 0.5 : 1 - opacity;
+      return Chart.helpers.color(color).alpha(alpha).rgbString();
+    },
+    randomColor: function(opacity) {
+      var colors = HuoyunWidgetConstant.Colors;
+      var randomIndex = Math.round(Math.random() * (Object.keys(colors).length - 1));
+      var color = colors[Object.keys(colors)[randomIndex]];
+      if (opacity) {
+        return this.transparentize(color, opacity);
+      }
+      return color;
+    }
+  };
+}]);
+
+
+/**
+ * http://www.chartjs.org/docs/latest/charts/bar.html
+ * http://www.chartjs.org/samples/latest/
+ */
+huoyunWidget.directive('widgetChart', ["$q", "ColorFactory", function($q, ColorFactory) {
   return {
     restrict: 'A',
     scope: {
-      dataSource: '=',
-      labels: '='
+      options: '='
     },
-    link: function(scope, element) {
-      var defaultChartOptions = {
-        //Boolean - If we should show the scale at all
-        showScale: true,
-        //Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines: false,
-        //String - Colour of the grid lines
-        scaleGridLineColor: "rgba(0,0,0,.05)",
-        //Number - Width of the grid lines
-        scaleGridLineWidth: 1,
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: true,
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
-        //Boolean - Whether the line is curved between points
-        bezierCurve: true,
-        //Number - Tension of the bezier curve between points
-        bezierCurveTension: 0.3,
-        //Boolean - Whether to show a dot for each point
-        pointDot: false,
-        //Number - Radius of each point dot in pixels
-        pointDotRadius: 4,
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth: 1,
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius: 20,
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke: true,
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth: 2,
-        //Boolean - Whether to fill the dataset with a color
-        datasetFill: true,
-        //String - A legend template
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-        //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-        maintainAspectRatio: true,
-        //Boolean - whether to make the chart responsive to window resizing
-        responsive: true
-      }
-      var defaultDataSetOptions = {
-        label: "",
-        fillColor: "rgba(210, 214, 222, 1)",
-        strokeColor: "rgba(210, 214, 222, 1)",
-        pointColor: "rgba(210, 214, 222, 1)",
-        pointStrokeColor: "#c1c7d1",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
-        data: []
+    replace: true,
+    templateUrl: 'chart/chart.html',
+    link: function($scope, elem, attrs) {
+      var canvas = elem.find("canvas")[0];
+      var context = canvas.getContext("2d");
+
+      var options = {
+        title: {
+          display: false
+        },
+        legend: {
+          position: 'top',
+        },
+        responsive: true,
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display: true,
+              color: ColorFactory.randomColor(0.2)
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            }
+          }]
+        }
       };
-      //get datasets
-      var chartDataSets = [];
-      for (var i = 0; i < scope.dataSource.length; i++) {
-        chartDataSets.push($.extend(true, {}, defaultDataSetOptions, scope.dataSource[i]));
-      }
-      //Get context with jQuery 
-      var chartCanvas = element.get(0).getContext("2d");
-      var chartInst = new chartCanvas(chartCanvas);
-      chartInst.Line(scope.labels, chartDataSets);
+
+
+      $scope.dataSource = [];
+      var chart = null;
+
+      $scope.$watch("dataSource", function(newVal, oldVal) {
+        var data = {
+          labels: $scope.options.labels,
+          datasets: []
+        };
+
+        var colors = [];
+
+        (newVal || []).forEach(function(item) {
+          var borderColor = ColorFactory.randomColor();
+          /**
+           * Make sure color not duplicate
+           */
+          while (colors.indexOf(borderColor) !== -1) {
+            borderColor = ColorFactory.randomColor();
+          }
+          colors.push(borderColor);
+
+          item.borderWidth = 1;
+          item.borderColor = borderColor;
+          item.backgroundColor = ColorFactory.transparentize(borderColor, 0.5);
+          data.datasets.push(item);
+        });
+
+        chart = new Chart(context, {
+          type: 'bar',
+          data: data,
+          options: options
+        });
+      });
+
+      $scope.reload = function() {
+        if (!$scope.options) {
+          return;
+        }
+
+        if (typeof $scope.options.dataSource === "function") {
+          var result = $scope.options.dataSource.apply($scope.options, []);
+          if (result instanceof Promise || result instanceof $q) {
+            result.then(function(data) {
+              $scope.dataSource = data;
+            });
+          } else {
+            $scope.dataSource = result;
+          }
+        } else {
+          $scope.dataSource = $scope.options.dataSource;
+        }
+      };
+
+
+      $scope.$watch("options", function(newVal, oldVal) {
+        if (newVal) {
+          $scope.reload();
+        }
+      });
     }
   }
 }]);

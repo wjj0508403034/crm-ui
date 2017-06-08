@@ -63,6 +63,14 @@ huoyun.factory("BoService", ["$http", "ServiceContext", "BaseService", "Metadata
         return BaseService.getResponse($http.get(url));
       },
 
+      sum: function(boNamespace, boName, propertyName, queryExpr) {
+        var url = `${ServiceContext}/bo(${boNamespace},${boName})/sum`;
+        return BaseService.getResponse($http.post(url, {
+          propertyName: propertyName,
+          query: queryExpr
+        }));
+      },
+
       query: function(boNamespace, boName, pageIndex, queryExpr, orderBy) {
         var url = `${ServiceContext}/bo(${boNamespace},${boName})`;
         var params = [];

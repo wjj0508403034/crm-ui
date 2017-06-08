@@ -28,6 +28,7 @@
     "angular-mock": "^1.0.0",
     "angular-mocks": "^1.6.4",
     "angular-ui-bootstrap": "^2.5.0",
+    "chart.js": "^2.6.0",
     "del": "^2.2.2",
     "event-stream": "^3.3.4",
     "grunt": "^1.0.1",
