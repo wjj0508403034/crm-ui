@@ -11,10 +11,10 @@
         <span ng-bind="section.label"></span>
       </h4>
       <div ng-repeat="prop in section.properties">
-        <div ng-if="propTemplates[prop.name]">
-          <div ng-include="propTemplates[prop.name]"></div>
+        <div ng-if="getPropTemplateUrl(boMetadata,prop)">
+          <div ng-include="getPropTemplateUrl(boMetadata,prop)"></div>
         </div>
-        <div ng-if="!propTemplates[prop.name]" ng-switch="prop.type">
+        <div ng-if="!getPropTemplateUrl(boMetadata,prop)" ng-switch="prop.type">
           <div ng-switch-when="Text" widget-form-group-text prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="Date" widget-form-group-date prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>
           <div ng-switch-when="DateTime" widget-form-group-date-time prop="prop" ng-model="boData[prop.name]" error-message="errors[prop.name]['errorMessage']"></div>

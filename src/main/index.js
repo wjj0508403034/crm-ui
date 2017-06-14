@@ -3,8 +3,9 @@
 var huoyun = angular.module('huoyun', ["huoyun.widget", 'ui.router']);
 
 huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "HomepageService", "EmployeeService",
-  "MetadataService", "MenuService",
-  function($scope, Dialog, HttpErrorHandlerProvider, HomepageService, EmployeeService, MetadataService, MenuService) {
+  "MetadataService", "MenuService", "CompanyService",
+  function($scope, Dialog, HttpErrorHandlerProvider, HomepageService, EmployeeService, MetadataService, MenuService,
+    CompanyService) {
 
     HttpErrorHandlerProvider.setDialog(Dialog);
     $scope.title = "火云CRM";
@@ -30,10 +31,10 @@ huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "Hom
       //   });
     };
 
-    Promise.all([MetadataService.getMetadata("com.huoyun.sbo", "Employee"), EmployeeService.getProfile()])
+    Promise.all([CompanyService.getCompanyInfo(), EmployeeService.getProfile()])
       .then(function(data) {
+        $scope.company = data[0];
         $scope.user = data[1];
-        $scope.userMeta = data[0];
       });
   }
 ]);

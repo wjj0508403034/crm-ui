@@ -91,6 +91,10 @@ huoyun.factory("MenuService", ["$q", "CustomerStatusStateService",
           icon: "fa-file-o",
           label: "员工列表",
           stateLink: "employee.list"
+        }, {
+          icon: "fa-random",
+          label: "权限组",
+          stateLink: "permissionGroup.list"
         }]
       },
       "settings": {

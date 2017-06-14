@@ -5,11 +5,9 @@ huoyunWidget.directive('widgetHeader', function() {
     restrict: 'A',
     scope: {
       user: "=",
-      boMeta: "="
+      company: "="
     },
     templateUrl: 'header/header.html',
-    link: function(scope, ele, attrs) {
-      // alert()
-    }
+    link: function(scope, ele, attrs) {}
   }
 });

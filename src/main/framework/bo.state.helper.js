@@ -10,8 +10,8 @@ huoyun.BoState = function(name) {
   };
 };
 
-huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
-  function($stateProvider, BoTemplateProvider) {
+huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider", "BoStateCacheProvider",
+  function($stateProvider, BoTemplateProvider, BoStateCacheProvider) {
 
     function BoStateConstants(name) {
       this.Root = name;
@@ -27,6 +27,11 @@ huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
       }
 
       var boState = new BoStateConstants(options.state || boName);
+      BoStateCacheProvider.configure(boState.Root, {
+        label: options.label,
+        boNamespace: boNamespace,
+        boName: boName
+      });
 
       $stateProvider
         .state(boState.Root, {
@@ -107,7 +112,8 @@ huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
 
         $stateProvider.state(boState.Detail, {
           url: detailOptions.url || "/:boId/detail",
-          templateUrl: BoTemplateProvider.getDetailTemplateUrl(boNamespace, boName) || "framework/homeview.html",
+          templateUrl: BoTemplateProvider.getDetailTemplateUrl(boNamespace, boName) ||
+            "framework/homeview.html",
           controller: detailOptions.controller || 'BoHomeViewController',
           data: {
             setPageTitle: detailOptions.setPageTitle,

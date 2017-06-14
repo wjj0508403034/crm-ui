@@ -1,0 +1,5 @@
+<div class="form-group col-md-12 bo-property-form-group" ng-controller="PermissionPropertyStatesController">
+  <div class="col-md-3" ng-repeat="state in states">
+    <div widget-check-box ng-model="state.$$selected" content="{{state.label}}" on-checkbox-value-changed="onCheckboxValueChanged(checked,state)"></div>
+  </div>
+</div>
