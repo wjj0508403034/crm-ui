@@ -5,7 +5,10 @@
     <ul class="sidebar-menu">
       <!--基本信息-->
       <li class="treeview" ng-repeat="menu in items" ui-sref-active="active">
-        <a>
+        <a ng-if="menu.stateLink" ui-sref="{{menu.stateLink}}">
+          <i class="fa" ng-class="menu.icon"></i> <span ng-bind="menu.label"></span>
+        </a>
+        <a ng-if="!menu.stateLink">
           <i class="fa" ng-class="menu.icon"></i> <span ng-bind="menu.label"></span>
           <span class="pull-right-container">
              <i class="fa fa-angle-left pull-right"></i>

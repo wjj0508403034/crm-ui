@@ -26,6 +26,13 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
             readonly: true
           }
         }
+      },
+      detail: {
+        buttons: {
+          "delete": {
+            visibility: false
+          }
+        }
       }
     });
   }

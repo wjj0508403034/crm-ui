@@ -8,7 +8,8 @@ huoyun.factory("MenuService", ["$q", "CustomerStatusStateService",
       "homepage": {
         icon: "fa-home",
         label: "主页",
-        active: true
+        active: true,
+        stateLink: "home"
       },
       "leads": {
         icon: "fa-binoculars",
