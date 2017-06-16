@@ -1,17 +1,14 @@
 'use strict';
 
-huoyunWidget.constant("TableSelectionMode", {
-  None: "HuoYun.Table.SelectMode.None",
-  Single: "HuoYun.Table.SelectMode.Single",
-  Multiple: "HuoYun.Table.SelectMode.Multiple"
-});
+
 
 huoyunWidget.constant("TableSelectEvent", {
   Changed: "HuoYun.Table.TableSelectEvent.Changed"
 });
 
-huoyunWidget.directive('widgetBoListView', ["$log", 'Dialog', "TableSelectionMode", "TableSelectEvent", "$injector", "BoTemplate",
-  function($log, Dialog, TableSelectionMode, TableSelectEvent, $injector, BoTemplateProvider) {
+huoyunWidget.directive('widgetBoListView', ["$log", 'Dialog', "HuoyunWidgetConstant", "TableSelectEvent", "$injector",
+  "BoTemplate",
+  function($log, Dialog, HuoyunWidgetConstant, TableSelectEvent, $injector, BoTemplateProvider) {
     return {
       restrict: 'A',
       scope: {
@@ -22,13 +19,14 @@ huoyunWidget.directive('widgetBoListView', ["$log", 'Dialog', "TableSelectionMod
         propTemplates: "=",
         buttons: "=",
         tableTitle: "@",
-        selectionMode: "@"
+        selectionMode: "@",
+        options: "="
       },
       templateUrl: 'framework/bo.listview.html',
       link: function($scope, ele, attrs) {
         $scope.clickRow = function(lineData, index) {
           $log.info(`Click table line ${index}`);
-          if ($scope.selectionMode === TableSelectionMode.Single) {
+          if ($scope.selectionMode === HuoyunWidgetConstant.SelectionMode.Single) {
             lineData.$$selected = true;
             $scope.pageData.content.forEach(function(lineItem) {
               if (lineItem !== lineData) {
@@ -36,7 +34,7 @@ huoyunWidget.directive('widgetBoListView', ["$log", 'Dialog', "TableSelectionMod
               }
             });
             $scope.$emit(TableSelectEvent.Changed, lineData);
-          } else if ($scope.selectionMode === TableSelectionMode.Multiple) {
+          } else if ($scope.selectionMode === HuoyunWidgetConstant.SelectionMode.Multiple) {
             lineData.$$selected = !lineData.$$selected;
             var selectedItems = $scope.pageData.content.filter(function(lineItem) {
               return lineItem.$$selected;
@@ -60,7 +58,8 @@ huoyunWidget.directive('widgetBoListView', ["$log", 'Dialog', "TableSelectionMod
 
         $scope.getPropTemplateUrl = function(boMetadata, prop) {
           if (boMetadata && prop) {
-            return BoTemplateProvider.getListPagePropTemplateUrl(boMetadata.boNamespace, boMetadata.boName, prop.name);
+            return BoTemplateProvider.getListPagePropTemplateUrl(boMetadata.boNamespace, boMetadata.boName,
+              prop.name);
           }
           return null;
         };

@@ -1,40 +1,33 @@
 'use strict';
 
-huoyunWidget.directive('widgetFormGroupBoLabel', ["Dialog", function(Dialog) {
-  return {
-    restrict: 'A',
-    scope: {
-      value: "=ngModel",
-      prop: "=",
-      errorMessage: "="
-    },
-    replace: true,
-    templateUrl: 'form-group/bolabel/bolabel.html',
-    link: function($scope, ele, attrs) {
+huoyunWidget.directive('widgetFormGroupBoLabel', ["BoDialogFactory",
+  function(BoDialogFactory) {
+    return {
+      restrict: 'A',
+      scope: {
+        value: "=ngModel",
+        prop: "=",
+        errorMessage: "="
+      },
+      replace: true,
+      templateUrl: 'form-group/bolabel/bolabel.html',
+      link: function($scope, ele, attrs) {
 
-      $scope.onButtonClicked = function() {
-        var options = {
-          title: `选择${$scope.prop.label}`,
-          //templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/choosefromlistview.html",
-          //appendClassName: "bo-choose-from-list-dialog",
-          templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/dialog/choose.bo.item.dialog.html",
-          appendClassName: "choose-bo-item-dialog",
-          params: {
+        $scope.onButtonClicked = function() {
+          var options = {
+            title: `选择${$scope.prop.label}`,
             boName: $scope.prop.additionInfo.boName,
             boNamespace: $scope.prop.additionInfo.boNamespace
-          },
-          confirm: {
-            hidden: true,
-          },
-          closeCallback: function(key, data) {
-            if (key === "selected") {
-              $scope.value = data;
-            }
+          };
 
-          }
+          BoDialogFactory.openChooseFromList(options)
+            .then(function(dialogResult) {
+              if (dialogResult.key === "selected") {
+                $scope.value = dialogResult.data;
+              }
+            });
         };
-        var dialog = Dialog.showConfirm(options);
-      };
+      }
     }
   }
-}]);
+]);

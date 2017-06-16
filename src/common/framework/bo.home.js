@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate",
-  function($injector, $log, BoTemplateProvider) {
+huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate", "HuoyunWidgetConstant",
+  function($injector, $log, BoTemplateProvider, HuoyunWidgetConstant) {
     return {
       restrict: 'A',
       scope: {
@@ -13,6 +13,11 @@ huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate",
       },
       templateUrl: 'framework/bo.home.html',
       link: function($scope, ele, attrs) {
+
+        $scope.$watch("boData", function(newVal, oldVal) {
+          $scope.$broadcast(HuoyunWidgetConstant.Events.BoEvent.BoDataChanged, newVal);
+        });
+
         $scope.onFileUploadSuccessed = function(file, event) {
           $scope.refresh();
         };
@@ -43,7 +48,8 @@ huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate",
 
         $scope.getPropTemplateUrl = function(boMetadata, prop) {
           if (boMetadata && prop) {
-            return BoTemplateProvider.getDetailPagePropTemplateUrl(boMetadata.boNamespace, boMetadata.boName, prop.name);
+            return BoTemplateProvider.getDetailPagePropTemplateUrl(boMetadata.boNamespace, boMetadata.boName,
+              prop.name);
           }
           return null;
         };

@@ -1,7 +1,7 @@
 'use strict';
 
-huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoStateCache", "BoEvent",
-  function($scope, BoStateCachePrivoder, BoEvent) {
+huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoStateCache", "HuoyunWidgetConstant",
+  function($scope, BoStateCachePrivoder, HuoyunWidgetConstant) {
     $scope.states = [];
     var selectedMap = {};
 
@@ -9,7 +9,7 @@ huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoStateCache
       init($scope.boData);
     }
 
-    $scope.$on(BoEvent.BoDataChanged, function(event, boData) {
+    $scope.$on(HuoyunWidgetConstant.Events.BoEvent.BoDataChanged, function(event, boData) {
       boData && init(boData);
     });
 
@@ -35,7 +35,8 @@ huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoStateCache
         delete selectedMap[item.state];
       }
 
-      $scope.$emit(BoEvent.PropertyUpdate, "states", Object.keys(selectedMap).join(","));
+      $scope.$emit(HuoyunWidgetConstant.Events.BoEvent.PropertyUpdate, "states", Object.keys(selectedMap).join(
+        ","));
     };
   }
 ]);

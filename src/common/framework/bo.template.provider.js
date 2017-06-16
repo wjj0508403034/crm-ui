@@ -6,11 +6,26 @@ huoyunWidget.provider("BoTemplate", function() {
 
   /*
    * options structure
+   *   - list
+   *      - templateUrl
+   *      - propTemplates
+   *        - propName
+   *          - templateUrl
    *   - detail
    *      - templateUrl
    *      - propTemplates
    *        - propName
-   *            - templateUrl
+   *           - templateUrl
+   *   - create
+   *      - templateUrl
+   *      - propTemplates
+   *        - propName
+   *           - templateUrl
+   *   - edit
+   *      - templateUrl
+   *      - propTemplates
+   *        - propName
+   *           - templateUrl
    *   - select
    *     - single
    *        - templateUrl

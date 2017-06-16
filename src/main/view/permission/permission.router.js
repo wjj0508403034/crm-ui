@@ -11,9 +11,20 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
         }
       },
       detail: {
+        templateUrl: "permission/templates/detail/permission.html",
         propTemplates: {
           "members": {
             templateUrl: "permission/templates/detail/permission.property.members.html"
+          }
+        }
+      }
+    });
+
+    BoTemplateProvider.configure("com.huoyun.sbo", "PermissionGroupMember", {
+      list: {
+        propTemplates: {
+          "employee": {
+            templateUrl: "permission/templates/list/permission.group.member.property.employee.html"
           }
         }
       }

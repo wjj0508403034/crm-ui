@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoEdition', ["BoTemplate", "BoEvent",
-  function(BoTemplateProvider, BoEvent) {
+huoyunWidget.directive('widgetBoEdition', ["BoTemplate", "HuoyunWidgetConstant",
+  function(BoTemplateProvider, HuoyunWidgetConstant) {
     return {
       restrict: 'A',
       scope: {
@@ -27,10 +27,10 @@ huoyunWidget.directive('widgetBoEdition', ["BoTemplate", "BoEvent",
         };
 
         $scope.$watch("boData", function(newVal, oldVal) {
-          $scope.$broadcast(BoEvent.BoDataChanged, newVal);
+          $scope.$broadcast(HuoyunWidgetConstant.Events.BoEvent.BoDataChanged, newVal);
         });
 
-        $scope.$on(BoEvent.PropertyUpdate, function(event, propName, propValue) {
+        $scope.$on(HuoyunWidgetConstant.Events.BoEvent.PropertyUpdate, function(event, propName, propValue) {
           if (!$scope.boData) {
             $scope.boData = {};
           }

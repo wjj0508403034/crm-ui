@@ -1,7 +1,8 @@
 'use strict';
 
-huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper", "SearchEvent", "$timeout",
-  function(Dialog, SearchHelper, SearchEvent, $timeout) {
+huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper", "SearchEvent", "$timeout", "BoDialogFactory",
+  "HuoyunWidgetConstant",
+  function(Dialog, SearchHelper, SearchEvent, $timeout, BoDialogFactory, HuoyunWidgetConstant) {
     return {
       restrict: 'A',
       scope: {
@@ -20,34 +21,28 @@ huoyunWidget.directive('widgetSearchBoLabel', ["Dialog", "SearchHelper", "Search
 
         $scope.onButtonClicked = function() {
           var options = {
-            title: `设置搜索条件`,
-            //templateUrl: $scope.prop.chooseFromTemplateUrl || "framework/choosefromlistview.html",
-            //appendClassName: "bo-choose-from-list-dialog",
-            templateUrl: $scope.prop.chooseFromTemplateUrl ||
-              "framework/dialog/choose.multi.bo.items.dialog.html",
-            appendClassName: "choose-multi-bo-items-dialog",
-            params: {
-              boName: $scope.prop.additionInfo.boName,
-              boNamespace: $scope.prop.additionInfo.boNamespace,
-              selectedBos: $scope.selectedBos
-            },
-            closeCallback: function(key, data) {
-              if (key === "OK") {
-                $scope.selectedBos = data || [];
+            title: "设置搜索条件",
+            boNamespace: $scope.prop.additionInfo.boNamespace,
+            boName: $scope.prop.additionInfo.boName,
+            selectedItems: $scope.selectedBos,
+            mode: HuoyunWidgetConstant.SelectionMode.Multiple
+          };
+
+          BoDialogFactory.openChooseFromList(options)
+            .then(function(dialogResult) {
+              if (dialogResult.key === "OK") {
+                $scope.selectedBos = dialogResult.data || [];
                 var labels = [];
-                (data || []).forEach(function(bo, index) {
+                (dialogResult.data || []).forEach(function(bo, index) {
                   labels.push(bo[$scope.prop.additionInfo.labelField]);
                 });
                 $scope.text = labels.join(" , ");
-                $scope.value = SearchHelper.getBoLabelSearchExpr($scope.prop, data);
+                $scope.value = SearchHelper.getBoLabelSearchExpr($scope.prop, dialogResult.data);
                 $timeout(function() {
                   $scope.$emit(SearchEvent.Changed);
                 });
               }
-
-            }
-          };
-          var dialog = Dialog.showConfirm(options);
+            });
         };
       }
     }

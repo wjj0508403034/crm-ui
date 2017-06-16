@@ -1,7 +1,7 @@
 'use strict';
 
-huoyun.config(["BoStateProvider", "TableSelectionMode", "BoTemplateProvider",
-  function(BoStateProvider, TableSelectionMode, BoTemplateProvider) {
+huoyun.config(["BoStateProvider", "HuoyunWidgetConstant", "BoTemplateProvider",
+  function(BoStateProvider, HuoyunWidgetConstant, BoTemplateProvider) {
 
     function generateToCustomer(leadsId, $injector) {
       $injector.get("LeadsService").generateToCustomer(leadsId)
@@ -41,7 +41,7 @@ huoyun.config(["BoStateProvider", "TableSelectionMode", "BoTemplateProvider",
       url: "/leads",
       label: "线索",
       list: {
-        selectionMode: TableSelectionMode.Single,
+        selectionMode: HuoyunWidgetConstant.SelectionMode.Single,
         buttons: {
           "generateToCustomer": {
             text: "转换成客户",

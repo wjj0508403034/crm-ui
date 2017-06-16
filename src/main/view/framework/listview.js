@@ -1,8 +1,9 @@
 'use strict';
 huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService",
-  "BoDataHelper", "StateHelper", "$injector", "$timeout", "Dialog", "BoViewHelper", "TableSelectEvent", "TableSelectionMode", "Tip", "$log",
+  "BoDataHelper", "StateHelper", "$injector", "$timeout", "Dialog", "BoViewHelper", "TableSelectEvent",
+  "HuoyunWidgetConstant", "Tip", "$log",
   function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, StateHelper, $injector, $timeout,
-    Dialog, BoViewHelper, TableSelectEvent, TableSelectionMode, Tip, $log) {
+    Dialog, BoViewHelper, TableSelectEvent, HuoyunWidgetConstant, Tip, $log) {
     var navs = null;
     var title = null;
     var subTitle = null;
@@ -13,7 +14,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     var onRowClicked = null;
 
     $scope.currentPageIndex = 0;
-    $scope.selectionMode = TableSelectionMode.None;
+    $scope.selectionMode = HuoyunWidgetConstant.SelectionMode.None;
 
     if ($state.current.data) {
       boName = $state.current.data.boName;
@@ -154,7 +155,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     };
 
     $scope.reload = function() {
-      return BoService.query(boNamespace, boName, $scope.currentPageIndex, queryExprText, $scope.boMetadata.listview.orderBy)
+      return BoService.query(boNamespace, boName, $scope.currentPageIndex, queryExprText, $scope.boMetadata.listview
+          .orderBy)
         .then(function(pageData) {
           $scope.pageData = pageData;
         });
@@ -201,7 +203,7 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     };
 
     $scope.getSelectionItem = function() {
-      if ($scope.selectionMode !== TableSelectionMode.Single) {
+      if ($scope.selectionMode !== HuoyunWidgetConstant.SelectionMode.Single) {
         throw new Error(`Can't call this function, because current selection mode is ${$scope.selectionMode}`);
       }
 
