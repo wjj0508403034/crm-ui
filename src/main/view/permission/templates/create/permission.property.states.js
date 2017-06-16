@@ -1,42 +1,41 @@
 'use strict';
 
-huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoStateCache", "HuoyunWidgetConstant",
-  function($scope, BoStateCachePrivoder, HuoyunWidgetConstant) {
-    $scope.states = [];
+huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoTemplate", "BoHelper",
+  function($scope, BoTemplatePrivoder, BoHelper) {
     var selectedMap = {};
 
-    if ($scope.boData) {
-      init($scope.boData);
-    }
-
-    $scope.$on(HuoyunWidgetConstant.Events.BoEvent.BoDataChanged, function(event, boData) {
-      boData && init(boData);
-    });
-
-    function init(boData) {
-      (boData["states"] || "").split(",").forEach(function(state) {
-        selectedMap[state] = state;
+    BoHelper.getBoData($scope)
+      .then(function(boData) {
+        init(boData);
       });
-
-      var stateMap = BoStateCachePrivoder.getAllStates();
-      Object.keys(stateMap).forEach(function(key) {
-        $scope.states.push({
-          state: key,
-          label: stateMap[key].label,
-          $$selected: !!selectedMap[key]
-        });
-      });
-    }
 
     $scope.onCheckboxValueChanged = function(checked, item) {
       if (checked) {
-        selectedMap[item.state] = item;
+        selectedMap[item.name] = item;
       } else {
-        delete selectedMap[item.state];
+        delete selectedMap[item.name];
       }
-
-      $scope.$emit(HuoyunWidgetConstant.Events.BoEvent.PropertyUpdate, "states", Object.keys(selectedMap).join(
-        ","));
+      var propValue = Object.keys(selectedMap).join(",");
+      BoHelper.setPropertyValue($scope, "states", propValue);
     };
+
+    function init(boData) {
+      (boData["states"] || "").split(",").forEach(function(name) {
+        selectedMap[name] = name;
+      });
+
+      $scope.stateGroups = BoTemplatePrivoder.getStateGroups();
+      Object.keys($scope.stateGroups).forEach(function(groupName) {
+        setSelectedInitState($scope.stateGroups[groupName].items);
+      });
+    }
+
+    function setSelectedInitState(states) {
+      Object.keys(states).forEach(function(stateName) {
+        if (selectedMap[stateName]) {
+          states[stateName].$$selected = true;
+        }
+      });
+    }
   }
 ]);

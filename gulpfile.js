@@ -12,6 +12,7 @@ var bom = require('gulp-bom');
 const DestFolder = "dist";
 const DeployDestFolder = "./../crm/crm/src/main/resources/templates/";
 const DeployResourcesFolder = "./../crm/crm/src/main/resources/static/";
+const Timestamp = Date.now();
 
 
 gulp.task('clean', function() {
@@ -37,39 +38,7 @@ gulp.task('deploy-copy-resource', ['build'], function() {
     .pipe(gulp.dest(DeployResourcesFolder));
 });
 
-gulp.task('deploy', ['clean-deploy', 'deploy-copy-resource'], function() {
-  var injectCss = gulp.src([
-    `${DestFolder}/libs/bootstrap/**/*.css`,
-    `${DestFolder}/**/*.css`
-  ], {
-    read: false
-  });
-
-  var injectJs = gulp.src([
-    `${DestFolder}/libs/jquery.min.js`, // 必须把jquery放在第一个文件，后面很多模块依赖jquery
-    `${DestFolder}/libs/angular.js`,
-    `${DestFolder}/**/*.js`
-  ], {
-    read: false
-  });
-
-  return gulp.src('src/main/index.html')
-    .pipe(showFile())
-    .pipe(inject(injectCss, {
-      transform: function(filepath) {
-        filepath = filepath.replace("/dist", "");
-        return `<link rel="stylesheet" href="..${filepath}">`;
-      }
-    }))
-    .pipe(inject(injectJs, {
-      transform: function(filepath) {
-        filepath = filepath.replace("/dist", "");
-        return `<script src="..${filepath}"></script>`;
-      }
-    }))
-    .pipe(bom())
-    .pipe(gulp.dest(`${DeployDestFolder}`));
-});
+gulp.task('deploy', ['clean-deploy', 'deploy-copy-resource']);
 
 gulp.task('build-css', ['clean'], function() {
   return gulp.src('src/main/**/*.css')
@@ -178,18 +147,22 @@ gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'c
     read: false
   });
 
-  return gulp.src('src/main/**/*.html')
+  return gulp.src('src/main/index.html')
     .pipe(showFile())
     .pipe(inject(injectCss, {
       transform: function(filepath) {
+        filepath = filepath.replace("/dist", "");
+        filepath = `${filepath}?v=${Timestamp}`;
         return `<link rel="stylesheet" href="..${filepath}"></link>`;
       }
     }))
     .pipe(inject(injectJs, {
       transform: function(filepath) {
+        filepath = filepath.replace("/dist", "");
+        filepath = `${filepath}?v=${Timestamp}`;
         return `<script src="..${filepath}"></script>`;
       }
     }))
     .pipe(bom())
-    .pipe(gulp.dest(`${DestFolder}`));
+    .pipe(gulp.dest(`${DeployDestFolder}`));
 });

@@ -3,9 +3,18 @@
 huoyunWidget.provider("BoTemplate", function() {
   const templates = {};
   const defaultPropertiesImageUrls = {};
+  const statesCache = {};
 
   /*
    * options structure
+   *   - state
+   *      - name
+   *      - label
+   *      - group
+   *        - name
+   *        - label
+   *   - defaultImageUrls
+   *      - propName : imageUrl
    *   - list
    *      - templateUrl
    *      - propTemplates
@@ -13,6 +22,7 @@ huoyunWidget.provider("BoTemplate", function() {
    *          - templateUrl
    *   - detail
    *      - templateUrl
+   *      - partTemplates
    *      - propTemplates
    *        - propName
    *           - templateUrl
@@ -37,12 +47,15 @@ huoyunWidget.provider("BoTemplate", function() {
     if (!templates[key]) {
       templates[key] = options;
     }
-  };
+    if (options.state && options.state.name) {
+      AddState(options.state);
+    }
 
-  this.registerBoPropertyDefaultImageUrl = function(boNamespace, boName, propertyName, url) {
-    var key = `${boNamespace}_${boName}_${propertyName}`;
-    if (!defaultPropertiesImageUrls[key]) {
-      defaultPropertiesImageUrls[key] = url;
+    if (options.defaultImageUrls) {
+      Object.keys(options.defaultImageUrls).forEach(function(propName) {
+        var imageKey = `${boNamespace}_${boName}_${propName}`;
+        defaultPropertiesImageUrls[imageKey] = options.defaultImageUrls[propName];
+      });
     }
   };
 
@@ -77,6 +90,15 @@ huoyunWidget.provider("BoTemplate", function() {
     return null;
   };
 
+  this.getDetailPagePartTemplates = function(boNamespace, boName) {
+    var template = templates[`${boNamespace}_${boName}`];
+    if (template && template.detail && template.detail.partTemplates) {
+      return template.detail.partTemplates || [];
+    }
+
+    return [];
+  };
+
   this.getEditPagePropTemplateUrl = function(boNamespace, boName, propName) {
     var template = templates[`${boNamespace}_${boName}`];
     if (template && template.edit && template.edit.propTemplates && template.edit.propTemplates[propName]) {
@@ -104,7 +126,30 @@ huoyunWidget.provider("BoTemplate", function() {
     return null;
   };
 
+  this.getStateGroups = function() {
+    return statesCache;
+  };
+
   this.$get = function() {
     return this;
   };
+
+
+  function AddState(state) {
+    var groupName = state.group.name;
+    if (state.group && groupName) {
+      if (!statesCache[groupName]) {
+        statesCache[groupName] = {
+          name: groupName,
+          label: state.group.label,
+          items: {}
+        };
+      }
+
+      statesCache[groupName].items[state.name] = {
+        name: state.name,
+        label: state.label
+      };
+    }
+  }
 });

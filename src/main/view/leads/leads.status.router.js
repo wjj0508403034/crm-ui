@@ -3,6 +3,14 @@
 huoyun.config(["BoStateProvider", "BoTemplateProvider",
   function(BoStateProvider, BoTemplateProvider) {
     BoTemplateProvider.configure("com.huoyun.sbo", "LeadsStatus", {
+      state: {
+        name: "leadsStatus",
+        label: "线索状态配置",
+        group: {
+          name: "settings",
+          label: "系统设置"
+        }
+      },
       list: {
         propTemplates: {
           "background": {

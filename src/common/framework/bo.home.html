@@ -1,3 +1,7 @@
+<div ng-repeat="template in getTopPartTemplates()">
+  <div ng-include="template.templateUrl" ng-if="template.templateUrl">
+  </div>
+</div>
 <div class="box bo-home-form">
   <div class="box-header with-border">
     <h3 class="box-title" ng-bind="boMetadata.label"></h3>
@@ -20,7 +24,7 @@
         <span ng-bind="section.label"></span>
       </h4>
 
-      <div ng-repeat="prop in section.properties" ng-init="propValue = boData[prop.name]">
+      <div ng-repeat="prop in section.properties">
         <div class="custom-property-template" ng-if="getPropTemplateUrl(boMetadata,prop)">
           <div ng-include="getPropTemplateUrl(boMetadata,prop)"></div>
         </div>
@@ -40,4 +44,9 @@
       </div>
     </div>
   </form>
+</div>
+
+<div ng-repeat="template in getBottomPartTemplates()">
+  <div ng-include="template.templateUrl" ng-if="template.templateUrl">
+  </div>
 </div>

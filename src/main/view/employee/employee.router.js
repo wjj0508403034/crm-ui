@@ -4,6 +4,9 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
   function(BoStateProvider, BoTemplateProvider) {
 
     BoTemplateProvider.configure("com.huoyun.sbo", "Employee", {
+      defaultImageUrls: {
+        avatar: "/res/avatar.png"
+      },
       select: {
         single: {
           templateUrl: "employee/templates/single.select.item.html"
@@ -13,8 +16,6 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
         }
       }
     });
-
-    BoTemplateProvider.registerBoPropertyDefaultImageUrl("com.huoyun.sbo", "Employee", "avatar", "/res/avatar.png");
 
     BoStateProvider.register("com.huoyun.sbo", "Employee", {
       state: "employee",

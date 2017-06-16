@@ -1,12 +1,20 @@
 'use strict';
 
-huoyun.config(["BoStateProvider", "BoTemplateProvider",
-  function(BoStateProvider, BoTemplateProvider) {
-    BoTemplateProvider.registerBoPropertyDefaultImageUrl("com.huoyun.sbo", "Company", "logo", "/res/company.png");
-  }
-]);
+huoyun.config(["BoTemplateProvider", "$stateProvider", function(BoTemplateProvider, $stateProvider) {
+  BoTemplateProvider.configure("com.huoyun.sbo", "Company", {
+    state: {
+      name: "company",
+      label: "公司信息",
+      group: {
+        name: "user-management",
+        label: "用户中心"
+      }
+    },
+    defaultImageUrls: {
+      logo: "/res/company.png"
+    }
+  });
 
-huoyun.config(function($stateProvider) {
   $stateProvider
     .state("company", {
       abstract: true,
@@ -62,4 +70,4 @@ huoyun.config(function($stateProvider) {
         }
       }
     });
-});
+}]);

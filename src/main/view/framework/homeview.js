@@ -58,6 +58,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
       },
       "edit": {
         text: "编辑",
+        appendClass: "btn-primary",
         icon: "fa-pencil",
         onButtonClicked: onEditButtonClicked
       }

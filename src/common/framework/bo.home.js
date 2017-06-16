@@ -2,6 +2,19 @@
 
 huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate", "HuoyunWidgetConstant",
   function($injector, $log, BoTemplateProvider, HuoyunWidgetConstant) {
+
+    function GetPartTemplates(boMetadata, position) {
+      if (boMetadata) {
+        var partTemplates = BoTemplateProvider.getDetailPagePartTemplates(boMetadata.boNamespace, boMetadata.boName);
+
+        return partTemplates.filter(function(template) {
+          return template.position === position;
+        });
+      }
+
+      return [];
+    }
+
     return {
       restrict: 'A',
       scope: {
@@ -13,6 +26,14 @@ huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate", "Huoy
       },
       templateUrl: 'framework/bo.home.html',
       link: function($scope, ele, attrs) {
+
+        $scope.getTopPartTemplates = function() {
+          return GetPartTemplates($scope.boMetadata, "top");
+        };
+
+        $scope.getBottomPartTemplates = function() {
+          return GetPartTemplates($scope.boMetadata, "bottom");
+        };
 
         $scope.$watch("boData", function(newVal, oldVal) {
           $scope.$broadcast(HuoyunWidgetConstant.Events.BoEvent.BoDataChanged, newVal);

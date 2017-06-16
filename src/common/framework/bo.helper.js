@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.factory("BoHelper", ["BoDialogFactory",
-  function(BoDialogFactory) {
+huoyunWidget.factory("BoHelper", ["$q", "BoDialogFactory", "HuoyunWidgetConstant",
+  function($q, BoDialogFactory, HuoyunWidgetConstant) {
 
     return {
       openChooseFromList: function(options) {
@@ -19,6 +19,23 @@ huoyunWidget.factory("BoHelper", ["BoDialogFactory",
             }
           }
         }
+      },
+
+      getBoData: function($scope) {
+        var dtd = $q.defer();
+        if ($scope.boData) {
+          dtd.resolve($scope.boData);
+        } else {
+          $scope.$on(HuoyunWidgetConstant.Events.BoEvent.BoDataChanged, function(event, boData) {
+            boData && dtd.resolve(boData);
+          });
+        }
+
+        return dtd.promise;
+      },
+
+      setPropertyValue: function($scope, propName, propValue) {
+        $scope.$emit(HuoyunWidgetConstant.Events.BoEvent.PropertyUpdate, propName, propValue);
       }
     };
   }

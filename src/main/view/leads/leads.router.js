@@ -14,6 +14,14 @@ huoyun.config(["BoStateProvider", "HuoyunWidgetConstant", "BoTemplateProvider",
     }
 
     BoTemplateProvider.configure("com.huoyun.sbo", "Leads", {
+      state: {
+        name: "leads",
+        label: "所有线索",
+        group: {
+          name: "leads-management",
+          label: "线索管理"
+        }
+      },
       list: {
         propTemplates: {
           "status": {

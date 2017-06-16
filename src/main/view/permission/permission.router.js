@@ -3,6 +3,14 @@
 huoyun.config(["BoStateProvider", "BoTemplateProvider",
   function(BoStateProvider, BoTemplateProvider) {
     BoTemplateProvider.configure("com.huoyun.sbo", "PermissionGroup", {
+      state: {
+        name: "permissionGroup",
+        label: "权限组",
+        group: {
+          name: "user-management",
+          label: "用户中心"
+        }
+      },
       edit: {
         propTemplates: {
           "states": {
@@ -11,10 +19,13 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
         }
       },
       detail: {
-        templateUrl: "permission/templates/detail/permission.html",
+        partTemplates: [{
+          templateUrl: "permission/templates/detail/permission.property.members.html",
+          position: "bottom"
+        }],
         propTemplates: {
-          "members": {
-            templateUrl: "permission/templates/detail/permission.property.members.html"
+          "states": {
+            templateUrl: "permission/templates/detail/permission.property.states.html"
           }
         }
       }
