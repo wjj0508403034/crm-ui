@@ -132,7 +132,7 @@ gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'c
   'view-template'
 ], function() {
   var injectCss = gulp.src([
-    `${DestFolder}/**/*.css`,
+    `${DestFolder}/libs/**/*.css`,
     `${DestFolder}/huoyun.widget.css`,
     `${DestFolder}/app.css`
   ], {
@@ -142,7 +142,8 @@ gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'c
   var injectJs = gulp.src([
     `${DestFolder}/libs/jquery.min.js`, // 必须把jquery放在第一个文件，后面很多模块依赖jquery
     `${DestFolder}/libs/angular.js`,
-    `${DestFolder}/**/*.js`
+    `${DestFolder}/libs/**/*.js`,
+    `${DestFolder}/app.js`,
   ], {
     read: false
   });
