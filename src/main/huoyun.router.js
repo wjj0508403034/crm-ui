@@ -42,11 +42,6 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider
-    .state("baseInfo", {
-      url: "/baseInfo",
-      templateUrl: "base_info/baseInfo.html",
-      controller: 'BaseInfoController'
-    })
     .state("home", {
       url: "/index",
       templateUrl: "home/home.html",
@@ -76,59 +71,11 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
 
 });
 
-huoyun.provider('DynamicState', function runtimeStates($stateProvider) {
-
-  this.$get = function($q, $timeout, $state) {
-    return {
-      addState: function(name, state) {
-        $stateProvider.state(name, state);
-      }
-    }
-  }
-});
-
-huoyun.factory("StateHelper", ["$state", "DynamicState",
-  function($state, DynamicStateProvider) {
+huoyun.factory("StateHelper", ["$state",
+  function($state) {
 
     return {
-      registerBoListState: function(stateName, params) {
-        var listStateName = `${stateName}.list`;
-        var detailStateName = `${stateName}.detail`;
-        DynamicStateProvider.addState(stateName, {
-          abstract: true,
-          url: `/${stateName}`,
-          templateUrl: "framework/general.html",
-          data: {
-            boNamespace: "com.huoyun.sbo",
-            boName: "Customer"
-          }
-        });
 
-        DynamicStateProvider.addState(listStateName, {
-          url: "/list",
-          templateUrl: "framework/listview.html",
-          controller: 'BoListViewController',
-          data: {
-            title: stateName,
-            queryExpr: params.queryExpr,
-            detailStateName: detailStateName
-          }
-        });
-
-        DynamicStateProvider.addState(detailStateName, {
-          url: "/list/:boId",
-          templateUrl: "framework/homeview.html",
-          controller: 'BoHomeViewController',
-          data: {
-            listStateName: listStateName,
-            listStateLabel: stateName
-          }
-        });
-      },
-
-      getCurrentStateName: function() {
-        return $state.current.name;
-      },
 
       getBoListState: function(boNamespace, boName, queryExpr) {
         if (!queryExpr) {
@@ -137,13 +84,6 @@ huoyun.factory("StateHelper", ["$state", "DynamicState",
           return `boList({"boNamespace":"${boNamespace}","boName": "${boName}","queryExpr": "${queryExpr}"})`;
         }
 
-      },
-      getBoEditState: function(boNamespace, boName, boId) {
-        return `edit({"boNamespace":"${boNamespace}","boName": "${boName}"})/${boId}`;
-      },
-
-      getHome: function() {
-        return "home";
       },
 
       gotoBoList: function(boNamespace, boName, queryExpr) {
@@ -179,10 +119,6 @@ huoyun.factory("StateHelper", ["$state", "DynamicState",
           boName: boName,
           boNamespace: boNamespace
         });
-      },
-
-      gotoHome: function() {
-        $state.go("home");
       }
     };
   }

@@ -47,12 +47,6 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       }
     }
 
-    if (!boName || !boNamespace) {
-      Dialog.showError("参数错误");
-      StateHelper.getHome();
-      return;
-    }
-
     var defaultButtonMap = {
       "adjustTableColumn": {
         text: "调整表格字段",
