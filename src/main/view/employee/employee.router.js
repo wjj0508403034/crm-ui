@@ -1,7 +1,7 @@
 'use strict';
 
-huoyun.config(["BoStateProvider", "BoTemplateProvider",
-  function(BoStateProvider, BoTemplateProvider) {
+huoyun.config(["BoStateProvider", "BoTemplateProvider", "SessionProvider", "HuoyunWidgetConstant",
+  function(BoStateProvider, BoTemplateProvider, SessionProvider, HuoyunWidgetConstant) {
 
     BoTemplateProvider.configure("com.huoyun.sbo", "Employee", {
       defaultImageUrls: {
@@ -22,6 +22,14 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
       url: "/employee",
       label: "员工",
       edit: {
+        init: function() {
+          this.$on(HuoyunWidgetConstant.Events.SaveSuccess, function(event, boData) {
+            var currentUser = SessionProvider.get("user");
+            if (currentUser.id === boData.id) {
+              SessionProvider.set("user", boData);
+            }
+          });
+        },
         dynamicMeta: {
           "email": {
             readonly: true

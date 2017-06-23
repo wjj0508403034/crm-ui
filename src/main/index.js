@@ -2,15 +2,14 @@
 
 var huoyun = angular.module('huoyun', ["huoyun.widget", 'ui.router']);
 
-huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "InitService", "BoState", "SideBar", "PermissionControl",
-  function($scope, Dialog, HttpErrorHandlerProvider, InitService, BoStateProvider, SideBarProvider, PermissionControlProvider) {
+huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "InitService", "BoState", "SideBar", "PermissionControl", "Session",
+  function($scope, Dialog, HttpErrorHandlerProvider, InitService, BoStateProvider, SideBarProvider, PermissionControlProvider, SessionProvider) {
 
     HttpErrorHandlerProvider.setDialog(Dialog);
     $scope.title = "火云CRM";
     $scope.navs = [];
-    $scope.setPageTitle = function(title, subTitle) {
+    $scope.setPageTitle = function(title) {
       $scope.pageTitle = title;
-      $scope.pageSubTitle = subTitle;
     };
 
     $scope.setNavInfos = function(navs) {
@@ -45,8 +44,8 @@ huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "Ini
           return PermissionControlProvider.canAccess(this.stateLink);
         });
 
-        $scope.company = initData.company;
-        $scope.user = initData.employee;
+        SessionProvider.set("company", initData.company);
+        SessionProvider.set("user", initData.employee);
       });
 
     function registerState(customerStatus, queryExpr) {

@@ -9,7 +9,6 @@ huoyun.config(function($stateProvider) {
       data: {
         boName: "Customer",
         boNamespace: "com.huoyun.sbo",
-        subTitle: "主页",
         onRowClicked: function($injector, lineData, index) {}
       }
     })

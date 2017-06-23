@@ -28,7 +28,8 @@ huoyunWidget.constant("HuoyunWidgetConstant", {
   Events: {
     BoEvent: {
       BoDataChanged: "HuoYun.BoEvent.BoDataChanged",
-      PropertyUpdate: "HuoYun.BoEvent.PropertyUpdate"
+      PropertyUpdate: "HuoYun.BoEvent.PropertyUpdate",
+      SaveSuccess: "HuoYun.BoEvent.SaveSuccess"
     }
   }
 });

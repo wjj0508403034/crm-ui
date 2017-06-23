@@ -1,14 +1,13 @@
 'use strict';
 huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService",
-  "BoDataHelper", "Dialog", "$injector", "StateHelper", "MetadataHelper",
+  "BoDataHelper", "Dialog", "$injector", "StateHelper", "MetadataHelper", "HuoyunWidgetConstant",
   function($scope, $state, $stateParams, MetadataService, BoService, BoDataHelper, Dialog, $injector, StateHelper,
-    MetadataHelper) {
+    MetadataHelper, HuoyunWidgetConstant) {
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var boId = $stateParams.boId;
     var navs = null;
     var title = null;
-    var subTitle = null;
     var onSave = null;
     var onSaveCallback = null;
     var onCancelCallback = null;
@@ -18,6 +17,10 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
 
     var loadBoDataService = null;
     if ($state.current.data) {
+
+      if (typeof $state.current.data.init === "function") {
+        $state.current.data.init.apply($scope, [$injector]);
+      }
       boName = $state.current.data.boName;
       boNamespace = $state.current.data.boNamespace;
 
@@ -44,9 +47,8 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
         setPageTitle.apply($scope, [$injector]);
       } else {
         title = $state.current.data.title;
-        subTitle = $state.current.data.subTitle;
         if (title) {
-          $scope.setPageTitle(title, subTitle);
+          $scope.setPageTitle(title);
         }
       }
 
@@ -121,7 +123,8 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
         boSaveService = BoService.updateBo(boNamespace, boName, boId, data);
       }
 
-      boSaveService.then(function() {
+      boSaveService.then(function(boData) {
+        $scope.$emit(HuoyunWidgetConstant.Events.SaveSuccess, boData);
         console.log("Save Successfully");
         if (onSaveCallback) {
           onSaveCallback.apply($scope, [$injector, boNamespace, boName, boId]);

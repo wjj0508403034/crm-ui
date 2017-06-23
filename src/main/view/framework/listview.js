@@ -6,7 +6,6 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
     Dialog, BoViewHelper, TableSelectEvent, HuoyunWidgetConstant, Tip, $log) {
     var navs = null;
     var title = null;
-    var subTitle = null;
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
     var queryExprText = null;
@@ -22,9 +21,8 @@ huoyun.controller('BoListViewController', ["$scope", "$state", "$stateParams", "
       queryExprText = $state.current.data.queryExpr;
 
       title = $state.current.data.title;
-      subTitle = $state.current.data.subTitle;
       if (title) {
-        $scope.setPageTitle(title, subTitle);
+        $scope.setPageTitle(title);
       }
 
       navs = $state.current.data.navs;

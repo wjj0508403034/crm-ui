@@ -1,15 +1,5 @@
 'use strict';
 
-huoyun.BoState = function(name) {
-  return {
-    Root: name,
-    List: `${name}.list`,
-    Detail: `${name}.detail`,
-    Create: `${name}.create`,
-    Edit: `${name}.edit`
-  };
-};
-
 huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
   function($stateProvider, BoTemplateProvider) {
 
@@ -54,7 +44,6 @@ huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
             controller: listOptions.controller || "BoListViewController",
             data: {
               title: `${options.label}`,
-              subTitle: "主页",
               queryExpr: listOptions.queryExpr,
               navs: listOptions.navs || ListPageNavigation,
               disableSearch: listOptions.disableSearch,
@@ -143,7 +132,8 @@ huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
             },
             onCancelCallback: editOptions.onCancelCallback || function($injector) {
               gotoBoListPage($injector);
-            }
+            },
+            init: editOptions.init
           }
         })
       }

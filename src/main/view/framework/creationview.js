@@ -7,7 +7,6 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
     var boId = $stateParams.boId;
     var navs = null;
     var title = null;
-    var subTitle = null;
     var onSave = null;
     var beforeSave = null;
     var onSaveCallback = null;
@@ -40,9 +39,8 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
         setPageTitle.apply($scope, [$injector]);
       } else {
         title = $state.current.data.title;
-        subTitle = $state.current.data.subTitle;
         if (title) {
-          $scope.setPageTitle(title, subTitle);
+          $scope.setPageTitle(title);
         }
       }
 

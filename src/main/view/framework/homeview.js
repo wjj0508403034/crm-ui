@@ -4,7 +4,6 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
   function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip,
     UploadService, MetadataHelper, BoViewHelper) {
     var title = null;
-    var subTitle = null;
     var navs = null;
     var boName = $stateParams.boName;
     var boNamespace = $stateParams.boNamespace;
@@ -25,9 +24,8 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
         setPageTitle.apply($scope, [$injector]);
       } else {
         title = $state.current.data.title;
-        subTitle = $state.current.data.subTitle;
         if (title) {
-          $scope.setPageTitle(title, subTitle);
+          $scope.setPageTitle(title);
         }
       }
 

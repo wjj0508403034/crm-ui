@@ -1,15 +1,14 @@
 'use strict';
 
-huoyunWidget.directive('widgetBreadCrumb', function () {
+huoyunWidget.directive('widgetBreadCrumb', function() {
   return {
     restrict: 'A',
     scope: {
       navs: "=",
-      title: "@",
-      subTitle: "@"
+      title: "@"
     },
     templateUrl: 'breadcrumb/breadcrumb.html',
-    link: function ($scope, ele, attrs) {
+    link: function($scope, ele, attrs) {
 
     }
   }
