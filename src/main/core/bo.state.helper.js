@@ -10,8 +10,8 @@ huoyun.BoState = function(name) {
   };
 };
 
-huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider", "BoStateCacheProvider",
-  function($stateProvider, BoTemplateProvider, BoStateCacheProvider) {
+huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider",
+  function($stateProvider, BoTemplateProvider) {
 
     function BoStateConstants(name) {
       this.Root = name;
@@ -27,12 +27,6 @@ huoyun.provider("BoState", ["$stateProvider", "BoTemplateProvider", "BoStateCach
       }
 
       var boState = new BoStateConstants(options.state || boName);
-      BoStateCacheProvider.configure(boState.Root, {
-        label: options.label,
-        boNamespace: boNamespace,
-        boName: boName
-      });
-
       $stateProvider
         .state(boState.Root, {
           abstract: true,

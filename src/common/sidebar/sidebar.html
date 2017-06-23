@@ -4,7 +4,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <!--基本信息-->
-      <li class="treeview" ng-repeat="menu in items" ui-sref-active="active">
+      <li class="treeview" ng-repeat="menu in items" ui-sref-active="active" ng-if="isGroupVisibility(menu)">
         <a ng-if="menu.stateLink" ui-sref="{{menu.stateLink}}">
           <i class="fa" ng-class="menu.icon"></i> <span ng-bind="menu.label"></span>
         </a>
@@ -15,8 +15,8 @@
           </span>
           <div class="tri-angle"></div>
         </a>
-        <ul class="treeview-menu" ng-if="menu.items && menu.items.length > 0">
-          <li ng-repeat="menuitem in menu.items" ng-if="menuitem.visibility !== false">
+        <ul class="treeview-menu">
+          <li ng-repeat="menuitem in menu.items" ng-if="isMenuVisibility(menuitem)">
             <a ui-sref="{{menuitem.stateLink}}">
               <i class="fa" ng-class="menuitem.icon"></i>
               <span ng-bind="menuitem.label"></span>

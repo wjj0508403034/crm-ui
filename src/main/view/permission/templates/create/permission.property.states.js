@@ -1,7 +1,7 @@
 'use strict';
 
-huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoTemplate", "BoHelper",
-  function($scope, BoTemplatePrivoder, BoHelper) {
+huoyun.controller('PermissionPropertyStatesController', ["$scope", "PermissionControl", "BoHelper",
+  function($scope, PermissionControlProvider, BoHelper) {
     var selectedMap = {};
 
     BoHelper.getBoData($scope)
@@ -24,16 +24,16 @@ huoyun.controller('PermissionPropertyStatesController', ["$scope", "BoTemplate",
         selectedMap[name] = name;
       });
 
-      $scope.stateGroups = BoTemplatePrivoder.getStateGroups();
+      $scope.stateGroups = PermissionControlProvider.getStateGroups();
       Object.keys($scope.stateGroups).forEach(function(groupName) {
         setSelectedInitState($scope.stateGroups[groupName].items);
       });
     }
 
     function setSelectedInitState(states) {
-      Object.keys(states).forEach(function(stateName) {
-        if (selectedMap[stateName]) {
-          states[stateName].$$selected = true;
+      states.forEach(function(state, index) {
+        if (selectedMap[state.name]) {
+          states[index].$$selected = true;
         }
       });
     }

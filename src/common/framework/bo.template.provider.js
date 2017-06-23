@@ -7,12 +7,6 @@ huoyunWidget.provider("BoTemplate", function() {
 
   /*
    * options structure
-   *   - state
-   *      - name
-   *      - label
-   *      - group
-   *        - name
-   *        - label
    *   - defaultImageUrls
    *      - propName : imageUrl
    *   - list
@@ -46,9 +40,6 @@ huoyunWidget.provider("BoTemplate", function() {
     var key = `${boNamespace}_${boName}`;
     if (!templates[key]) {
       templates[key] = options;
-    }
-    if (options.state && options.state.name) {
-      AddState(options.state);
     }
 
     if (options.defaultImageUrls) {
@@ -133,23 +124,4 @@ huoyunWidget.provider("BoTemplate", function() {
   this.$get = function() {
     return this;
   };
-
-
-  function AddState(state) {
-    var groupName = state.group.name;
-    if (state.group && groupName) {
-      if (!statesCache[groupName]) {
-        statesCache[groupName] = {
-          name: groupName,
-          label: state.group.label,
-          items: {}
-        };
-      }
-
-      statesCache[groupName].items[state.name] = {
-        name: state.name,
-        label: state.label
-      };
-    }
-  }
 });

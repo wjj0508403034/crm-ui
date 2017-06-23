@@ -54,13 +54,6 @@ gulp.task('build-widget-css', ['clean'], function() {
     .pipe(gulp.dest(DestFolder));
 });
 
-// gulp.task('build-js', ['clean'], function () {
-//   return gulp.src(['src/main/index.js', 'src/main/huoyun.router.js', 'src/main/**/*.js'])
-//     .pipe(showFile())
-//     .pipe(concat("app.js"))
-//     .pipe(gulp.dest(DestFolder));
-// });
-
 gulp.task('copy-resource', ['clean'], function() {
   return gulp.src(['res/**',
       'libs/**/*.jpg',
@@ -141,6 +134,7 @@ gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'c
 
   var injectJs = gulp.src([
     `${DestFolder}/libs/jquery.min.js`, // 必须把jquery放在第一个文件，后面很多模块依赖jquery
+    `${DestFolder}/libs/jquery-ui.min.js`,
     `${DestFolder}/libs/angular.js`,
     `${DestFolder}/libs/**/*.js`,
     `${DestFolder}/app.js`,

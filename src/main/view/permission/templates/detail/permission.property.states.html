@@ -1,11 +1,10 @@
-<div class="row">
-  <div class="form-group col-md-12 bo-property-form-group" ng-controller="PermissionPropertyStatesInDetailPageController">
-    <div class="box-body" ng-repeat="stateGroup in stateGroups">
-      <h4 class="section-title">
-        <span ng-bind="stateGroup.label"></span>
-      </h4>
-      <div ng-repeat="state in stateGroup.items">
-        <div class="col-md-3" ng-bind="state.label"></div>
+<div class="row permission-property-states">
+  <div ng-controller="PermissionPropertyStatesInDetailPageController">
+    <div class="form-group col-md-12 bo-property-form-group" ng-repeat="stateGroup in stateGroups">
+      <label class="col-sm-2 control-label" ng-bind="stateGroup.label">
+      </label>
+      <div class="col-md-10">
+        <label class="state-item label-success" ng-repeat="state in stateGroup.items" ng-bind="state.label"></label>
       </div>
     </div>
   </div>

@@ -1,21 +1,15 @@
 'use strict';
 
-huoyun.controller('PermissionPropertyStatesInDetailPageController', ["$scope", "BoTemplate", "BoHelper",
-  function($scope, BoTemplatePrivoder, BoHelper) {
-    $scope.states = [];
-    var selectedMap = {};
-
+huoyun.controller('PermissionPropertyStatesInDetailPageController', ["$scope", "PermissionControl", "BoHelper",
+  function($scope, PermissionControlProvider, BoHelper) {
     BoHelper.getBoData($scope)
       .then(function(boData) {
         init(boData);
       });
 
     function init(boData) {
-      (boData["states"] || "").split(",").forEach(function(state) {
-        selectedMap[state] = state;
-      });
-
-      $scope.stateGroups = BoTemplatePrivoder.getStateGroups();
+      var states = (boData["states"] || "").split(",");
+      $scope.stateGroups = PermissionControlProvider.getCurrentStateGroups(states);
     }
   }
 ]);
