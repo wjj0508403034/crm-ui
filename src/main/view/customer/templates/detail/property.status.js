@@ -1,32 +1,32 @@
 'use strict';
 
-huoyun.controller('CustomerPropertyStatusDetailController', ["$scope", "BoService",
-  function($scope, BoService) {
+huoyun.controller('CustomerPropertyStatusDetailController', ["$scope", "BoService", "BoHelper", "$q",
+  function($scope, BoService, BoHelper, $q) {
 
-    BoService.queryAll($scope.prop.additionInfo.boNamespace, $scope.prop.additionInfo.boName, null, "orderNo")
-      .then(function(listData) {
-        $scope.statusItems = [];
-        listData.forEach(function(statusItem) {
-          statusItem.$$disable = true;
-          $scope.statusItems.push(statusItem);
-        });
-        initStatus();
+
+    $q.all([BoHelper.getBoData($scope), queryDesignStatus()])
+      .then(function(res) {
+        initDesignStatus(res[1]);
+        initCustomerDesignStatus(res[0]);
       });
 
-    $scope.$on("BoDataLoaded", function(boData) {
-      initStatus();
-    });
+    function initDesignStatus(status) {
+      $scope.statusItems = [];
+      status.forEach(function(statusItem) {
+        statusItem.$$disable = true;
+        $scope.statusItems.push(statusItem);
+      });
+    }
 
-    function initStatus() {
-      if (!$scope.boData || !$scope.boData[$scope.prop.name]) {
+    function initCustomerDesignStatus(boData) {
+      if (!boData || !boData[$scope.prop.name]) {
         return;
       }
 
       var index = -1;
-      if ($scope.boData && $scope.statusItems) {
-
+      if (boData && $scope.statusItems) {
         $scope.statusItems.forEach(function(statusItem, statusIndex) {
-          if ($scope.boData[$scope.prop.name].id === statusItem.id) {
+          if (boData[$scope.prop.name].id === statusItem.id) {
             index = statusIndex;
           }
         });
@@ -36,8 +36,12 @@ huoyun.controller('CustomerPropertyStatusDetailController', ["$scope", "BoServic
             statusItem.$$disable = false;
           }
         });
-
       }
+    }
+
+    function queryDesignStatus() {
+      return BoService.queryAll($scope.prop.additionInfo.boNamespace, $scope.prop.additionInfo.boName,
+        null, "orderNo");
     }
   }
 ]);

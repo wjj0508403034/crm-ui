@@ -65,27 +65,9 @@ huoyun.config(["SideBarProvider", function(SideBarProvider) {
       label: "我的客户",
       stateLink: "myCustomer.list"
     }, {
-      icon: "fa-file-o",
+      icon: "fa-trash-o",
       label: "回收站",
       stateLink: "trash.list"
-    }]
-  }, {
-    name: "design-management",
-    icon: "fa-desktop",
-    label: "设计管理",
-    items: [{
-      icon: "fa-file-o",
-      label: "设计阶段客户",
-      stateLink: "designStageCustomer.list"
-    }]
-  }, {
-    name: "project-management",
-    icon: "fa-bank",
-    label: "工程管理",
-    items: [{
-      icon: "fa-file-o",
-      label: "工程阶段客户",
-      stateLink: "constructionStageCustomer.list"
     }]
   }, {
     name: "contract-management",
@@ -131,7 +113,7 @@ huoyun.config(["SideBarProvider", function(SideBarProvider) {
       stateLink: "paymentTerm.list"
     }, {
       icon: "fa-file-o",
-      label: "跟踪状态配置",
+      label: "设计状态配置",
       stateLink: "customerStatus.list"
     }, {
       icon: "fa-file-o",

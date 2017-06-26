@@ -2,11 +2,12 @@
 
 var huoyun = angular.module('huoyun', ["huoyun.widget", 'ui.router']);
 
-huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "InitService", "BoState", "SideBar", "PermissionControl", "Session",
-  function($scope, Dialog, HttpErrorHandlerProvider, InitService, BoStateProvider, SideBarProvider, PermissionControlProvider, SessionProvider) {
+huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "InitService", "BoState", "SideBar",
+  "PermissionControl", "Session",
+  function($scope, Dialog, HttpErrorHandlerProvider, InitService, BoStateProvider, SideBarProvider,
+    PermissionControlProvider, SessionProvider) {
 
     HttpErrorHandlerProvider.setDialog(Dialog);
-    $scope.title = "火云CRM";
     $scope.navs = [];
     $scope.setPageTitle = function(title) {
       $scope.pageTitle = title;
@@ -20,20 +21,20 @@ huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "Ini
       .then(function(initData) {
         initData.customerStatusList.forEach(function(state) {
           registerState(state, `status eq ${state.id} and deleted eq false`);
-          SideBarProvider.addMenuItemAtLastIndex("design-management", {
+          SideBarProvider.addMenuItemAtLastIndex("customer-management", {
             icon: "fa-file-o",
             label: state.name,
             stateLink: `${state.name.replace(".","")}.list`
-          }, 0);
+          }, 1);
         });
 
         initData.constructionStatusList.forEach(function(state) {
           registerState(state, `constructionStatus eq ${state.id} and deleted eq false`);
-          SideBarProvider.addMenuItemAtLastIndex("project-management", {
+          SideBarProvider.addMenuItemAtLastIndex("customer-management", {
             icon: "fa-file-o",
             label: state.name,
             stateLink: `${state.name.replace(".","")}.list`
-          }, 0);
+          }, 1);
         });
 
         initData.permissionGroups.forEach(function(group) {
@@ -62,7 +63,12 @@ huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "Ini
           }
         },
         detail: {
-          templateUrl: "customer/customer.detail.html"
+          templateUrl: "customer/customer.detail.html",
+          buttons: {
+            "delete": {
+              visibility: false
+            }
+          }
         }
       });
     }

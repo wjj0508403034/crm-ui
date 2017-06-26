@@ -58,6 +58,10 @@ huoyunWidget.provider("PermissionControl", function() {
       return true;
     }
 
+    if (AllowAccessStates.length === 0) {
+      return true;
+    }
+
     if (AllowAccessStates.indexOf(stateName) !== -1) {
       return true;
     }

@@ -3,6 +3,19 @@
 huoyun.config(["BoStateProvider", "BoTemplateProvider",
   function(BoStateProvider, BoTemplateProvider) {
     BoTemplateProvider.configure("com.huoyun.sbo", "Customer", {
+      list: {
+        propTemplates: {
+          "name": {
+            templateUrl: "customer/templates/list/property.name.html"
+          },
+          "status": {
+            templateUrl: "customer/templates/list/property.status.html"
+          },
+          "constructionStatus": {
+            templateUrl: "customer/templates/list/property.status.html"
+          }
+        }
+      },
       detail: {
         templateUrl: "customer/customer.detail.html",
         propTemplates: {
@@ -25,40 +38,6 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
       },
       detail: {
         buttons: {
-          "designStage": {
-            text: "转到设计阶段",
-            icon: "fa-desktop",
-            visibility: function(button, $injector) {
-              return this.boData && !this.boData.stage;
-            },
-            onButtonClicked: function(button, $injector) {
-              var boId = this.getBoId();
-              this.updateBo({ stage: "design" })
-                .then(function() {
-                  $injector.get("Tip").show("已成功转到设计阶段！");
-                  $injector.get("$state").go("designStageCustomer.edit", {
-                    boId: boId
-                  });
-                });
-            }
-          },
-          "constractionStage": {
-            text: "转到工程阶段",
-            icon: "fa-bank",
-            visibility: function(button, $injector) {
-              return this.boData && this.boData.stage !== 'construction';
-            },
-            onButtonClicked: function(button, $injector) {
-              var boId = this.getBoId();
-              this.updateBo({ stage: "construction" })
-                .then(function() {
-                  $injector.get("Tip").show("已成功转到工程阶段！");
-                  $injector.get("$state").go("constructionStageCustomer.edit", {
-                    boId: boId
-                  });
-                });
-            }
-          },
           "delete": {
             text: "移到回收站",
             icon: "fa-trash-o",
@@ -86,43 +65,3 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider",
     });
   }
 ]);
-
-huoyun.config(["BoStateProvider", function(BoStateProvider) {
-  BoStateProvider.register("com.huoyun.sbo", "Customer", {
-    state: "designStageCustomer",
-    url: "/designStageCustomer",
-    label: "设计阶段客户",
-    list: {
-      queryExpr: "stage eq 'design' and deleted eq false",
-    },
-    detail: {
-      buttons: {
-        "constractionStage": {
-          text: "转到工程阶段",
-          icon: "fa-bank",
-          onButtonClicked: function(button, $injector) {
-            var boId = this.getBoId();
-            this.updateBo({ stage: "construction" })
-              .then(function() {
-                $injector.get("Tip").show("已成功转到工程阶段！");
-                $injector.get("$state").go("constructionStageCustomer.edit", {
-                  boId: boId
-                });
-              });
-          }
-        }
-      }
-    }
-  });
-}]);
-
-huoyun.config(["BoStateProvider", function(BoStateProvider) {
-  BoStateProvider.register("com.huoyun.sbo", "Customer", {
-    state: "constructionStageCustomer",
-    url: "/constructionStageCustomer",
-    label: "工程阶段客户",
-    list: {
-      queryExpr: "stage eq 'construction' and deleted eq false",
-    }
-  });
-}]);

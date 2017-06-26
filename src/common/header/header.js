@@ -7,6 +7,7 @@ huoyunWidget.directive('widgetHeader', ["Session",
       scope: {},
       templateUrl: 'header/header.html',
       link: function($scope, ele, attrs) {
+
         SessionProvider.on("user", function(oldValue, newValue) {
           $scope.user = newValue;
         });
