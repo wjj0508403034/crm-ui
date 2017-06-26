@@ -21,19 +21,29 @@ huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "Ini
       .then(function(initData) {
         initData.customerStatusList.forEach(function(state) {
           registerState(state, `status eq ${state.id} and deleted eq false`);
+          const boListStateLink = `${state.name.replace(".","")}.list`;
           SideBarProvider.addMenuItemAtLastIndex("customer-management", {
             icon: "fa-file-o",
             label: state.name,
-            stateLink: `${state.name.replace(".","")}.list`
+            stateLink: boListStateLink
+          }, 1);
+          PermissionControlProvider.addGroupItemAtLastIndex("customer-management", {
+            name: boListStateLink,
+            label: state.name
           }, 1);
         });
 
         initData.constructionStatusList.forEach(function(state) {
           registerState(state, `constructionStatus eq ${state.id} and deleted eq false`);
+          const boListStateLink = `${state.name.replace(".","")}.list`;
           SideBarProvider.addMenuItemAtLastIndex("customer-management", {
             icon: "fa-file-o",
             label: state.name,
-            stateLink: `${state.name.replace(".","")}.list`
+            stateLink: boListStateLink
+          }, 1);
+          PermissionControlProvider.addGroupItemAtLastIndex("customer-management", {
+            name: boListStateLink,
+            label: state.name
           }, 1);
         });
 

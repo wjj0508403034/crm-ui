@@ -1,6 +1,6 @@
 'use strict';
 
-huoyunWidget.directive('widgetBoCreation', function() {
+huoyunWidget.directive('widgetBoCreation', ["BoTemplate", function(BoTemplateProvider) {
   return {
     restrict: 'A',
     scope: {
@@ -8,12 +8,19 @@ huoyunWidget.directive('widgetBoCreation', function() {
       boData: "=",
       onSave: "&",
       onValid: "&",
-      onCancel: "&",
-      propTemplates: "="
+      onCancel: "&"
     },
     templateUrl: 'framework/bo.creation.html',
     link: function($scope, ele, attrs) {
       $scope.errors = {};
+
+      $scope.getPropTemplateUrl = function(boMetadata, prop) {
+        if (boMetadata && prop) {
+          return BoTemplateProvider.getCreatePagePropTemplateUrl(boMetadata.boNamespace, boMetadata.boName,
+            prop.name);
+        }
+        return null;
+      };
 
       $scope.onCancelButtonClicked = function() {
         $scope.onCancel();
@@ -40,4 +47,4 @@ huoyunWidget.directive('widgetBoCreation', function() {
       };
     }
   }
-});
+}]);

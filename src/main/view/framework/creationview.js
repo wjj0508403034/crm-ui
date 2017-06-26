@@ -67,10 +67,6 @@ huoyun.controller('BoCreationViewController', ["$scope", "$state", "$stateParams
         initBoDataService = $state.current.data.initBoDataService.apply($scope, [$injector]);
       }
 
-      if ($state.current.data.propTemplates) {
-        $scope.propTemplates = $state.current.data.propTemplates;
-      }
-
       if ($state.current.data.dynamicMeta) {
         dynamicMeta = $state.current.data.dynamicMeta;
       }

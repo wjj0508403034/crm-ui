@@ -16,14 +16,27 @@ huoyunWidget.directive("widgetColorPicker", ["$log", function($log) {
         hideButton: true
       });
 
-      button.on("change.color", function(event, color) {
-        $scope.value = color;
-        button.css("background-color", color + " !important");
+      var cancleWatch = $scope.$watch('value', function(newVal, oldVal) {
+        if (newVal) {
+          button.colorpicker("val", newVal);
+          cancleWatch();
+        }
       });
 
-      // $scope.$watch("ngModel", function() {
-      //   button.css("background-color", $scope.ngModel);
-      // });
+      button.on("change.color", function(event, color) {
+        $scope.value = color;
+      });
+
+      $scope.style = function() {
+        return {
+          "background-color": `${$scope.value} !important`
+        };
+      };
+
+
+      $scope.onColorPickerClick = function(event) {
+        button.colorpicker("showPalette");
+      };
     }
   };
 }]);

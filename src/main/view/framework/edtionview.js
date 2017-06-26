@@ -67,10 +67,6 @@ huoyun.controller('BoEdtionViewController', ["$scope", "$state", "$stateParams",
         loadBoMetadataCallback = $state.current.data.loadBoMetadataCallback;
       }
 
-      if ($state.current.data.propTemplates) {
-        $scope.propTemplates = $state.current.data.propTemplates;
-      }
-
       if ($state.current.data.dynamicMeta) {
         dynamicMeta = $state.current.data.dynamicMeta;
       }

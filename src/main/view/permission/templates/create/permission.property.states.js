@@ -21,12 +21,14 @@ huoyun.controller('PermissionPropertyStatesController', ["$scope", "PermissionCo
 
     function init(boData) {
       (boData["states"] || "").split(",").forEach(function(name) {
-        selectedMap[name] = name;
+        if (name) {
+          selectedMap[name] = name;
+        }
       });
 
-      $scope.stateGroups = PermissionControlProvider.getStateGroups();
-      Object.keys($scope.stateGroups).forEach(function(groupName) {
-        setSelectedInitState($scope.stateGroups[groupName].items);
+      $scope.stateGroups = PermissionControlProvider.getPermissionGroups();
+      $scope.stateGroups.forEach(function(group) {
+        setSelectedInitState(group.items);
       });
     }
 

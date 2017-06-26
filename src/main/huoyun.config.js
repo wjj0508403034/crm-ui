@@ -137,11 +137,6 @@ huoyun.config(["SideBarProvider", function(SideBarProvider) {
       stateLink: "houses.list"
     }, {
       icon: "fa-file-o",
-      label: "作品列表配置",
-      stateLink: "finishwork.list",
-      visibility: false
-    }, {
-      icon: "fa-file-o",
       label: "职务配置",
       stateLink: "employeeTitle.list"
     }]
@@ -150,15 +145,15 @@ huoyun.config(["SideBarProvider", function(SideBarProvider) {
 
 huoyun.config(["PermissionControlProvider",
   function(PermissionControlProvider) {
-    PermissionControlProvider.configure({
-      "leads-management": {
+    PermissionControlProvider.addGroups([{
+        name: "leads-management",
         label: "线索管理",
         items: [{
           name: "leads.list",
           label: "所有线索"
         }]
-      },
-      "customer-management": {
+      }, {
+        name: "customer-management",
         label: "客户管理",
         items: [{
           name: "myCustomer.list",
@@ -167,15 +162,16 @@ huoyun.config(["PermissionControlProvider",
           name: "trash.list",
           label: "回收站"
         }]
-      },
-      "contract-management": {
+      }, {
+        name: "contract-management",
         label: "合同",
         items: [{
           name: "contract.list",
           label: "合同"
         }]
       },
-      "user-management": {
+      {
+        name: "user-management",
         label: "用户中心",
         items: [{
           name: "company.show",
@@ -190,8 +186,8 @@ huoyun.config(["PermissionControlProvider",
           name: "permissionGroup",
           label: "权限组"
         }]
-      },
-      "settings": {
+      }, {
+        name: "settings",
         label: "系统设置",
         items: [{
           name: "leadsStatus.list",
@@ -222,6 +218,6 @@ huoyun.config(["PermissionControlProvider",
           label: "职务配置"
         }]
       }
-    });
+    ]);
   }
 ]);

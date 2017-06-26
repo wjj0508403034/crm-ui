@@ -3,7 +3,6 @@
 huoyunWidget.provider("BoTemplate", function() {
   const templates = {};
   const defaultPropertiesImageUrls = {};
-  const statesCache = {};
 
   /*
    * options structure
@@ -117,8 +116,13 @@ huoyunWidget.provider("BoTemplate", function() {
     return null;
   };
 
-  this.getStateGroups = function() {
-    return statesCache;
+  this.getCreatePagePropTemplateUrl = function(boNamespace, boName, propName) {
+    var template = templates[`${boNamespace}_${boName}`];
+    if (template && template.create && template.create.propTemplates && template.create.propTemplates[propName]) {
+      return template.create.propTemplates[propName].templateUrl;
+    }
+
+    return null;
   };
 
   this.$get = function() {

@@ -16,7 +16,6 @@ huoyunWidget.directive('widgetBoListView', ["$log", 'Dialog', "HuoyunWidgetConst
         pageData: "=",
         onRowClicked: "&",
         onPagingChanged: "&",
-        propTemplates: "=",
         buttons: "=",
         tableTitle: "@",
         selectionMode: "@",

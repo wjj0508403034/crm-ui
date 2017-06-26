@@ -7,8 +7,7 @@
 
     <div class="box-tools">
       <div class="input-group input-group-sm">
-        <button class="btn" ng-repeat="button in buttons" ng-show="isButtonVisibility(button)" ng-click="onButtonClicked(button)"
-          ng-class="button.appendClass || 'btn-default'" ng-disabled="isButtonDisabled(button)">
+        <button class="btn" ng-repeat="button in buttons" ng-show="isButtonVisibility(button)" ng-click="onButtonClicked(button)" ng-class="button.appendClass || 'btn-default'" ng-disabled="isButtonDisabled(button)">
           <i ng-show="button.icon" class="fa" aria-hidden="true" ng-class="button.icon"></i>
           <span ng-bind="button.text"></span>
         </button>
@@ -20,8 +19,7 @@
     <table class="table table-hover table-bordered">
       <tbody>
         <tr class="no-hover" ng-hide="options.header && !options.header.visibility">
-          <th prop-type="{{prop.type}}" ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false" property-name="{{prop.name}}"
-            ng-bind="prop.label"></th>
+          <th prop-type="{{prop.type}}" ng-repeat="prop in boMetadata.listview.properties" ng-hide="prop.visibility === false" property-name="{{prop.name}}" ng-bind="prop.label"></th>
         </tr>
         <tr ng-show="pageData.content.length === 0">
           <td class="empty-table" colspan="{{boMetadata.listview.properties.length}}">
@@ -31,7 +29,7 @@
         </tr>
         <tr ng-show="pageData.content.length > 0" ng-repeat="lineData in pageData.content" ng-click="clickRow(lineData,$index)" ng-class="{true: 'selected', false: ''}[lineData.$$selected]">
           <td class="table-column" prop-name="{{prop.name}}" prop-type="{{prop.type}} " ng-repeat="prop in boMetadata.listview.properties
-            " ng-hide="prop.visibility===f alse ">
+            " ng-hide="prop.visibility===false ">
             <div ng-if="getPropTemplateUrl(boMetadata,prop) ">
               <div ng-include="getPropTemplateUrl(boMetadata,prop) "></div>
             </div>
