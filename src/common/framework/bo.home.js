@@ -20,7 +20,6 @@ huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate", "Huoy
       scope: {
         boMetadata: "=",
         boData: "=",
-        refresh: "&",
         onImageRemoved: "&",
         buttons: "="
       },
@@ -38,10 +37,6 @@ huoyunWidget.directive('widgetBoHome', ["$injector", "$log", "BoTemplate", "Huoy
         $scope.$watch("boData", function(newVal, oldVal) {
           $scope.$broadcast(HuoyunWidgetConstant.Events.BoEvent.BoDataChanged, newVal);
         });
-
-        $scope.onFileUploadSuccessed = function(file, event) {
-          $scope.refresh();
-        };
 
         $scope.onImageRemovedHandler = function(image, boMeta, prop) {
           $scope.onImageRemoved({

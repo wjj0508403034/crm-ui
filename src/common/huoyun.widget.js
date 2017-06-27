@@ -27,6 +27,7 @@ huoyunWidget.constant("HuoyunWidgetConstant", {
   },
   Events: {
     BoEvent: {
+      BoReloadData: "HuoYun.BoEvent.BoReloadData",
       BoDataChanged: "HuoYun.BoEvent.BoDataChanged",
       PropertyUpdate: "HuoYun.BoEvent.PropertyUpdate",
       SaveSuccess: "HuoYun.BoEvent.SaveSuccess"
@@ -124,7 +125,7 @@ huoyunWidget.filter("BoImageUrl", ["BoTemplate",
 
     return function(bo, boNamespace, boName, propName) {
       if (bo && typeof bo.id === "number" && bo[propName]) {
-        return `/upload/${boNamespace}/${boName}/${bo.id}/${propName}`;
+        return `/resource/${bo[propName].id}`;
       }
       return BoTemplateProvider.getBoPropertyDefaultImageUrl(boNamespace, boName, propName);
     };
@@ -140,6 +141,17 @@ huoyunWidget.filter("UserIcon", function() {
     return input;
   };
 });
+
+huoyunWidget.filter("ResourceUrl", ["BoTemplate", function(BoTemplateProvider) {
+
+  return function(boId, boNamespace, boName, propName) {
+    if (typeof boId === "number") {
+      return `/resource/${boId}`;
+    }
+
+    return BoTemplateProvider.getBoPropertyDefaultImageUrl(boNamespace, boName, propName);
+  };
+}]);
 
 huoyunWidget.filter("ImageList", function() {
   return function(input, boMetadata, propMeta) {

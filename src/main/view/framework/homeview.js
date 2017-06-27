@@ -1,8 +1,8 @@
 'use strict';
 huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "MetadataService", "BoService", "Dialog",
-  "StateHelper", "$injector", "Tip", "UploadService", "MetadataHelper", "BoViewHelper",
+  "StateHelper", "$injector", "Tip", "UploadService", "MetadataHelper", "BoViewHelper", "HuoyunWidgetConstant",
   function($scope, $state, $stateParams, MetadataService, BoService, Dialog, StateHelper, $injector, Tip,
-    UploadService, MetadataHelper, BoViewHelper) {
+    UploadService, MetadataHelper, BoViewHelper, HuoyunWidgetConstant) {
     var title = null;
     var navs = null;
     var boName = $stateParams.boName;
@@ -90,11 +90,7 @@ huoyun.controller('BoHomeViewController', ["$scope", "$state", "$stateParams", "
 
     loadBoData();
 
-    $scope.refresh = function() {
-      loadBoData();
-    };
-
-    $scope.$on("reloadBoData", function() {
+    $scope.$on(HuoyunWidgetConstant.Events.BoReloadData, function(event) {
       loadBoData();
     });
 

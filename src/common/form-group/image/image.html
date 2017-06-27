@@ -1,7 +1,9 @@
-<div class="form-group col-md-12 bo-property-form-group widget-form-group-image" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}" property-type="{{prop.type}}">
+<div class="form-group col-md-12 bo-property-form-group widget-form-group-image" mandatory="{{prop.mandatory}}" property-name="{{prop.name}}"
+  property-type="{{prop.type}}">
   <label class="col-sm-2 control-label" for="{{prop.name}}" ng-bind="prop.label"></label>
   <div class="col-sm-4">
-    <img ng-src="{{imageUrl}}" class="img-circle pull-left" alt="{{boData[prop.name]}}">
+    <img ng-src="{{boData[prop.name].id | ResourceUrl : boMetadata.boNamespace : boMetadata.boName : prop.name}}" class="img-circle pull-left"
+      alt="{{boData[prop.name]}}">
     <div widget-upload-button upload-url="{{boData.id | UploadURL: boMetadata: prop}}" on-file-upload-successed="onFileUploadSuccessed(file,event)"></div>
   </div>
 </div>

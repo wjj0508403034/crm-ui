@@ -37,6 +37,11 @@ huoyun.config(["BoStateProvider", "BoTemplateProvider", "SessionProvider", "Huoy
         }
       },
       detail: {
+        init: function() {
+          this.$on(HuoyunWidgetConstant.Events.BoReloadData, function(event) {
+
+          });
+        },
         buttons: {
           "delete": {
             visibility: false

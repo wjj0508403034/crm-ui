@@ -1,7 +1,7 @@
 'use strict';
 
-huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip",
-  function($filter, $timeout, Tip) {
+huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip", "HuoyunWidgetConstant",
+  function($filter, $timeout, Tip, HuoyunWidgetConstant) {
     return {
       restrict: 'A',
       scope: {
@@ -20,7 +20,7 @@ huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip",
 
         $scope.onFileUploadSuccessed = function(file, event) {
           Tip.show("上传成功！");
-          //$scope.$emit("reloadBoData");
+          $scope.$emit(HuoyunWidgetConstant.Events.BoReloadData);
           $scope.imageUrl = null;
           $timeout(function() {
             $scope.imageUrl = getImageUrl();
@@ -28,7 +28,8 @@ huoyunWidget.directive('widgetFormGroupImage', ["$filter", "$timeout", "Tip",
         };
 
         function getImageUrl() {
-          return $filter('BoImageUrl')($scope.boData, $scope.boMetadata.boNamespace, $scope.boMetadata.boName, $scope.prop.name);
+          return $filter('BoImageUrl')($scope.boData, $scope.boMetadata.boNamespace, $scope.boMetadata.boName,
+            $scope.prop.name);
         }
       }
     }
