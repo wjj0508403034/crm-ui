@@ -6,7 +6,12 @@ huoyun.config(["BoStateProvider", function(BoStateProvider) {
     url: "/department",
     label: "部门",
     list: {
-      disableSearch: true
+      disableSearch: true,
+      buttons: {
+        "adjustTableColumn": {
+          visibility: false
+        }
+      }
     }
   });
 }]);
