@@ -8,6 +8,7 @@ var angularTemplatecache = require('gulp-angular-templatecache');
 var es = require('event-stream');
 var inject = require('gulp-inject');
 var bom = require('gulp-bom');
+const babel = require('gulp-babel');
 
 const DestFolder = "dist";
 const DeployDestFolder = "./../crm/crm/src/main/resources/templates/";
@@ -93,6 +94,9 @@ gulp.task('view-template', ['clean'], function() {
       templateStream
     ])
     .pipe(showFile())
+    .pipe(babel({
+      presets: ['es2015']
+    }))
     .pipe(concat('app.js'))
     // .pipe(uglify())
     .pipe(gulp.dest(DestFolder));
@@ -116,6 +120,9 @@ gulp.task('widget-template', ['clean'], function() {
       gulp.src('src/common/**/*.js')
     ])
     .pipe(showFile())
+    .pipe(babel({
+      presets: ['es2015']
+    }))
     .pipe(concat('huoyun.widget.js'))
     // .pipe(uglify())
     .pipe(gulp.dest(`${DestFolder}/libs`));
