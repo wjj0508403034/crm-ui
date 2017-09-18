@@ -24,6 +24,9 @@ huoyun.config(["BoStateProvider", "HuoyunWidgetConstant", "BoTemplateProvider",
       },
       list: {
         propTemplates: {
+          "name": {
+            templateUrl: "customer/templates/list/property.name.html"
+          },
           "status": {
             templateUrl: "leads/templates/list/leads.property.status.html"
           },

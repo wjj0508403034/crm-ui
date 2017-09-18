@@ -94,9 +94,6 @@ gulp.task('view-template', ['clean'], function() {
       templateStream
     ])
     .pipe(showFile())
-    .pipe(babel({
-      presets: ['es2015']
-    }))
     .pipe(concat('app.js'))
     // .pipe(uglify())
     .pipe(gulp.dest(DestFolder));
@@ -120,9 +117,6 @@ gulp.task('widget-template', ['clean'], function() {
       gulp.src('src/common/**/*.js')
     ])
     .pipe(showFile())
-    .pipe(babel({
-      presets: ['es2015']
-    }))
     .pipe(concat('huoyun.widget.js'))
     // .pipe(uglify())
     .pipe(gulp.dest(`${DestFolder}/libs`));
