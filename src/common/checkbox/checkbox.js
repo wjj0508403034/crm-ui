@@ -1,5 +1,5 @@
 'use strict';
-huoyunWidget.directive('widgetCheckBox', ["$timeout", function($timeout) {
+huoyunWidget.directive('widgetCheckBox1', ["$timeout", function($timeout) {
   return {
     restrict: 'A',
     templateUrl: 'checkbox/checkbox.html',

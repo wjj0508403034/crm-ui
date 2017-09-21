@@ -48,6 +48,16 @@ huoyun.config(function($stateProvider, $urlRouterProvider) {
       controller: 'HomeViewController',
       label: "主页"
     })
+    .state("newBoList", {
+      url: "/listview",
+      templateUrl: "common/bo.list.view.html",
+      controller: 'NewBoListViewController'
+    })
+    .state("newBoCreation", {
+      url: "/creationview",
+      templateUrl: "common/bo.creation.view.html",
+      controller: 'NewBoCreationViewController'
+    })
     .state("boList", {
       url: "/list(:boNamespace,:boName)?:queryExpr",
       templateUrl: "framework/listview.html",

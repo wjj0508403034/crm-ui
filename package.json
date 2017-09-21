@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
+    "huoyun-widgets": "^1.0.30",
     "ionicons": "^3.0.0"
   }
 }

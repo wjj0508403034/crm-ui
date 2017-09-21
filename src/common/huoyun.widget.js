@@ -1,6 +1,6 @@
 'use strict';
 
-var huoyunWidget = angular.module('huoyun.widget', ['ngDialog', 'ngFileUpload']);
+var huoyunWidget = angular.module('huoyun.widgets', ['huoyun.widget', 'ngDialog', 'ngFileUpload']);
 
 huoyunWidget.value("DateFormat", "yyyy-MM-dd");
 huoyunWidget.value("DateTimeFormat", "yyyy-MM-dd HH:mm");

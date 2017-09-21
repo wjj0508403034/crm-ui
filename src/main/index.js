@@ -1,6 +1,6 @@
 'use strict';
 
-var huoyun = angular.module('huoyun', ["huoyun.widget", 'ui.router']);
+var huoyun = angular.module('huoyun', ["huoyun.widgets", "huoyun.widget", 'ui.router']);
 
 huoyun.controller("appController", ["$scope", "Dialog", "HttpErrorHandler", "InitService", "BoState", "SideBar",
   "PermissionControl", "Session",
