@@ -1,18 +1,20 @@
 'use strict';
-huoyun.controller('NewBoListViewController', ["$scope", "HuoYunWidgets", "MetadataService", "BoService", "BoMeta",
-  function($scope, HuoYunWidgets, MetadataService, BoService, BoMeta) {
+huoyun.controller('NewBoListViewController', ["$scope", "$state", "HuoYunWidgets", "MetadataService",
+  "BoService", "BoMeta",
+  function($scope, $state, HuoYunWidgets, MetadataService, BoService, BoMeta) {
+    var boListStateOption = $state.current;
+    boListStateOption.getOptions().setController(this);
 
-    var boName = "Leads";
-    var boNamespace = "com.huoyun.sbo";
-
-    var searchText = null;
+    var boName = boListStateOption.getBoState().getBoName();
+    var boNamespace = boListStateOption.getBoState().getBoNamespace();
+    var searchText = boListStateOption.getSearchText();
 
     MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
         $scope.searchOption = new SearchOption(boMeta);
         $scope.tableOption = new TableOption(boMeta);
       }).then(function() {
-        BoService.query(boNamespace, boName)
+        BoService.query(boNamespace, boName, 0, searchText)
           .then(function(dataSource) {
             $scope.tableOption.setSource(dataSource);
           });
@@ -25,10 +27,19 @@ huoyun.controller('NewBoListViewController', ["$scope", "HuoYunWidgets", "Metada
       });
 
       return new HuoYunWidgets.TableOption({
+        selection: boListStateOption.getSelection(),
         header: new TableHeader(boMeta),
         columns: columns
       });
     }
+
+    this.getScope = function() {
+      return $scope;
+    };
+
+    this.getSelectedItem = function() {
+      return $scope.tableOption && $scope.tableOption.getSelectedItem();
+    };
 
     function SearchOption(boMeta) {
       var searchProps = [];
@@ -75,6 +86,15 @@ huoyun.controller('NewBoListViewController', ["$scope", "HuoYunWidgets", "Metada
 
     function TableHeader(boMeta) {
       this.title = boMeta.label;
+      this.buttons = [];
+
+      if (Array.isArray(boListStateOption.getButtons())) {
+        var that = this;
+        boListStateOption.getButtons().forEach(function(button) {
+          //var buttonOption =
+          that.buttons.push(new HuoYunWidgets.ButtonOption(button));
+        });
+      }
     }
 
 

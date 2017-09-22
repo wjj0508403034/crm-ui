@@ -6,20 +6,21 @@
   color: #cccccc;
   cursor: default;
 }
-.widgets-checkbox {
-  cursor: pointer;
+.huoyun-dialog-container.ngdialog .ngdialog-content {
+  background: transparent !important;
+  padding: 0 !important;
 }
 
-.widgets-checkbox input[type="checkbox"] {
-  display: none;
+.huoyun-dialog-content-container.box>.box-body {
+  min-height: 100px;
+  max-height: 450px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.widgets-checkbox .fa {
-  width: 16px;
-}
-
-.widgets-checkbox .widgets-checkbox-content {
-  margin-left: 5px;
+.huoyun-dialog-content-container.box>.box-footer .btn {
+  margin-left: 15px;
+  min-width: 80px;
 }
 @charset "UTF-8";
 
@@ -2751,21 +2752,50 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .marign-right-10 {
   margin-right: 10px;
 }
-.huoyun-dialog-container.ngdialog .ngdialog-content {
-  background: transparent !important;
-  padding: 0 !important;
+.widgets-checkbox {
+  cursor: pointer;
 }
 
-.huoyun-dialog-content-container.box>.box-body {
-  min-height: 100px;
-  max-height: 450px;
-  overflow-x: hidden;
-  overflow-y: auto;
+.widgets-checkbox input[type="checkbox"] {
+  display: none;
 }
 
-.huoyun-dialog-content-container.box>.box-footer .btn {
-  margin-left: 15px;
-  min-width: 80px;
+.widgets-checkbox .fa {
+  width: 16px;
+}
+
+.widgets-checkbox .widgets-checkbox-content {
+  margin-left: 5px;
+}
+[widgets-story-board] {
+  position: relative;
+}
+
+.svg-story-board-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: transparent;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.widgets-head {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 100px;
+}
+
+.widgets-head .widgets-head-title-container {
+  color: #3c8dbc;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.widgets-head .widgets-head-tools {
+  height: 100%;
+  padding: 13px 0;
 }
 .widgets-form .form-group .help-block {
   display: none;
@@ -2801,35 +2831,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .widgets-form[form-readonly="true"] .form-group .value-label {
   min-height: 20px;
 }
-.widgets-head {
+.widgets-nav {
+  background: #3c8dbc;
+}
+
+.widgets-nav nav {
   height: 60px;
+}
+
+.widgets-nav li {
+  height: 100%;
+  display: inline-block;
   line-height: 60px;
-  padding: 0 100px;
+  padding: 0 40px;
+  cursor: pointer;
+  color: white;
 }
 
-.widgets-head .widgets-head-title-container {
-  color: #3c8dbc;
-  font-size: 28px;
-  font-weight: bold;
+.widgets-nav li.selected {
+  background: #367fa9;
 }
 
-.widgets-head .widgets-head-tools {
-  height: 100%;
-  padding: 13px 0;
-}
-[widgets-story-board] {
-  position: relative;
-}
-
-.svg-story-board-container {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background: transparent;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.widgets-nav li:hover {
+  background: #367fa9;
 }
 .widgets-markdown {
   color: #444;
@@ -3035,30 +3059,6 @@ a:active {
 
 .widgets-markdown td {
   vertical-align: top;
-}
-.widgets-nav {
-  background: #3c8dbc;
-}
-
-.widgets-nav nav {
-  height: 60px;
-}
-
-.widgets-nav li {
-  height: 100%;
-  display: inline-block;
-  line-height: 60px;
-  padding: 0 40px;
-  cursor: pointer;
-  color: white;
-}
-
-.widgets-nav li.selected {
-  background: #367fa9;
-}
-
-.widgets-nav li:hover {
-  background: #367fa9;
 }
 .widgets-side-bar {
   border: 1px solid #3c8dbc;

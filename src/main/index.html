@@ -12,7 +12,11 @@
 <body class="huoyun hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
     <div widget-header></div>
-    <div widget-sidebar></div>
+    <div ng-controller="SidbarController">
+      <div widgets-side-bar-panel options="sideBarOption"></div>
+    </div>
+
+    <!-- <div widget-sidebar></div> -->
     <div class="content-wrapper">
       <section widget-bread-crumb title="{{pageTitle}}" navs="navs"></section>
       <section ui-view class="content-wrapper-container">

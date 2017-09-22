@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 huoyunWidget.provider("PermissionControl", function() {
 
   function PermissionGroup(options) {
