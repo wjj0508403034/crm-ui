@@ -1,27 +1,3 @@
-.widgets-breadcrumb li {
-  cursor: pointer;
-}
-
-.widgets-breadcrumb li:last-child {
-  color: #cccccc;
-  cursor: default;
-}
-.huoyun-dialog-container.ngdialog .ngdialog-content {
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-.huoyun-dialog-content-container.box>.box-body {
-  min-height: 100px;
-  max-height: 450px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.huoyun-dialog-content-container.box>.box-footer .btn {
-  margin-left: 15px;
-  min-width: 80px;
-}
 @charset "UTF-8";
 
 /*!
@@ -2752,6 +2728,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .marign-right-10 {
   margin-right: 10px;
 }
+.widgets-breadcrumb li {
+  cursor: pointer;
+}
+
+.widgets-breadcrumb li:last-child {
+  color: #cccccc;
+  cursor: default;
+}
+.huoyun-dialog-container.ngdialog .ngdialog-content {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.huoyun-dialog-content-container.box>.box-body {
+  min-height: 100px;
+  max-height: 450px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.huoyun-dialog-content-container.box>.box-footer .btn {
+  margin-left: 15px;
+  min-width: 80px;
+}
 .widgets-checkbox {
   cursor: pointer;
 }
@@ -2766,36 +2766,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 .widgets-checkbox .widgets-checkbox-content {
   margin-left: 5px;
-}
-[widgets-story-board] {
-  position: relative;
-}
-
-.svg-story-board-container {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background: transparent;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.widgets-head {
-  height: 60px;
-  line-height: 60px;
-  padding: 0 100px;
-}
-
-.widgets-head .widgets-head-title-container {
-  color: #3c8dbc;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.widgets-head .widgets-head-tools {
-  height: 100%;
-  padding: 13px 0;
 }
 .widgets-form .form-group .help-block {
   display: none;
@@ -2831,29 +2801,35 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .widgets-form[form-readonly="true"] .form-group .value-label {
   min-height: 20px;
 }
-.widgets-nav {
-  background: #3c8dbc;
+[widgets-story-board] {
+  position: relative;
 }
 
-.widgets-nav nav {
-  height: 60px;
-}
-
-.widgets-nav li {
+.svg-story-board-container {
   height: 100%;
-  display: inline-block;
+  width: 100%;
+  position: absolute;
+  background: transparent;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.widgets-head {
+  height: 60px;
   line-height: 60px;
-  padding: 0 40px;
-  cursor: pointer;
-  color: white;
+  padding: 0 100px;
 }
 
-.widgets-nav li.selected {
-  background: #367fa9;
+.widgets-head .widgets-head-title-container {
+  color: #3c8dbc;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-.widgets-nav li:hover {
-  background: #367fa9;
+.widgets-head .widgets-head-tools {
+  height: 100%;
+  padding: 13px 0;
 }
 .widgets-markdown {
   color: #444;
@@ -3060,6 +3036,30 @@ a:active {
 .widgets-markdown td {
   vertical-align: top;
 }
+.widgets-nav {
+  background: #3c8dbc;
+}
+
+.widgets-nav nav {
+  height: 60px;
+}
+
+.widgets-nav li {
+  height: 100%;
+  display: inline-block;
+  line-height: 60px;
+  padding: 0 40px;
+  cursor: pointer;
+  color: white;
+}
+
+.widgets-nav li.selected {
+  background: #367fa9;
+}
+
+.widgets-nav li:hover {
+  background: #367fa9;
+}
 .widgets-side-bar {
   border: 1px solid #3c8dbc;
 }
@@ -3098,6 +3098,17 @@ a:active {
 
 .widgets-side-bar .side-bar-group-items-container li:hover {
   background: #f5f5f5;
+}
+.widget-tip.alert.alert-success {
+  background: transparent;
+  border: none;
+  position: absolute;
+  left: 50%;
+  top: 90%;
+  width: 300px;
+  word-wrap: break-word;
+  transform: translate(-50%, -50%);
+  z-index: 100;
 }
 .widgets-pagination>li>span {
   color: #666;
@@ -3168,17 +3179,6 @@ a:active {
   width: 50px;
   text-align: center;
   vertical-align: middle;
-}
-.widget-tip.alert.alert-success {
-  background: transparent;
-  border: none;
-  position: absolute;
-  left: 50%;
-  top: 90%;
-  width: 300px;
-  word-wrap: break-word;
-  transform: translate(-50%, -50%);
-  z-index: 100;
 }
 
 .widgets-video-player video {

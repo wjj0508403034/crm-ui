@@ -1,4 +1,4 @@
-<div>
-  <i class="fa fa-circle" aria-hidden="true" ng-style="lineData[prop.name].background | LeadsStatusStyle"></i>
-  <span ng-bind="lineData[prop.name] | BoLabel : prop | EmptyColumnPlaceHolder"></span>
+<div ng-controller="LeadsListPropertyStatusController">
+  <i class="fa fa-circle" aria-hidden="true" ng-style="style($line,$column)"></i>
+  <span ng-bind="propValue($line,$column)"></span>
 </div>

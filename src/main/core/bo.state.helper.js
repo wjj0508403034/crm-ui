@@ -1,5 +1,68 @@
 'use strict';
 
+huoyun.provider("NewBoTemplate", [function() {
+
+  function BoTemplate(boNamespace, boName) {
+
+    this.listPropTemplates = {};
+  }
+
+
+  BoTemplate.prototype.setListPropTemplates = function(options) {
+    this.listPropTemplates = options;
+    return this;
+  };
+
+  BoTemplate.prototype.getListPropTemplate = function(name) {
+    var prop = this.listPropTemplates[name];
+    return prop && prop.templateUrl;
+  };
+
+  BoTemplate.prototype.setDetailPropTemplates = function(options) {
+    this.detailPropTemplates = options;
+    return this;
+  };
+
+
+  const templates = {};
+
+  this.getBoTemplate = function(boNamespace, boName) {
+    var key = `${boNamespace}.${boName}`;
+    if (!templates[key]) {
+      templates[key] = new BoTemplate(boNamespace, boName);
+    }
+
+    return templates[key];
+  };
+
+  this.$get = function() {
+    return this;
+  };
+}]);
+
+huoyun.provider("BoStateParam", [function() {
+  function BoListOption(options) {
+    var that = this;
+    Object.keys(options).forEach(function(key) {
+      that[key] = options[key];
+    });
+  }
+
+  BoListOption.prototype.setController = function(controller) {
+    this.controller = controller;
+  };
+
+  BoListOption.prototype.getController = function() {
+    return this.controller;
+  };
+
+  this.BoList = BoListOption;
+
+  this.$get = function() {
+    return this;
+  };
+}]);
+
 huoyun.provider("NewBoState", ["$stateProvider", function($stateProvider) {
 
   const BoStateMap = {};
@@ -46,6 +109,23 @@ huoyun.provider("NewBoState", ["$stateProvider", function($stateProvider) {
 
   BoState.prototype.getStateName = function() {
     return this.stateName || this.boName.toLocaleLowerCase();
+  };
+
+  BoState.prototype.setBoListOption = function(options) {
+    this.list = new BoListStateOption(this, options);
+    return this;
+  };
+
+  BoState.prototype.setBoDetailOption = function(options) {
+    return this;
+  };
+
+  BoState.prototype.setBoCreationOption = function(options) {
+    return this;
+  };
+
+  BoState.prototype.setBoEditionOption = function(options) {
+    return this;
   };
 
 

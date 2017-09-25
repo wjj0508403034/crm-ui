@@ -1,6 +1,6 @@
 <div ng-controller="CustomerPropertyNameListController">
-  <span ng-bind="lineData[prop.name] | BoLabel : prop | EmptyColumnPlaceHolder"></span>
-  <span class="new-customer" ng-if="isToday(lineData)">
+  <span ng-bind="getColumnValue($line,$column)"></span>
+  <span class="new-customer" ng-if="isToday($line.data)">
     <i class="fa fa-bookmark" aria-hidden="true"></i>
     <span>new</span>
   </span>
