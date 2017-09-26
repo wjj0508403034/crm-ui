@@ -1,7 +1,7 @@
 'use strict';
 
-huoyun.provider("NewBoState", ["$stateProvider", "BoBaseState", "BoListState", "BoDetailState",
-  function($stateProvider, BoBaseState, BoListState, BoDetailState) {
+huoyun.provider("NewBoState", ["$stateProvider", "BoBaseState", "BoListState", "BoDetailState", "BoEditState",
+  function($stateProvider, BoBaseState, BoListState, BoDetailState, BoEditState) {
 
     const BoStateMap = {};
 
@@ -35,7 +35,11 @@ huoyun.provider("NewBoState", ["$stateProvider", "BoBaseState", "BoListState", "
         this.detail = new BoDetailState(this, options.detail || {});
       }
 
-      ["base", "list", "detail"].forEach(function(key) {
+      if (!options.edit || options.edit.visibility !== false) {
+        this.edit = new BoEditState(this, options.edit || {});
+      }
+
+      ["base", "list", "detail", "edit"].forEach(function(key) {
         var stateOption = that[key];
         stateOption && $stateProvider.state(stateOption.getStateName(), stateOption);
       });

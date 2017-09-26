@@ -1,6 +1,63 @@
 'use strict';
 
+huoyun.service("$stateHistory", ["$rootScope", "$state", function($rootScope, $state) {
+  function StateHistory() {
+    var records = [];
+
+    this.getRecords = function() {
+      return records;
+    };
+  }
+
+  StateHistory.prototype.push = function(state) {
+    if (!this.isBack()) {
+      this.getRecords().push(state);
+    }
+    this.backing = false;
+  };
+
+  StateHistory.prototype.pop = function(state) {
+    if (this.getRecords().length > 0) {
+      var data = this.getRecords().splice(this.getRecords().length - 1, 1);
+      return data && data.length > 0 && data[0];
+    }
+  };
+
+  StateHistory.prototype.back = function() {
+    this.backing = true;
+    var last = this.pop();
+    last && $state.go(last.state, last.params);
+  };
+
+  StateHistory.prototype.isBack = function() {
+    return !!this.backing;
+  };
+
+  StateHistory.prototype.clear = function() {
+    this.backing = false;
+    this.getRecords().splice(0, this.getRecords().length - 1);
+  };
+
+  var history = new StateHistory();
+
+  $rootScope.$on('$stateChangeSuccess',
+    function(event, toState, toParams, fromState, fromParams) {
+      console.log("Is Back:" + history.isBack())
+      history.push({
+        state: toState,
+        params: toParams
+      });
+    });
+
+  return history;
+}]);
+
+huoyun.run(["$stateHistory", function($stateHistory) {
+
+}]);
+
 huoyun.run(function($rootScope) {
+
   $rootScope.$on('$stateChangeStart',
     function(event, toState) {
       if (event.currentScope) {
@@ -17,7 +74,7 @@ huoyun.run(function($rootScope) {
 
   $rootScope.$on('$stateNotFound',
     function(event, unfoundState, fromState, fromParams) {
-      console.log(arguments);
+      //console.log(arguments);
     });
 
   $rootScope.$on('$stateChangeSuccess',

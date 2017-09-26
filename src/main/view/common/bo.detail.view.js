@@ -30,7 +30,7 @@ huoyun.controller('NewBoDetailViewController', ["$scope", "$state", "$stateParam
         }
       },
       gotoEditView: function(boId) {
-        $state.go(boListState.getParent().getEditStateName(), {
+        $state.go(boDetail.getParent().getEditStateName(), {
           boId: boId
         });
       },

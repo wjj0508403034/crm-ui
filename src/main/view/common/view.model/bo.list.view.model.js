@@ -97,7 +97,7 @@ huoyun.factory("BoListViewModel", ["BoMeta", "HuoYunWidgets", "NewBoTemplate",
       if (Array.isArray(buttons)) {
         var that = this;
         buttons.forEach(function(button) {
-          that.buttons.push(new HuoYunWidgets.ButtonOption(button));
+          that.buttons.push(button);
         });
       }
     }
