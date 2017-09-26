@@ -1,8 +1,8 @@
 'use strict';
 
 huoyun.config(["NewBoTemplateProvider", "NewBoStateProvider",
-  "BoStateParamProvider",
-  function(NewBoTemplateProvider, NewBoStateProvider, BoStateParamProvider) {
+  "BoStateParam",
+  function(NewBoTemplateProvider, NewBoStateProvider, BoStateParam) {
 
     NewBoTemplateProvider.getBoTemplate("com.huoyun.sbo", "Leads")
       .setListPropTemplates({
@@ -25,7 +25,7 @@ huoyun.config(["NewBoTemplateProvider", "NewBoStateProvider",
         }
       });
 
-    var boListOption = new BoStateParamProvider.BoList({
+    var boList = new BoStateParam({
       searchText: "name like '1'",
       selection: {
         mode: "Single"
@@ -35,17 +35,17 @@ huoyun.config(["NewBoTemplateProvider", "NewBoStateProvider",
         label: "转换成客户",
         icon: "fa-users",
         visibility: function() {
-          return !!boListOption.getController().getSelectedItem();
+          return !!boList.getController().getSelectedItem();
         },
         disabled: function() {
-          var selectedItem = boListOption.getController().getSelectedItem();
+          var selectedItem = boList.getController().getSelectedItem();
           if (selectedItem && !selectedItem.transform) {
             return false;
           }
           return true;
         },
         onClick: function() {
-          var selectedItem = boListOption.getController().getSelectedItem();
+          var selectedItem = boList.getController().getSelectedItem();
           if (selectedItem) {
             generateToCustomer(selectedItem.id, $injector);
           }
@@ -55,22 +55,21 @@ huoyun.config(["NewBoTemplateProvider", "NewBoStateProvider",
         label: "详情",
         icon: "fa-file-text",
         visibility: function() {
-          return !!boListOption.getController().getSelectedItem();
+          return !!boList.getController().getSelectedItem();
         },
         onClick: function() {
-          boListOption.getController().getState().go("leads.detail", {
-            boId: selectedLeads.id
-          });
+          var selectedItem = boList.getController().getSelectedItem();
+          boList.getController().gotoDetailView(selectedItem.id);
         }
       }, {
         name: "edit",
         label: "编辑",
         icon: "fa-pencil",
         visibility: function(button, $injector) {
-          return !!boListOption.getController().getSelectedItem();
+          return !!boList.getController().getSelectedItem();
         },
         onClick: function() {
-          boListOption.getController().getState().go("leads.edit", {
+          boList.getController().getState().go("leads.edit", {
             boId: selectedLeads.id
           });
         }
@@ -79,19 +78,27 @@ huoyun.config(["NewBoTemplateProvider", "NewBoStateProvider",
         label: "删除",
         icon: "fa-remove",
         visibility: function(button, $injector) {
-          return !!boListOption.getController().getSelectedItem();
+          return !!boList.getController().getSelectedItem();
         },
         onClick: function() {
-          var selectedItem = boListOption.getController().getSelectedItem();
-          boListOption.getController().deleteBo(selectedItem);
+          var selectedItem = boList.getController().getSelectedItem();
+          boList.getController().deleteBo(selectedItem);
         }
+      }]
+    });
+
+    var boDetail = new BoStateParam({
+      buttons: [{
+        name: "remove",
+        visibility: false
       }]
     });
 
     NewBoStateProvider.configure({
       boNamespace: "com.huoyun.sbo",
       boName: "Leads",
-      list: boListOption
+      list: boList,
+      detail: boDetail
     });
   }
 ]);
