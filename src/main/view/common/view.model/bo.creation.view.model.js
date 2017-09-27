@@ -1,9 +1,13 @@
 'use strict';
 
-huoyun.factory("BoCreationViewModel", ["BoFormViewModel",
-  function(BoFormViewModel) {
+huoyun.factory("BoCreationViewModel", ["BoFormViewModel", "HuoYunWidgets",
+  function(BoFormViewModel, HuoYunWidgets) {
 
-    function BoCreationViewModel(boMeta) {
+    function BoCreationViewModel(boMeta, controller) {
+      this.getController = function() {
+        return controller;
+      };
+
       this.forms = [];
       this.data = {};
 

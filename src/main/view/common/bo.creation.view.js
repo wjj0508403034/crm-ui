@@ -1,32 +1,45 @@
 'use strict';
 
-huoyun.controller('NewBoCreationViewController', ["$scope", "HuoYunWidgets", "MetadataService", "BoService",
-  "BoCreationViewModel",
-  function($scope, HuoYunWidgets, MetadataService, BoService, BoCreationViewModel) {
+huoyun.controller('NewBoCreationViewController', ["$scope", "$state", "MetadataService", "BoService",
+  "BoCreationViewModel", "HuoYunWidgets",
+  function($scope, $state, MetadataService, BoService, BoCreationViewModel, HuoYunWidgets) {
 
-    MetadataService.getMetadata("com.huoyun.sbo", "Leads")
+    var boCreation = $state.current;
+    var boName = boEdition.getBoName();
+    var boNamespace = boEdition.getBoNamespace();
+
+    var controller = {
+      createBo: function(data) {
+        BoService.createBo(boNamespace, boName, data)
+          .then(function() {
+            HuoYunWidgets.Tip.show("创建成功");
+          });
+      }
+    };
+
+    MetadataService.getMetadata(boNamespace, boName)
       .then(function(boMeta) {
-        $scope.vm = new BoCreationViewModel(boMeta);
+        $scope.vm = new BoCreationViewModel(boMeta, controller);
       });
 
-    $scope.buttons = [];
-    $scope.buttons.push(new HuoYunWidgets.ButtonOption({
-      name: "save",
-      label: "保存",
-      appendClass: "btn-primary",
-      onClick: function() {
-        console.log($scope.vm.getData())
+    const DefaultButtons = {
+      "cancel": {
+        name: "cancel",
+        icon: "fa-remove",
+        label: "取消",
+        onClick: function() {
+          $stateHistory.back();
+        }
+      },
+      "save": {
+        name: "save",
+        icon: "fa-pencil",
+        label: "保存",
+        onClick: function() {
+          controller.createBo($scope.vm.getData());
+        }
       }
-    }));
-
-    $scope.buttons.push(new HuoYunWidgets.ButtonOption({
-      name: "cancel",
-      label: "取消",
-      appendClass: "btn-default",
-      onClick: function() {
-
-      }
-    }));
+    };
 
 
   }

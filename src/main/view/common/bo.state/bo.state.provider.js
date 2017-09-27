@@ -1,7 +1,8 @@
 'use strict';
 
 huoyun.provider("NewBoState", ["$stateProvider", "BoBaseState", "BoListState", "BoDetailState", "BoEditState",
-  function($stateProvider, BoBaseState, BoListState, BoDetailState, BoEditState) {
+  "BoCreateState",
+  function($stateProvider, BoBaseState, BoListState, BoDetailState, BoEditState, BoCreateState) {
 
     const BoStateMap = {};
 
@@ -39,7 +40,11 @@ huoyun.provider("NewBoState", ["$stateProvider", "BoBaseState", "BoListState", "
         this.edit = new BoEditState(this, options.edit || {});
       }
 
-      ["base", "list", "detail", "edit"].forEach(function(key) {
+      if (!options.create || options.create.visibility !== false) {
+        this.edit = new BoCreateState(this, options.create || {});
+      }
+
+      ["base", "list", "detail", "edit", "create"].forEach(function(key) {
         var stateOption = that[key];
         stateOption && $stateProvider.state(stateOption.getStateName(), stateOption);
       });
@@ -63,23 +68,6 @@ huoyun.provider("NewBoState", ["$stateProvider", "BoBaseState", "BoListState", "
 
     BoState.prototype.getEditStateName = function() {
       return this.edit && this.edit.getStateName();
-    };
-
-    BoState.prototype.setBoListOption = function(options) {
-      this.list = new BoListState(this, options);
-      return this;
-    };
-
-    BoState.prototype.setBoDetailOption = function(options) {
-      return this;
-    };
-
-    BoState.prototype.setBoCreationOption = function(options) {
-      return this;
-    };
-
-    BoState.prototype.setBoEditionOption = function(options) {
-      return this;
     };
 
     this.$get = function() {

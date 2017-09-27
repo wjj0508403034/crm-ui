@@ -1,5 +1,26 @@
 'use strict';
 
+huoyun.config(["NewBoTemplateProvider", "NewBoStateProvider", "BoStateParam",
+  function(NewBoTemplateProvider, NewBoStateProvider, BoStateParam) {
+
+    var boDetail = new BoStateParam({
+      buttons: [{
+        name: "remove",
+        visibility: false
+      }]
+    });
+
+    NewBoStateProvider.configure({
+      boNamespace: "com.huoyun.sbo",
+      boName: "Company",
+      list: {
+        visibility: false
+      },
+      detail: boDetail
+    });
+  }
+]);
+
 huoyun.config(["BoTemplateProvider", "$stateProvider", "HuoyunWidgetConstant", "SessionProvider",
   function(BoTemplateProvider, $stateProvider, HuoyunWidgetConstant, SessionProvider) {
     BoTemplateProvider.configure("com.huoyun.sbo", "Company", {
