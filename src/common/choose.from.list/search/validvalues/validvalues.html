@@ -1,8 +1,0 @@
-<div ng-controller="BoChooseFromCheckbox">
-	<div class="valid-value-item">
-		<div widget-check-box ng-model="selectedAll" on-checkbox-value-changed="onSelectedAllChanged(checked)" content="全部"></div>
-	</div>
-	<div class="valid-value-item" ng-repeat="validvalue in validvalues track by $index">
-		<div widget-check-box ng-model="validvalue.selected" content="{{validvalue.label}}"></div>
-	</div>
-</div>

@@ -1,7 +1,0 @@
-<div widgets-form options="formOption" ng-repeat="formOption in vm.forms"></div>
-
-<button name="{{button.name}}" type="button" class="btn" ng-repeat="button in buttons" ng-class="button.appendClass" ng-if="button.$$visibility()"
-  ng-disabled="button.$$disabled()" ng-style="button.$$style()" ng-click="button.$$click()">
-<i class="fa" aria-hidden="true" ng-if="button.icon" ng-class="button.icon"></i>
-<span ng-bind="button.label"></span>
-</button>

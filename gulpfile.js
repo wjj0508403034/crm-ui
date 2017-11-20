@@ -36,24 +36,25 @@ gulp.task('default', ['build']);
 gulp.task('deploy-copy-resource', ['build'], function() {
   return gulp.src(`${DestFolder}/**/*`)
     .pipe(showFile())
-    .pipe(gulp.dest(DeployResourcesFolder));
+    .pipe(gulp.dest(DeployResourcesFolder))
+    .pipe(showFile());
 });
 
 gulp.task('deploy', ['clean-deploy', 'deploy-copy-resource']);
 
 gulp.task('build-css', ['clean'], function() {
-  return gulp.src('src/main/**/*.css')
+  return gulp.src('src/**/*.css')
     .pipe(showFile())
     .pipe(concat("app.css"))
     .pipe(gulp.dest(DestFolder));
 });
 
-gulp.task('build-widget-css', ['clean'], function() {
-  return gulp.src('src/common/**/*.css')
-    .pipe(showFile())
-    .pipe(concat("huoyun.widget.css"))
-    .pipe(gulp.dest(DestFolder));
-});
+// gulp.task('build-widget-css', ['clean'], function() {
+//   return gulp.src('src/common/**/*.css')
+//     .pipe(showFile())
+//     .pipe(concat("huoyun.widget.css"))
+//     .pipe(gulp.dest(DestFolder));
+// });
 
 gulp.task('copy-resource', ['clean'], function() {
   return gulp.src(['res/**',
@@ -77,7 +78,7 @@ gulp.task('copy-thirdparty', ['clean'], function() {
 });
 
 gulp.task('view-template', ['clean'], function() {
-  var templateStream = gulp.src('src/main/view/**/*.html')
+  var templateStream = gulp.src('src/view/**/*.html')
     .pipe(showFile())
     .pipe(minifyHtml({
       empty: true,
@@ -90,7 +91,7 @@ gulp.task('view-template', ['clean'], function() {
 
   var es = require('event-stream');
   return es.merge([
-      gulp.src(['src/main/index.js', 'src/main/**/*.js']),
+      gulp.src(['src/index.js', 'src/**/*.js']),
       templateStream
     ])
     .pipe(showFile())
@@ -102,38 +103,11 @@ gulp.task('view-template', ['clean'], function() {
     .pipe(gulp.dest(DestFolder));
 });
 
-gulp.task('widget-template', ['clean'], function() {
-  var templateStream = gulp.src('src/common/**/*.html')
-    .pipe(showFile())
-    .pipe(minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
-    .pipe(angularTemplatecache('huoyun.widget.tpl.js', {
-      module: 'huoyun.widget'
-    }));
-
-  var es = require('event-stream');
-  return es.merge([
-      templateStream,
-      gulp.src('src/common/**/*.js')
-    ])
-    .pipe(showFile())
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-    .pipe(concat('huoyun.widget.js'))
-    // .pipe(uglify())
-    .pipe(gulp.dest(`${DestFolder}/libs`));
-});
-
-gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'copy-resource', 'copy-font', 'build-css',
+gulp.task('build', ['copy-thirdparty', 'copy-resource', 'copy-font', 'build-css',
   'view-template'
 ], function() {
   var injectCss = gulp.src([
     `${DestFolder}/libs/**/*.css`,
-    `${DestFolder}/huoyun.widget.css`,
     `${DestFolder}/app.css`
   ], {
     read: false
@@ -149,7 +123,7 @@ gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'c
     read: false
   });
 
-  return gulp.src('src/main/index.html')
+  return gulp.src('src/index.html')
     .pipe(showFile())
     .pipe(inject(injectCss, {
       transform: function(filepath) {
@@ -166,5 +140,6 @@ gulp.task('build', ['copy-thirdparty', 'build-widget-css', 'widget-template', 'c
       }
     }))
     .pipe(bom())
-    .pipe(gulp.dest(`${DeployDestFolder}`));
+    .pipe(gulp.dest(`${DeployDestFolder}`))
+    .pipe(showFile());
 });
